@@ -7,29 +7,16 @@ Created on Tue Nov 28 17:43:20 2023
 ChangeLog:
     V.- 0.1 (AG): First version
     V.- 0.1.1 (AG): changes done to match UFO_detection
+    V.- 0.1.2 (AG): added support for linux and windows paths
 """
 
 import numpy as np
 import cv2
 import os
 from aux_tools import misc_tools
+import sys
 
 
-def get_video(pulse_id):
-    """
-
-    Parameters
-    ----------
-    pulse_id : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    None.
-
-    """
-    
-    
 def get_time_vector(pulse_id):
     """
     Returns the time-frame vector for the given pulse.
@@ -152,8 +139,14 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
         # cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
         im_with_keypoints = cv2.drawKeypoints(frame, keypoints, np.array([]), (255,255,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         
-        cv2.imwrite(r"{0}\hsv_{1}.png".format(folder_name, counter), im_with_keypoints)
-            
+        # evaluate OS
+        if sys.platform == 'linux':
+            cv2.imwrite("{0}/{1}.png".format(folder_name, counter), im_with_keypoints)
+        elif sys.platform == 'win32':
+            cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), im_with_keypoints)
+        else:
+            raise OSError('Not applicable to current OS. Either linux or win32 expected.')
+
         counter = counter + 1        
         tmp_frame = frame
         
