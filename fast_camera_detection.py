@@ -6,55 +6,16 @@ Created on Tue Nov 28 17:43:20 2023
 
 ChangeLog:
     V.- 0.1 (AG): First version
+    V.- 0.1.1 (AG): Added reliance on aux_tools. Removed get_video.
 """
 
 import numpy as np
 import cv2
 from scipy.spatial import distance_matrix
 import os
+from aux_tools import misc_tools
 
 
-def get_pulse_str(pulse_id):
-    """
-    Returns the 7-digit standarised pulse string.
-
-    Parameters
-    ----------
-    pulse_id : TYPE : int
-        The Pulse id as an integer.
-
-    Returns
-    -------
-    pulse_str: the 7-digit corrected string pulse id.
-
-    """
-    
-    pulse_str = str(pulse_id)
-    
-    while len(pulse_str) < 7:
-        pulse_str = '0' + pulse_str
-        
-    return pulse_str
-
-
-def get_video(pulse_id):
-    """
-
-    Parameters
-    ----------
-    pulse_id : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    None.
-
-    """
-    
-    pass
-    # call jet2video inside a Heimdall Machine
-    
-    
 def get_time_vector(pulse_id):
     """
     Returns the time-frame vector for the given pulse.
@@ -86,12 +47,16 @@ def get_time_vector(pulse_id):
     return time_vec
 
     
-def examine_video_for_UFOs(pulse_id = 99910):
+def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
     """
     Parameters
     ----------
+    vid_path : str
+        The path to the video.
     pulse_id : int
-        DESCRIPTION.
+        The pulse number identifier.
+    camera_name : str
+        The name of the camera
 
     Returns
     -------
@@ -100,14 +65,13 @@ def examine_video_for_UFOs(pulse_id = 99910):
     
     # check folder/create 
     
-    pulse_str = get_pulse_str(pulse_id)
+    pulse_str = misc_tools.get_pulse_str(pulse_id)
     
-    if not os.path.isdir(pulse_str):
-        os.mkdir(pulse_str)
+    folder_name = camera_name + '_' + pulse_str
+    if not os.path.isdir(folder_name):
+        os.mkdir(folder_name)
     
-    
-    vid_path = '{0}.mp4'.format(pulse_str)
-    
+        
     if not os.path.isfile(vid_path):
         raise FileNotFoundError('Could not locate the video file in the given path ({0})'.format(vid_path))
         
@@ -120,12 +84,12 @@ def examine_video_for_UFOs(pulse_id = 99910):
     params = cv2.SimpleBlobDetector_Params()
         
     # Change thresholds
-    params.minThreshold = 15
+    params.minThreshold = 10
     params.maxThreshold = 255
         
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 5
+    params.minArea = 3
     params.maxArea = 300
         
     params.filterByColor = False
@@ -133,7 +97,7 @@ def examine_video_for_UFOs(pulse_id = 99910):
         
     # Filter by Circularity
     params.filterByCircularity = True
-    params.minCircularity = 0.4
+    params.minCircularity = 0.3
         
     # Filter by Convexity
     params.filterByConvexity = False
@@ -175,7 +139,7 @@ def examine_video_for_UFOs(pulse_id = 99910):
         # Draw detected blobs as red circles.
         # cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
 
-        cv2.imwrite(r"{0}\{1}.png".format(pulse_str, counter), im_with_keypoints)
+        cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), im_with_keypoints)
             
         counter = counter + 1        
         tmp_keypoints = keypoints
@@ -185,6 +149,7 @@ def examine_video_for_UFOs(pulse_id = 99910):
     video.release()
     cv2.destroyAllWindows()
     
+    return 1
     
 
 def synchronise_video_with_time(time_vec, frame, frame_number):
@@ -239,7 +204,7 @@ def recreate_video(pulse_id):
     
     """
     
-    pulse_str = get_pulse_str(pulse_id)
+    pulse_str = misc_tools.get_pulse_str(pulse_id)
     
     image_folder = pulse_str
     video_name = '{0}_detect.mp4'.format(pulse_str)
