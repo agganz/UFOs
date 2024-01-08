@@ -1,3 +1,9 @@
+# Changelog
+
+# Note that this script was taken from S. Silburn. These changes have been done by Alejandro Gonzlaez (AG). Thus, the first modified version will be noted as 1.1.
+
+# V.- 1.1 (AG): now it returns vid.tvec[start_frame : end_frame]
+
 import os
 import time
 import datetime
@@ -145,6 +151,8 @@ def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_
 
     looplog.update(1.)
     print(' ')
+    
+    return vid.tvec[start_frame : end_frame]
 
 
 
