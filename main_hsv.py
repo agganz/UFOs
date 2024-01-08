@@ -6,36 +6,13 @@ Created on Tue Nov 28 17:43:20 2023
 
 ChangeLog:
     V.- 0.1 (AG): First version
+    V.- 0.1.1 (AG): changes done to match UFO_detection
 """
 
 import numpy as np
 import cv2
-import glob
-import matplotlib.pyplot as plt
 import os
-
-
-def get_pulse_str(pulse_id):
-    """
-    Returns the 7-digit standarised pulse string.
-
-    Parameters
-    ----------
-    pulse_id : TYPE : int
-        The Pulse id as an integer.
-
-    Returns
-    -------
-    pulse_str: the 7-digit corrected string pulse id.
-
-    """
-    
-    pulse_str = str(pulse_id)
-    
-    while len(pulse_str) < 7:
-        pulse_str = '0' + pulse_str
-        
-    return pulse_str
+from aux_tools import misc_tools
 
 
 def get_video(pulse_id):
@@ -84,12 +61,16 @@ def get_time_vector(pulse_id):
     return time_vec
 
     
-def examine_video_for_UFOs(pulse_id = 99910):
+def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
     """
     Parameters
     ----------
-    pulse_id : TYPE
-        DESCRIPTION.
+    vid_path : str
+        The path to the video.
+    pulse_id : int
+        The pulse number identifier.
+    camera_name : str
+        The name of the camera
 
     Returns
     -------
@@ -98,14 +79,13 @@ def examine_video_for_UFOs(pulse_id = 99910):
     
     # check folder/create 
     
-    pulse_str = get_pulse_str(pulse_id)
+    pulse_str = misc_tools.get_pulse_str(pulse_id)
     
-    if not os.path.isdir(pulse_str):
-        os.mkdir(pulse_str)
+    folder_name = camera_name + '_' + pulse_str
+    if not os.path.isdir(folder_name):
+        os.mkdir(folder_name)
     
-    
-    vid_path = '{0}.wmv'.format(pulse_str)
-    
+        
     if not os.path.isfile(vid_path):
         raise FileNotFoundError('Could not locate the video file in the given path ({0})'.format(vid_path))
         
@@ -172,7 +152,7 @@ def examine_video_for_UFOs(pulse_id = 99910):
         # cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
         im_with_keypoints = cv2.drawKeypoints(frame, keypoints, np.array([]), (255,255,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         
-        cv2.imwrite(r"{0}\hsv_{1}.png".format(pulse_str, counter), im_with_keypoints)
+        cv2.imwrite(r"{0}\hsv_{1}.png".format(folder_name, counter), im_with_keypoints)
             
         counter = counter + 1        
         tmp_frame = frame
@@ -182,6 +162,8 @@ def examine_video_for_UFOs(pulse_id = 99910):
     video.release()
     cv2.destroyAllWindows()
     
+    return 1
+
 
 def synchronise_video_with_time(time_vec, frame, frame_number):
     '''
