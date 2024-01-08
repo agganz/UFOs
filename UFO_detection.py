@@ -6,6 +6,7 @@ Created on Fri Jan  5 14:32:46 2024
 
 Changelog:
     V.-0.1 (AG): First version. Works for local files.
+    V.- 0.1.1 (AG): tested support for jet2video. Added time_vec support
 """
     
 from aux_tools import misc_tools
@@ -60,14 +61,17 @@ def main(camera_name, pulse_id, trange = None):
     
     if jet2video_flag:
         time_vec = jet2video.export_jet_video(camera_name, pulse_id, output_filename, fps = None, bitrate = 5000, dynamic_clim = True, clim = None, meta = ['jpn','camera','time'], time_range = trange)
+        if len(time_vec) == 0:
+            time_vec = None
     else:
         print('Local search')
+        time_vec = None
         
     if '-O' in camera_name.upper():
         print('Operational camera detected.')
-        res_UFO_search = main_hsv.examine_video_for_UFOs(output_filename, pulse_id, camera_name)
+        res_UFO_search = main_hsv.examine_video_for_UFOs(output_filename, pulse_id, camera_name, time_vec)
     else:
         print('Fast camera')
-        res_UFO_search= fast_camera_detection.examine_video_for_UFOs(output_filename, pulse_id, camera_name)
+        res_UFO_search= fast_camera_detection.examine_video_for_UFOs(output_filename, pulse_id, camera_name, time_vec)
         
     return 1
