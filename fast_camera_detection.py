@@ -49,6 +49,11 @@ def get_time_vector(pulse_id):
     
 def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
     """
+    Analyses the video passed and creates a frame-by-frame image set
+    in a folder (<camera_name>_<pulse_id>) with a blob-based detection 
+    with basic tracking.
+
+
     Parameters
     ----------
     vid_path : str
