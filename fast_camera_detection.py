@@ -7,12 +7,14 @@ Created on Tue Nov 28 17:43:20 2023
 ChangeLog:
     V.- 0.1 (AG): First version
     V.- 0.1.1 (AG): Added reliance on aux_tools. Removed get_video.
+    V.- 0.1.2 (AG): added support for linux and windows paths
 """
 
 import numpy as np
 import cv2
 from scipy.spatial import distance_matrix
 import os
+import sys
 from aux_tools import misc_tools
 
 
@@ -134,7 +136,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
         im_with_keypoints = cv2.drawKeypoints(gray, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
         if tmp_keypoints != keypoints:
-            print('Checking tmp and key: ', tmp_keypoints, keypoints)
+            #print('Checking tmp and key: ', tmp_keypoints, keypoints)
             (start_points, end_points) = filter_points_with_distance_matrix(keypoints, tmp_keypoints, threshold = 20)
             if start_points is None:
                 pass
@@ -144,7 +146,13 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
         # Draw detected blobs as red circles.
         # cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
 
-        cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), im_with_keypoints)
+	# evaluate OS
+        if sys.platform == 'linux':
+            cv2.imwrite("{0}/{1}.png".format(folder_name, counter), im_with_keypoints)
+        elif sys.platform == 'win32':
+            cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), im_with_keypoints)
+        else:
+            raise OSError('Not applicable to current OS. Either linux or win32 expected.')
             
         counter = counter + 1        
         tmp_keypoints = keypoints
