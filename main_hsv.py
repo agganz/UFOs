@@ -48,7 +48,7 @@ def get_time_vector(pulse_id):
     return time_vec
 
     
-def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
+def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
     """
     Parameters
     ----------
@@ -58,6 +58,8 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
         The pulse number identifier.
     camera_name : str
         The name of the camera
+    time_vec : 1D array
+        The time vector. None by default.
 
     Returns
     -------
@@ -139,11 +141,16 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
         # cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
         im_with_keypoints = cv2.drawKeypoints(frame, keypoints, np.array([]), (255,255,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         
-        # evaluate OS
+        if not time_vec is None:
+            final_frame = misc_tools.synchronise_video_with_time(time_vec[counter - 1], im_with_keypoints, counter)
+        else:
+            final_frame = im_with_keypoints
+
+	    # evaluate OS
         if sys.platform == 'linux':
-            cv2.imwrite("{0}/{1}.png".format(folder_name, counter), im_with_keypoints)
+            cv2.imwrite("{0}/{1}.png".format(folder_name, counter), final_frame)
         elif sys.platform == 'win32':
-            cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), im_with_keypoints)
+            cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), final_frame)
         else:
             raise OSError('Not applicable to current OS. Either linux or win32 expected.')
 
@@ -156,41 +163,6 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name):
     cv2.destroyAllWindows()
     
     return 1
-
-
-def synchronise_video_with_time(time_vec, frame, frame_number):
-    '''
-    Writes into a video frame the current physical time and the frame number.
-    
-    
-    
-    Returns
-    -------
-    None.
-
-    '''
-      
-    # font 
-    font = cv2.FONT_HERSHEY_SIMPLEX 
-      
-    # org 
-    org = (50, 50) 
-      
-    # fontScale 
-    fontScale = 1
-       
-    # Blue color in BGR 
-    color = (255, 255, 0) 
-      
-    # Line thickness of 2 px 
-    thickness = 2
-       
-    # Using cv2.putText() method 
-    frame = cv2.putText(frame, 'OpenCV', org, font,  
-                       fontScale, color, thickness, cv2.LINE_AA) 
-    
-    return frame
-        
     
     
 def recreate_video(pulse_id):
