@@ -5,14 +5,16 @@ Created on Fri Jan  5 14:32:46 2024
 @author: Alejandro Gonzalez
 
 Changelog:
-    V.-0.1 (AG): First version. Works for local files.
-    V.- 0.1.1 (AG): tested support for jet2video. Added time_vec support
+    0.1 (AG): First version. Works for local files.
+    0.1.1 (AG): tested support for jet2video. Added time_vec support
+    0.1.2 (AG): added basic command line support. To be tested.
 """
     
 from aux_tools import misc_tools
 import main_hsv
 import fast_camera_detection
 import os
+import sys
 
 
 def main(camera_name, pulse_id, trange = None):
@@ -75,3 +77,10 @@ def main(camera_name, pulse_id, trange = None):
         res_UFO_search= fast_camera_detection.examine_video_for_UFOs(output_filename, pulse_id, camera_name, time_vec)
         
     return 1
+
+
+if __name__ == '__main__':
+    camera_name = sys.argv[1]
+    pulse_id = sys.argv[2]
+    trange = sys.argv[3]
+    main(camera_name, pulse_id, trange)
