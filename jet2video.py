@@ -2,7 +2,8 @@
 
 # Note that this script was taken from S. Silburn. These changes have been done by Alejandro Gonzlaez (AG). Thus, the first modified version will be noted as 1.1.
 
-# V.- 1.1 (AG): now it returns vid.tvec[start_frame : end_frame]
+# 1.1 (AG): now it returns vid.tvec[start_frame : end_frame]
+# 1.2 (AG): Added one last frame to the returned time to ensure everything is captured.
 
 import os
 import time
@@ -152,7 +153,7 @@ def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_
     looplog.update(1.)
     print(' ')
     
-    return vid.tvec[start_frame : end_frame]
+    return vid.tvec[start_frame : end_frame + 1]
 
 
 
