@@ -14,3 +14,5 @@ eval `modulecmd bash load pgi`
 #add to path the public, latest JUVIL tools
 export PYTHONPATH=$PYTHONPATH:~VSA/juvil-release/juvil/extras/
 export PYTHONPATH=$PYTHONPATH:~VSA/juvil-release/juvil
+
+echo 'Current Python path: ' $PYTHONPATH
