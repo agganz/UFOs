@@ -8,6 +8,7 @@ Changelog:
     0.1 (AG): First version. Works for local files.
     0.1.1 (AG): tested support for jet2video. Added time_vec support
     0.1.2 (AG): added basic command line support. To be tested.
+    0.1.3 (AG): added support for background extraction.
 """
     
 from aux_tools import misc_tools
@@ -15,9 +16,10 @@ import main_hsv
 import fast_camera_detection
 import os
 import sys
+import warnings
 
 
-def main(camera_name, pulse_id, trange = None):
+def main(camera_name, pulse_id, trange = None, sub_bkg = False):
     """
     Examines a given video in search of UFOs.
     
@@ -37,6 +39,8 @@ def main(camera_name, pulse_id, trange = None):
         The pulse id number.
     trange : tuple, optional
         The time range. The default is None.
+    sub_bkg : bool
+        Substracts bkg if possible.
 
     Returns
     -------
@@ -48,6 +52,7 @@ def main(camera_name, pulse_id, trange = None):
         import jet2video
         jet2video_flag = True
     except ModuleNotFoundError:
+        warnings.warn('Could not import jet2video.')
         jet2video_flag = False
         
     pulse_str = misc_tools.get_pulse_str(pulse_id)
@@ -62,7 +67,7 @@ def main(camera_name, pulse_id, trange = None):
             jet2video_flag = True
     
     if jet2video_flag:
-        time_vec = jet2video.export_jet_video(camera_name, pulse_id, output_filename, fps = None, bitrate = 5000, dynamic_clim = True, clim = None, meta = ['jpn','camera','time'], time_range = trange)
+        time_vec = jet2video.export_jet_video(camera_name, pulse_id, output_filename, fps = None, bitrate = 5000, dynamic_clim = True, clim = None, meta = ['jpn','camera','time'], time_range = trange, extract_bkg = sub_bkg)
         if len(time_vec) == 0:
             time_vec = None
     else:
