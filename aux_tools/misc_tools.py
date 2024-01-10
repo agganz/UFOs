@@ -7,8 +7,11 @@ Created on Fri Jan  5 14:38:15 2024
 Changelog:
     0.1 (AG): First version.
     0.2 (AG): Added synchronise_video_with_time
+    0.3 (AG): fixed minor bug in synchronise_video_with_time.
+        Now the size of the text is adapted for each camera.
 """
 
+import math
 import cv2
 
 def get_pulse_str(pulse_id):
@@ -53,10 +56,11 @@ def synchronise_video_with_time(real_time, frame, frame_number):
     frame : cv2.image
         The edited frame.
     """
+
+    real_time = round(real_time, 4)
       
     # font 
     font = cv2.FONT_HERSHEY_SIMPLEX 
-    time_frame = real_time[frame_number]
       
     # org 
     org = (50, 50) 
@@ -65,13 +69,21 @@ def synchronise_video_with_time(real_time, frame, frame_number):
     fontScale = 1
        
     # Blue color in BGR 
-    color = (255, 255, 0) 
+    color = (255, 240, 0) 
       
     # Line thickness of 2 px 
     thickness = 2
-       
+
+    first_scale = 2e-3  # Adjust for larger font size in all images
+    thickness_scale = 1e-3  # Adjust for larger thickness in all images
+
+    height, width, _ = frame.shape
+
+    fontScale = min(width, height) * first_scale
+    
+    thickness = math.ceil(min(width, height) * thickness_scale + 0.5)
     # Using cv2.putText() method 
-    frame = cv2.putText(frame, str(time_frame), org, font,  
+    frame = cv2.putText(frame, 't = ' + str(real_time) + 's', org, font,  
                        fontScale, color, thickness, cv2.LINE_AA) 
     
     return frame
