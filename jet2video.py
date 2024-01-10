@@ -4,6 +4,8 @@
 
 # 1.1 (AG): now it returns vid.tvec[start_frame : end_frame]
 # 1.2 (AG): Added one last frame to the returned time to ensure everything is captured.
+# 1.3 (AG): added background extraction via function argument.
+
 
 import os
 import time
@@ -18,7 +20,7 @@ import numpy as np
 from juvil.VVideo import VVideo
 
 
-def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_clim=True,clim=None, meta = ['jpn','camera','time'],time_range=None):
+def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_clim=True,clim=None, meta = ['jpn','camera','time'],time_range=None, extract_bkg = False):
     '''
     Write out a JET pulse video as an MP4 file.
 
@@ -60,7 +62,7 @@ def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_
 
     # Background subtration if available / appropriate
     bg = False
-    if vid.alpha_comments is None:
+    if vid.alpha_comments is None or extract_bkg:
         bg = True
     elif 'average' not in vid.alpha_comments.lower():
         bg = True
