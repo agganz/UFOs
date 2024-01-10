@@ -108,13 +108,13 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
         # Filter by Area.
         params.filterByArea = True
         params.minArea = 5
-        params.maxArea = 2000
+        params.maxArea = 1000
         
         params.filterByColor = False
         params.blobColor = 40
         
         # Filter by Circularity
-        params.filterByCircularity = False
+        params.filterByCircularity = True
         params.minCircularity = 0.2
         
         # Filter by Convexity
@@ -211,10 +211,10 @@ def treat_frame(current_frame, previous_frame):
     
     # upper boundary RED color range values; Hue (160 - 180)
     
-    lower1 = np.array([0, 40, 1])
-    upper1 = np.array([10, 255, 255])
+    lower1 = np.array([0, 30, 1])
+    upper1 = np.array([20, 255, 255])
 
-    lower2 = np.array([140,40,1])
+    lower2 = np.array([135,30,1])
     upper2 = np.array([179,255,255])
      
     lower_mask = cv2.inRange(hsv, lower1, upper1)
