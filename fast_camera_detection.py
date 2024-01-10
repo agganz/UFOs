@@ -94,19 +94,19 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
     params = cv2.SimpleBlobDetector_Params()
         
     # Change thresholds
-    params.minThreshold = 10
+    params.minThreshold = 45
     params.maxThreshold = 255
         
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 3
+    params.minArea = 5
     params.maxArea = 300
         
     params.filterByColor = False
     params.blobColor = 40
         
     # Filter by Circularity
-    params.filterByCircularity = True
+    params.filterByCircularity = False
     params.minCircularity = 0.3
         
     # Filter by Convexity
@@ -130,8 +130,25 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # Detect blobs.
         
+        # Filter by brightness
+        #bkg_brightness = int((gray[0][0] + gray[0][-1] + gray[-1][0] + gray[-1][-1]) / 4)
+        bkg_brightness = np.mean(gray)
+        min_bkg = int(100 + bkg_brightness)
+        if min_bkg > 210:
+            min_bkg = 210
+        params.minThreshold = min_bkg
+        print(params.minThreshold)
+        params.maxThreshold = 255
+ 
         if counter == 1:
+            width, height = gray.shape
+            # Filter by area
+            params.filterByArea = True
+            resolution = int(width * height)
+            params.minArea = int(resolution * 3.6e-5)
+            params.maxArea = int(resolution * 2.16e-3)
             tmp_keypoints = []
+            print(params.minArea, params.maxArea)
 
         treated_frame = gray
         
