@@ -9,6 +9,7 @@ ChangeLog:
     0.1.1 (AG): Added reliance on aux_tools. Removed get_video.
     0.1.2 (AG): added support for linux and windows paths
     0.1.3 (AG): added support for real time vectors.
+    0.1.4 (AG): added code for Canny algorithm
 """
 
 import numpy as np
@@ -107,14 +108,14 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
         
     # Filter by Circularity
     params.filterByCircularity = False
-    params.minCircularity = 0.3
+    params.minCircularity = 0.2
         
     # Filter by Convexity
     params.filterByConvexity = False
     params.minConvexity = 0.2
         
     # Filter by Inertia
-    params.filterByInertia = True
+    params.filterByInertia = False
     params.minInertiaRatio = 0.25
         
     # Create a detector with the parameters
@@ -133,7 +134,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
         # Filter by brightness
         #bkg_brightness = int((gray[0][0] + gray[0][-1] + gray[-1][0] + gray[-1][-1]) / 4)
         bkg_brightness = np.mean(gray)
-        min_bkg = int(100 + bkg_brightness)
+        min_bkg = int(20 + bkg_brightness)
         if min_bkg > 210:
             min_bkg = 210
         params.minThreshold = min_bkg
@@ -145,14 +146,15 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
             # Filter by area
             params.filterByArea = True
             resolution = int(width * height)
-            params.minArea = int(resolution * 3.6e-5)
-            params.maxArea = int(resolution * 2.16e-3)
+            params.minArea = int(resolution * 3.5e-5)
+            params.maxArea = int(resolution * 2.16e-2)
             tmp_keypoints = []
-            print(params.minArea, params.maxArea)
+        detector = cv2.SimpleBlobDetector_create(params)
 
-        treated_frame = gray
-        
-        keypoints = detector.detect(treated_frame)
+        #treated_frame = gray
+        median = cv2.medianBlur(gray, 5)
+        treated_frame = cv2.Canny(median, min_bkg, 255)
+        keypoints = detector.detect(median)
         im_with_keypoints = cv2.drawKeypoints(gray, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
         if tmp_keypoints != keypoints:
