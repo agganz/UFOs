@@ -9,10 +9,15 @@ Changelog:
     0.2 (AG): Added synchronise_video_with_time
     0.3 (AG): fixed minor bug in synchronise_video_with_time.
         Now the size of the text is adapted for each camera.
+    0.4 (AG): added images_to_gif
 """
 
 import math
 import cv2
+import glob
+import contextlib
+from PIL import Image
+import os
 
 def get_pulse_str(pulse_id):
     """
@@ -88,3 +93,63 @@ def synchronise_video_with_time(real_time, frame, frame_number):
     
     return frame
         
+
+def images_to_gifs(output_name, image_folder, image_format):
+    """
+    Creates a gif image with all the image files present in the given folder.
+
+    Parameters
+    ----------
+    output_name : str
+        Name of the ouput gif.
+    image_folder : str (path)
+        Path to the image folder
+    image_format : str. png by default
+        Format of the images to be used.
+
+    Returns
+    -------
+    1 when finished
+    """
+    
+    # filepaths
+    fp_in = "{0}/*.{1}".format(image_folder, image_format)
+
+    # use exit stack to automatically close opened images
+    with contextlib.ExitStack() as stack:
+        # lazily load images
+        try:
+            imgs = (stack.enter_context(Image.open(f))
+                    for f in sorted(glob.glob(fp_in)))
+        except:
+            raise IndexError('Could not locate any valid images.')
+
+        # extract  first image from iterator
+        img = next(imgs)
+    
+        # https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#gif
+        img.save(fp = output_name, format='GIF', append_images=imgs,
+                 save_all=True, duration=200, loop=0)
+        
+    return 1
+
+
+def get_info_from_keypoint(keypoint):
+    """
+
+    Parameters
+    ----------
+    real_time : float
+        the time in seconds.
+    frame : cv2 image
+        The frame to be edited
+    frame_number : int
+        The frame of the number.
+
+    Returns
+    -------
+    frame : cv2.image
+        The edited frame.
+    """
+    
+    
