@@ -1,5 +1,7 @@
 /*.mp4
 /*.wmv
+/*.png
+/*.gif
 /*.mpeg
 /__pycache__
 /aux_tools/__pycache__
