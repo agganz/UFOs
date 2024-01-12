@@ -10,6 +10,7 @@ ChangeLog:
     0.1.2 (AG): added support for linux and windows paths
     0.1.3 (AG): added support for real time vectors.
     0.1.4 (AG): added code for Canny algorithm
+    0.2 (AG): now size/brightness ratio are evaluated.
 """
 
 import numpy as np
@@ -159,7 +160,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
 
         if tmp_keypoints != keypoints:
             #print('Checking tmp and key: ', tmp_keypoints, keypoints)
-            (start_points, end_points) = filter_points_with_distance_matrix(keypoints, tmp_keypoints, threshold = 20)
+            (start_points, end_points) = filter_points_with_distance_matrix(keypoints, tmp_keypoints, threshold = 20, 0.1, gray, tmp_frame)
             if start_points is None:
                 pass
             else:
@@ -183,6 +184,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
             
         counter = counter + 1        
         tmp_keypoints = keypoints
+        frame_B = gray
         
         print('Frame {0}'.format(counter))
         
@@ -196,7 +198,8 @@ def recreate_video(pulse_id):
     """
     Creates a video with the processed images for each pulse.
     
-    
+    This seems to produce buggy results. At the moment it might be more 
+    convenient to use rely on gifs.
     """
     
     pulse_str = misc_tools.get_pulse_str(pulse_id)
@@ -260,7 +263,7 @@ def keypoint_to_xy(keypoint):
     return xy_coords
 
 
-def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10):
+def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10, check_brightness = 0, frame_A = None, frame_B = None):
     """
     Filters the given keypoints for tracking depending on their euclidean 
     distance measured in pixels. It works with cv2 keypoints.
@@ -273,6 +276,9 @@ def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10)
         The cv2.keypoints of the previous frame.
     threshold : int - 10 by default.
         the distance theshold in pixels. 
+    check_brightness : float - 0 by default.
+        Will check the ratio between the given points as well as the distance.
+        The accepted ratio is 1+-check_brightness. Can be left as 0 to skip.
 
     Returns
     -------
@@ -286,7 +292,6 @@ def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10)
     end_points = []
     
     if len(keypoints_A) == 0 or len(keypoints_B) == 0:
-        print('No consecutive points.')
         return (None, None)
     
     current_points = [None] * len(keypoints_A)
@@ -297,13 +302,23 @@ def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10)
         
     for i in range(0, len(keypoints_B)):
         past_points[i] = keypoint_to_xy(keypoints_B[i])
-            
+    
+ 
     distance_vector = distance_matrix(current_points, past_points)
+    
     keypositions = np.argwhere(distance_vector < threshold)
-
+    if check_brightness != 0:
+        brightness_ratios = misc_tools.compare_UFO_brightness_in_two_frames(frame_A, frame_B, keypoints_A, keypoints_B)        
+        brightness_positions = np.argwhere(np.logical_and(brightness_ratios >= 1 - check_brightness, brightness_ratios <= 1 + check_brightness))
+        
     for elem in keypositions:
-        start_points.append(past_points[elem[1]])
-        end_points.append(current_points[elem[0]])
+        if check_brightness:
+            if elem in brightness_positions:
+                start_points.append(past_points[elem[1]])
+                end_points.append(current_points[elem[0]])
+        else:
+            start_points.append(past_points[elem[1]])
+            end_points.append(current_points[elem[0]])
         
     return start_points, end_points
 
