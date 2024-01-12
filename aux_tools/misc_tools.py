@@ -10,14 +10,17 @@ Changelog:
     0.3 (AG): fixed minor bug in synchronise_video_with_time.
         Now the size of the text is adapted for each camera.
     0.4 (AG): added images_to_gif
+    0.5 (AG): added get_info_from_keypoints and compare_UFO_brightness_in_two_frames
 """
 
 import math
 import cv2
 import glob
+import numpy as np
 import contextlib
 from PIL import Image
 import os
+
 
 def get_pulse_str(pulse_id):
     """
@@ -94,7 +97,7 @@ def synchronise_video_with_time(real_time, frame, frame_number):
     return frame
         
 
-def images_to_gifs(output_name, image_folder, image_format):
+def images_to_gifs(output_name, image_folder, image_format = 'png'):
     """
     Creates a gif image with all the image files present in the given folder.
 
@@ -134,7 +137,7 @@ def images_to_gifs(output_name, image_folder, image_format):
     return 1
 
 
-def get_info_from_keypoint(keypoint):
+def get_info_from_keypoint(frame, keypoint):
     """
 
     Parameters
@@ -148,8 +151,72 @@ def get_info_from_keypoint(keypoint):
 
     Returns
     -------
-    frame : cv2.image
-        The edited frame.
+    avg_background : float
+        The average brightness of the keypoint.
+    radius : float
+        The radius of the keypoint.
     """
     
+    height, width = frame.shape[0:2]
+    (y, x) = (int(keypoint.pt[0]), int(keypoint.pt[1]))
+    radius = keypoint.size
+    xmin = int(x - radius / 2)
+
+    if xmin < 0:
+        xmin = 0
+        
+    ymin = int(y - radius / 2)
+    if ymin < 0:
+        ymin = 0
+        
+    xmax = int(x + radius / 2)
+    if xmax >= width:
+        xmax = width
+        
+    ymax = int(y + radius / 2)
+    if ymax >= height:
+        ymax = height
+        
+    avg_brightness = np.mean(frame[xmin : xmax, ymin : ymax])
     
+    return avg_brightness, radius
+    
+    
+def compare_UFO_brightness_in_two_frames(frame_A, frame_B, keypoints_A, keypoints_B):
+    """
+    Calculates the ratio between the average intensities of the detected 
+    keypoints of two different frames.
+    
+
+    Parameters
+    ----------
+    frame_A : cv2.image
+        Current frame.
+    frame_B : cv2.image
+        Previous  frame.
+    keypoints_A : list
+        Keypoints of the current frame.
+    keypoints_B : list
+        Keypoints of the previous frame.
+
+    Returns
+    -------
+    brightness_ratios : np.ndarray
+        Matricial product between the brightness of one frame and the inverse 
+        of the other..
+    """
+    
+    brightness_A = [None] * len(keypoints_A)
+    brightness_B = [None] * len(keypoints_B)
+    
+    for i, keyp_A in enumerate(keypoints_A):
+        avg_brightness, size = get_info_from_keypoint(frame_A, keyp_A)
+        brightness_A[i] = avg_brightness * size
+        
+    for j, keyp_B in enumerate(keypoints_B):
+        avg_brightness, size = get_info_from_keypoint(frame_B, keyp_B)
+        brightness_B[j] = avg_brightness * size
+        
+    brightness_ratios = np.dot(brightness_A, 1 / brightness_B)
+        
+    return brightness_ratios
