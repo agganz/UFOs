@@ -9,6 +9,7 @@ Changelog:
     0.1.1 (AG): tested support for jet2video. Added time_vec support
     0.1.2 (AG): added basic command line support. To be tested.
     0.1.3 (AG): added support for background extraction.
+    0.1.4 (AG): added frame rate. TBT
 """
     
 from aux_tools import misc_tools
@@ -19,7 +20,7 @@ import sys
 import warnings
 
 
-def main(camera_name, pulse_id, trange = None, sub_bkg = False):
+def main(camera_name, pulse_id, trange = None, sub_bkg = False, frame_rate = 400):
     """
     Examines a given video in search of UFOs.
     
@@ -79,7 +80,7 @@ def main(camera_name, pulse_id, trange = None, sub_bkg = False):
         res_UFO_search = main_hsv.examine_video_for_UFOs(output_filename, pulse_id, camera_name, time_vec)
     else:
         print('Fast camera')
-        res_UFO_search= fast_camera_detection.examine_video_for_UFOs(output_filename, pulse_id, camera_name, time_vec)
+        res_UFO_search = fast_camera_detection.examine_video_for_UFOs(output_filename, pulse_id, camera_name, time_vec, frame_rate = 400)
         
     return 1
 
