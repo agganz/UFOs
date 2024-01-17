@@ -11,6 +11,7 @@ Changelog:
         Now the size of the text is adapted for each camera.
     0.4 (AG): added images_to_gif
     0.5 (AG): added get_info_from_keypoints and compare_UFO_brightness_in_two_frames
+    0.5.1 (AG): fixed several bugs realted to get_info_from_keypoints
 """
 
 import math
@@ -91,7 +92,8 @@ def synchronise_video_with_time(real_time, frame, frame_number):
     
     thickness = math.ceil(min(width, height) * thickness_scale + 0.5)
     # Using cv2.putText() method 
-    frame = cv2.putText(frame, 't = ' + str(real_time) + 's', org, font,  
+    text_in_frame = 't = ' + str(real_time) + 's  ; f = ' + str(frame_number)
+    frame = cv2.putText(frame, text_in_frame, org, font,  
                        fontScale, color, thickness, cv2.LINE_AA) 
     
     return frame
@@ -139,6 +141,8 @@ def images_to_gifs(output_name, image_folder, image_format = 'png'):
 
 def get_info_from_keypoint(frame, keypoint):
     """
+    Given a cv2.image frame and a keypoint, returns the size and the average 
+    brightness of the region.
 
     Parameters
     ----------
@@ -158,28 +162,30 @@ def get_info_from_keypoint(frame, keypoint):
     """
     
     height, width = frame.shape[0:2]
-    (y, x) = (int(keypoint.pt[0]), int(keypoint.pt[1]))
-    radius = keypoint.size
-    xmin = int(x - radius / 2)
-
+    (x, y) = (int(keypoint.pt[0]), int(keypoint.pt[1]))
+    radius = int(keypoint.size / 2)
+    
+    xmin = int(x - radius)
     if xmin < 0:
         xmin = 0
         
-    ymin = int(y - radius / 2)
+    ymin = int(y - radius)
     if ymin < 0:
         ymin = 0
         
-    xmax = int(x + radius / 2)
+    xmax = int(x + radius)
     if xmax >= width:
-        xmax = width
+        xmax = width - 1
         
-    ymax = int(y + radius / 2)
+    ymax = int(y + radius)
     if ymax >= height:
-        ymax = height
-        
-    avg_brightness = np.mean(frame[xmin : xmax, ymin : ymax])
-    
-    return avg_brightness, radius
+        ymax = height - 1
+
+    avg_brightness = np.mean(frame[ymin : ymax, xmin : xmax].astype('float64'))
+    if np.isnan(avg_brightness):
+        print('xmin, xmax, ymin, ymax: ', xmin, xmax, ymin, ymax)
+        print('area: ', frame[xmin : xmax, ymin:ymax])
+    return avg_brightness, radius * 2
     
     
 def compare_UFO_brightness_in_two_frames(frame_A, frame_B, keypoints_A, keypoints_B):
@@ -206,8 +212,8 @@ def compare_UFO_brightness_in_two_frames(frame_A, frame_B, keypoints_A, keypoint
         of the other..
     """
     
-    brightness_A = [None] * len(keypoints_A)
-    brightness_B = [None] * len(keypoints_B)
+    brightness_A = np.zeros(len(keypoints_A))
+    brightness_B = np.zeros(len(keypoints_B))
     
     for i, keyp_A in enumerate(keypoints_A):
         avg_brightness, size = get_info_from_keypoint(frame_A, keyp_A)
@@ -217,6 +223,15 @@ def compare_UFO_brightness_in_two_frames(frame_A, frame_B, keypoints_A, keypoint
         avg_brightness, size = get_info_from_keypoint(frame_B, keyp_B)
         brightness_B[j] = avg_brightness * size
         
-    brightness_ratios = np.dot(brightness_A, 1 / brightness_B)
-        
+    brightness_ratios = np.outer(brightness_A, 1 / brightness_B)
     return brightness_ratios
+
+def auto_canny(image, sigma = 0.33):
+    # compute the median of the single channel pixel intensities
+    v = np.median(image)
+    # apply automatic Canny edge detection using the computed median
+    lower = int(max(0, (1.0 - sigma) * v))
+    upper = int(min(255, (1.0 + sigma) * v))
+    edged = cv2.Canny(image, lower, upper)
+	# return the edged image
+    return edged
