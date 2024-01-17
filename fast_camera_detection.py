@@ -11,6 +11,7 @@ ChangeLog:
     0.1.3 (AG): added support for real time vectors.
     0.1.4 (AG): added code for Canny algorithm
     0.2 (AG): now size/brightness ratio are evaluated.
+    (AG): changes in parameters and bugs. No version issued.
 """
 
 import numpy as np
@@ -52,7 +53,7 @@ def get_time_vector(pulse_id):
     return time_vec
 
     
-def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
+def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, frame_rate = None):
     """
     Analyses the video passed and creates a frame-by-frame image set
     in a folder (<camera_name>_<pulse_id>) with a blob-based detection 
@@ -69,6 +70,8 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
         The name of the camera
     time_vec : 1D array
         The time vector. None by default.
+    frame_rate : int. None by default
+        The frame rate.
 
     Returns
     -------
@@ -100,7 +103,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
     params.maxThreshold = 255
         
     # Filter by Area.
-    params.filterByArea = True
+    params.filterByArea = False
     params.minArea = 5
     params.maxArea = 300
         
@@ -117,7 +120,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
         
     # Filter by Inertia
     params.filterByInertia = False
-    params.minInertiaRatio = 0.25
+    params.minInertiaRatio = 0.1
         
     # Create a detector with the parameters
     # OLD: detector = cv2.SimpleBlobDetector(params)
@@ -130,16 +133,17 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
             break
         
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # apply mask
         # Detect blobs.
         
         # Filter by brightness
-        #bkg_brightness = int((gray[0][0] + gray[0][-1] + gray[-1][0] + gray[-1][-1]) / 4)
-        bkg_brightness = np.mean(gray)
-        min_bkg = int(20 + bkg_brightness)
+        bkg_brightness = int((gray[0][0] + gray[0][-1] + gray[-1][0] + gray[-1][-1]) / 4)
+        median = cv2.medianBlur(gray, 5)
+        bkg_brightness = np.median(gray)
+        min_bkg = int(bkg_brightness)
         if min_bkg > 210:
             min_bkg = 210
         params.minThreshold = min_bkg
-        print(params.minThreshold)
         params.maxThreshold = 255
  
         if counter == 1:
@@ -147,20 +151,25 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
             # Filter by area
             params.filterByArea = True
             resolution = int(width * height)
-            params.minArea = int(resolution * 3.5e-5)
-            params.maxArea = int(resolution * 2.16e-2)
+            params.minArea = int(3)
+            params.maxArea = 20
             tmp_keypoints = []
+
         detector = cv2.SimpleBlobDetector_create(params)
 
         #treated_frame = gray
-        median = cv2.medianBlur(gray, 5)
         treated_frame = cv2.Canny(median, min_bkg, 255)
-        keypoints = detector.detect(median)
+        #treated_frame = misc_tools.auto_canny(median)
+        treated_frame[560 : -1, 120 : 180] = 0
+        treated_frame = treated_frame * median
+        keypoints = detector.detect(treated_frame)
+        if counter <= 120 and counter >= 60:
+            for keyp in keypoints:
+                print(keyp.pt, keyp.size, misc_tools.get_info_from_keypoint(median, keyp))
         im_with_keypoints = cv2.drawKeypoints(gray, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
-        if tmp_keypoints != keypoints:
-            #print('Checking tmp and key: ', tmp_keypoints, keypoints)
-            (start_points, end_points) = filter_points_with_distance_matrix(keypoints, tmp_keypoints, threshold = 20, 0.1, gray, tmp_frame)
+        if tmp_keypoints != keypoints and counter != 1:
+            (start_points, end_points) = filter_points_with_distance_matrix(keypoints, tmp_keypoints, threshold = 100, check_brightness = 0, frame_A = median, frame_B = frame_B)
             if start_points is None:
                 pass
             else:
@@ -176,6 +185,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
 
 	    # evaluate OS
         if sys.platform == 'linux':
+          #  thresh2 = cv2.adaptiveThreshold(median, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 199, 5) 
             cv2.imwrite("{0}/{1}.png".format(folder_name, counter), final_frame)
         elif sys.platform == 'win32':
             cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), final_frame)
@@ -184,7 +194,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None):
             
         counter = counter + 1        
         tmp_keypoints = keypoints
-        frame_B = gray
+        frame_B = median
         
         print('Frame {0}'.format(counter))
         
@@ -306,13 +316,14 @@ def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10,
  
     distance_vector = distance_matrix(current_points, past_points)
     
-    keypositions = np.argwhere(distance_vector < threshold)
+    keypositions = np.argwhere(np.logical_and(distance_vector < threshold, distance_vector >= 3))
     if check_brightness != 0:
-        brightness_ratios = misc_tools.compare_UFO_brightness_in_two_frames(frame_A, frame_B, keypoints_A, keypoints_B)        
+        brightness_ratios = misc_tools.compare_UFO_brightness_in_two_frames(frame_A, frame_B, keypoints_A, keypoints_B)
+        print('BR:', brightness_ratios) 
         brightness_positions = np.argwhere(np.logical_and(brightness_ratios >= 1 - check_brightness, brightness_ratios <= 1 + check_brightness))
         
     for elem in keypositions:
-        if check_brightness:
+        if check_brightness != 0:
             if elem in brightness_positions:
                 start_points.append(past_points[elem[1]])
                 end_points.append(current_points[elem[0]])
@@ -345,7 +356,7 @@ def draw_arrow_in_frame(frame, start_points, end_points):
     for p in range(0, len(start_points)):
         initial_point = start_points[p]
         final_point = end_points[p]
-        cv2.arrowedLine(frame, initial_point, final_point, (0, 255, 0), 2, 5, 0, 0.5)
+        cv2.arrowedLine(frame, initial_point, final_point, (0, 255, 0), 3, 1, 0, 0.2)
 
     return frame
 
