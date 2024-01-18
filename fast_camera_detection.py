@@ -12,6 +12,7 @@ ChangeLog:
     0.1.4 (AG): added code for Canny algorithm
     0.2 (AG): now size/brightness ratio are evaluated.
     (AG): changes in parameters and bugs. No version issued.
+    0.2.1 (AG): added instant. speed to the arrows (in pixels)
 """
 
 import numpy as np
@@ -19,6 +20,7 @@ import cv2
 from scipy.spatial import distance_matrix
 import os
 import sys
+import math
 from aux_tools import misc_tools
 
 
@@ -173,7 +175,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
             if start_points is None:
                 pass
             else:
-                im_with_keypoints = draw_arrow_in_frame(im_with_keypoints, start_points, end_points)
+                im_with_keypoints = draw_arrow_in_frame(im_with_keypoints, start_points, end_points, counter, time_vec)
             
         # Draw detected blobs as red circles.
         # cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
@@ -202,34 +204,6 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
     cv2.destroyAllWindows()
     
     return 1
-    
-    
-def recreate_video(pulse_id):
-    """
-    Creates a video with the processed images for each pulse.
-    
-    This seems to produce buggy results. At the moment it might be more 
-    convenient to use rely on gifs.
-    """
-    
-    pulse_str = misc_tools.get_pulse_str(pulse_id)
-    
-    image_folder = pulse_str
-    video_name = '{0}_detect.mp4'.format(pulse_str)
-
-    images = [img for img in os.listdir(image_folder) if img.endswith(".png")]
-    frame = cv2.imread(os.path.join(image_folder, images[0]))
-    height, width, layers = frame.shape
-    
-    video = cv2.VideoWriter(video_name, 0, 1, (width,height))
-    
-    for image in images:
-        video.write(cv2.imread(os.path.join(image_folder, image)))
-    
-    cv2.destroyAllWindows()
-    video.release()
-    
-    return True
     
 
 def treat_frame(current_frame, previous_frame):
@@ -334,10 +308,13 @@ def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10,
     return start_points, end_points
 
     
-def draw_arrow_in_frame(frame, start_points, end_points):
+def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, time_vec = None):
     """
     Draws arrows int othe given frame following the positions 
 
+    If either frame-number or time_vec are left non-specified, the arrows 
+    will be drawn, but no calculations regarding speed will be done.
+    
     Parameters
     ----------
     frame : cv2 image
@@ -345,17 +322,33 @@ def draw_arrow_in_frame(frame, start_points, end_points):
     start_points : list of starting positions
         tuples of pixel coordinates.
     end_points : list of final positions
-        tuples of pixel coordinates
+        tuples of pixel coordinates.
+    frame_number : int
+        The number of the current frame.
+    time_vec : array. None by default.
+        The real time array in seconds.
 
     Returns
     -------
     frame : cv2 image
         frame edited with the arrow
     """
+
+    delta_time = None
+
+    if frame_number is not None and time_vec is not None:
+        time_flag = True
+        delta_time = time_vec[frame_number] - time_vec[frame_number - 1]
+    else:
+        time_flag = False
     
     for p in range(0, len(start_points)):
         initial_point = start_points[p]
         final_point = end_points[p]
+        if time_flag:
+            disp_mod = math.dist(initial_point, final_point)
+            ins_speed = int(disp_mod / delta_time) # displacement in pixels
+            frame = misc_tools.add_small_annotation(str(ins_speed), frame)
         cv2.arrowedLine(frame, initial_point, final_point, (0, 255, 0), 3, 1, 0, 0.2)
 
     return frame
