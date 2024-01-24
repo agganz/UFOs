@@ -13,6 +13,7 @@ Changelog:
     0.5 (AG): added get_info_from_keypoints and compare_UFO_brightness_in_two_frames
     0.5.1 (AG): fixed several bugs realted to get_info_from_keypoints
     0.5.2 (AG): recreate_videos has been moved here. Added add_small_anotation
+    0.5.3 (AG): fixed a small bug in add_small_annotation
 """
 
 import math
@@ -305,7 +306,6 @@ def add_small_annotation(text, frame, coords, colour = (255, 255, 255), size = 5
       
     # font 
     font = cv2.FONT_HERSHEY_SIMPLEX 
-      
     # fontScale 
     fontScale = 1
              
@@ -315,11 +315,13 @@ def add_small_annotation(text, frame, coords, colour = (255, 255, 255), size = 5
     first_scale = 2e-3  # Adjust for larger font size in all images
     thickness_scale = 1e-3  # Adjust for larger thickness in all images
 
-    height, width, _ = frame.shape
+    height, width, layers = frame.shape
 
     fontScale = min(width, height) * first_scale
     
     thickness = math.ceil(min(width, height) * thickness_scale + 0.5)
 
     frame = cv2.putText(frame, text, coords, font,  
-                       size, colour, thickness, cv2.LINE_AA) 
+                       0.6, colour, thickness, cv2.LINE_AA)
+
+    return frame
