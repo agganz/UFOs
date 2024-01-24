@@ -13,6 +13,7 @@ ChangeLog:
     0.2 (AG): now size/brightness ratio are evaluated.
     (AG): changes in parameters and bugs. No version issued.
     0.2.1 (AG): added instant. speed to the arrows (in pixels)
+    0.2.2 (AG): increased modularity
 """
 
 import numpy as np
@@ -22,6 +23,7 @@ import os
 import sys
 import math
 from aux_tools import misc_tools
+import matplotlib.pyplot as plt
 
 
 def get_time_vector(pulse_id):
@@ -83,7 +85,10 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
     # check folder/create 
     
     pulse_str = misc_tools.get_pulse_str(pulse_id)
-    
+    std_median = []
+    std_gray = []
+    wb_gray = []
+    wb_median = []
     folder_name = camera_name + '_' + pulse_str
     if not os.path.isdir(folder_name):
         os.mkdir(folder_name)
@@ -141,7 +146,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
         # Filter by brightness
         bkg_brightness = int((gray[0][0] + gray[0][-1] + gray[-1][0] + gray[-1][-1]) / 4)
         median = cv2.medianBlur(gray, 5)
-        bkg_brightness = np.median(gray)
+        bkg_brightness = np.median(median)
         min_bkg = int(bkg_brightness)
         if min_bkg > 210:
             min_bkg = 210
@@ -153,21 +158,15 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
             # Filter by area
             params.filterByArea = True
             resolution = int(width * height)
-            params.minArea = int(3)
-            params.maxArea = 20
+            params.minArea = int(2)
+            params.maxArea = 1000
             tmp_keypoints = []
 
         detector = cv2.SimpleBlobDetector_create(params)
-
         #treated_frame = gray
-        treated_frame = cv2.Canny(median, min_bkg, 255)
         #treated_frame = misc_tools.auto_canny(median)
-        treated_frame[560 : -1, 120 : 180] = 0
-        treated_frame = treated_frame * median
-        keypoints = detector.detect(treated_frame)
-        if counter <= 120 and counter >= 60:
-            for keyp in keypoints:
-                print(keyp.pt, keyp.size, misc_tools.get_info_from_keypoint(median, keyp))
+        adjusted_frame = adjust_frame(gray, canny_al = True, median_al = True, min_bkg = min_bkg, div_mask_limits = (560, -1, 120, 180))
+        keypoints = detector.detect(adjusted_frame)
         im_with_keypoints = cv2.drawKeypoints(gray, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
         if tmp_keypoints != keypoints and counter != 1:
@@ -196,17 +195,20 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
             
         counter = counter + 1        
         tmp_keypoints = keypoints
-        frame_B = median
+        frame_B = gray
         
         print('Frame {0}'.format(counter))
         
     video.release()
-    cv2.destroyAllWindows()
-    
+    try:
+        cv2.destroyAllWindows()
+    except:
+        print('Not compatible with destroyAllWindows')
+ 
     return 1
     
 
-def treat_frame(current_frame, previous_frame):
+def adjust_frame(frame, canny_al = True, median_al = True, min_bkg = 0, div_mask_limits = None):
     """
     Substracts two consecutive frames in colour space (:, :, 3).
     
@@ -221,10 +223,19 @@ def treat_frame(current_frame, previous_frame):
 
     """
     
-    # TODO
-    res = current_frame
+    if median_al:
+        frame = cv2.medianBlur(frame, 5) 
+    if canny_al:
+        frame = cv2.Canny(frame, int(min_bkg - frame.std()), 255)
+    
+    if div_mask_limits is not None:
+        ymin = div_mask_limits[0]
+        ymax = div_mask_limits[1]
+        xmin = div_mask_limits[2]
+        xmax = div_mask_limits[3]
+        frame[ymin : ymax, xmin : xmax] = 0
 
-    return res
+    return frame
 
 
 def keypoint_to_xy(keypoint):
@@ -335,7 +346,6 @@ def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, ti
     """
 
     delta_time = None
-
     if frame_number is not None and time_vec is not None:
         time_flag = True
         delta_time = time_vec[frame_number] - time_vec[frame_number - 1]
@@ -347,9 +357,10 @@ def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, ti
         final_point = end_points[p]
         if time_flag:
             disp_mod = math.dist(initial_point, final_point)
-            ins_speed = int(disp_mod / delta_time) # displacement in pixels
-            frame = misc_tools.add_small_annotation(str(ins_speed), frame)
-        cv2.arrowedLine(frame, initial_point, final_point, (0, 255, 0), 3, 1, 0, 0.2)
+            coords = (int((final_point[0] + initial_point[0]) / 2), int((final_point[1] + initial_point[1]) / 2))
+            ins_speed = int(disp_mod / delta_time * 6.068e-3)  # displacement in pixels
+            frame = misc_tools.add_small_annotation(str(ins_speed), frame, coords)
+        frame = cv2.arrowedLine(frame, initial_point, final_point, (0, 255, 0), 3, 1, 0, 0.2)
 
     return frame
 
