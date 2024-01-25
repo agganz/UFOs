@@ -85,11 +85,8 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
     # check folder/create 
     
     pulse_str = misc_tools.get_pulse_str(pulse_id)
-    std_median = []
-    std_gray = []
-    wb_gray = []
-    wb_median = []
     folder_name = camera_name + '_' + pulse_str
+    
     if not os.path.isdir(folder_name):
         os.mkdir(folder_name)
     
@@ -184,14 +181,8 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
         else:
             final_frame = im_with_keypoints
 
-	    # evaluate OS
-        if sys.platform == 'linux':
-          #  thresh2 = cv2.adaptiveThreshold(median, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 199, 5) 
-            cv2.imwrite("{0}/{1}.png".format(folder_name, counter), final_frame)
-        elif sys.platform == 'win32':
-            cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), final_frame)
-        else:
-            raise OSError('Not applicable to current OS. Either linux or win32 expected.')
+        misc_tools.save_frame(folder_name, counter, final_frame)
+
             
         counter = counter + 1        
         tmp_keypoints = keypoints
@@ -200,6 +191,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
         print('Frame {0}'.format(counter))
         
     video.release()
+
     try:
         cv2.destroyAllWindows()
     except:
