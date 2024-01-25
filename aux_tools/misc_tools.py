@@ -14,12 +14,14 @@ Changelog:
     0.5.1 (AG): fixed several bugs realted to get_info_from_keypoints
     0.5.2 (AG): recreate_videos has been moved here. Added add_small_anotation
     0.5.3 (AG): fixed a small bug in add_small_annotation
+    0.5.4 (AG): now frames are saved here.
 """
 
 import math
 import cv2
 import glob
 import numpy as np
+import sys
 import contextlib
 from PIL import Image
 import os
@@ -325,3 +327,31 @@ def add_small_annotation(text, frame, coords, colour = (255, 255, 255), size = 5
                        0.6, colour, thickness, cv2.LINE_AA)
 
     return frame
+
+
+def save_frame(folder_name, counter, final_frame):
+    """
+    Saves a frame into the given folder with a counter.
+
+    Parameters
+    ----------
+    folder_name : str
+        The folder name.
+    counter : int
+        The frame counter needed for the naming.
+    final_frame : cv2.image
+        The frame to save.
+    
+    Returns
+    -------
+    Nothing
+    """
+    
+    # evaluate OS
+    if sys.platform == 'linux':
+    #  thresh2 = cv2.adaptiveThreshold(median, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 199, 5) 
+        cv2.imwrite("{0}/{1}.png".format(folder_name, counter), final_frame)
+    elif sys.platform == 'win32':
+        cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), final_frame)
+    else:
+        raise OSError('Not applicable to current OS. Either linux or win32 expected.')
