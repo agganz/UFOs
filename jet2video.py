@@ -5,6 +5,7 @@
 # 1.1 (AG): now it returns vid.tvec[start_frame : end_frame]
 # 1.2 (AG): Added one last frame to the returned time to ensure everything is captured.
 # 1.3 (AG): added background extraction via function argument.
+# 1.4 (AG): solved a bug in which an empty video would be created if the time range did not match
 
 
 import os
@@ -79,8 +80,11 @@ def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_
         start_frame = 0
         end_frame = n_frames - 1
     else:
-        start_frame = np.argmin(np.abs(time_range[0] - vid.tvec))
-        end_frame = np.argmin(np.abs(time_range[1] - vid.tvec))
+        if vid.tvec[-1] <= time_range[0]:
+            raise IndexError('The initial value for the time range is larger than the recording time.')
+        else:
+            start_frame = np.argmin(np.abs(time_range[0] - vid.tvec))
+            end_frame = np.argmin(np.abs(time_range[1] - vid.tvec))
 
     # Bits per pixel (vid object stores it as bytes per pixel)
     bitdepth = vid.bitdepth * 8
