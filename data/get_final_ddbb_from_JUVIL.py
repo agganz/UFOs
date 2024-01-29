@@ -7,6 +7,7 @@ Created on Mon Nov 13 16:44:13 2023
 
 ChangeLog
     0.1 (AG): First version.
+    0.1.1 (AG): Bug fixing shenanigans
 """
 
 import pandas as pd
@@ -25,8 +26,8 @@ def create_ddbb_from_op_cameras():
         The final dataframe.
     """
 
-    column_names = ('Pulse', 'Op.Cam', 'Time', 'Exp.Cam', 'Comment')
-    final_ddbb = pd.Dataframe(columns = column_names)
+    column_names = ('Pulse', 'Op.Cam', 'Time', 'Exp.Cam', 'Comments')
+    final_ddbb = pd.DataFrame(columns = column_names)
 
     # Select data from operational cameras
     pulses_with_op5 = filter_ddbb.filter_camera_ddbb('Camera', '-O5W')
@@ -37,10 +38,10 @@ def create_ddbb_from_op_cameras():
 
 
     # Data for the 5th octant:
-    for row in pulses_with_op5:
-        JPN = row['Pulse']
-        UFO_time = row['Time']
-        op_ref = row['Camera']
+    for row in pulses_with_op5.index:
+        JPN = pulses_with_op5['Pulse'][row]
+        UFO_time = float(pulses_with_op5['Time'][row])
+        op_ref = pulses_with_op5['Camera'][row]
         time_range = (UFO_time - 0.5, UFO_time + 0.5)
         for camera in list_of_exp_5_cameras:
             try:
@@ -53,15 +54,17 @@ def create_ddbb_from_op_cameras():
                 continue
             else:
                 # adds configuration to the dataframe
-                tmp_df = {'Pulse': JPN, 'Op.Cam': op_ref, 'Time': UFO_time, 'Exp.Cam' : camera, 'Comment' : row['Comment']}
+                tmp_df = {'Pulse': JPN, 'Op.Cam': op_ref, 'Time': UFO_time, 'Exp.Cam' : camera, 'Comments' : pulses_with_op5['Comments'][row]}
+                print(tmp_df)
                 final_ddbb = final_ddbb.append(tmp_df, ignore_index = True) 
 
-    for row in pulses_with_op8:
-        JPN = row['Pulse']
-        UFO_time = row['Time']
-        op_ref = row['Camera']
+    # Data for the 8th octant:
+    for row in pulses_with_op8.index:
+        JPN = pulses_with_op8['Pulse'][row]
+        UFO_time = float(pulses_with_op8['Time'][row])
+        op_ref = pulses_with_op8['Camera'][row]
         time_range = (UFO_time - 0.5, UFO_time + 0.5)
-        for camera in list_of_exp_8_cameras:
+        for camera in list_of_exp_5_cameras:
             try:
                 vid = VVideo(camera, JPN)
             except:
@@ -72,8 +75,8 @@ def create_ddbb_from_op_cameras():
                 continue
             else:
                 # adds configuration to the dataframe
-                tmp_df = {'Pulse': JPN, 'Op.Cam': op_ref, 'Time': UFO_time, 'Exp.Cam' : camera, 'Comment' : row['Comment']}
-                final_ddbb = final_ddbb.append(tmp_df, ignore_index = True) 
-    # Load various metadata
+                tmp_df = {'Pulse': JPN, 'Op.Cam': op_ref, 'Time': UFO_time, 'Exp.Cam' : camera, 'Comments' : pulses_with_op8['Comments'][row]}
+                print(tmp_df)
+                final_ddbb = final_ddbb.append(tmp_df, ignore_index = True)
 
     return final_ddbb
