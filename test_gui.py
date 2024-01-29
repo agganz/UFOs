@@ -1,3 +1,17 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov 13 16:44:13 2023
+
+@author: Alejandro Gonzalez Ganzabal
+
+
+ChangeLog
+
+    0.1 (AG): First version (GIT)
+    0.2 (AG): Added pulse search; changed function arguments.
+    0.2.1 (AG): Still on progress - noow it shows the frames
+"""
+
 import sys
 import cv2
 import os
@@ -80,32 +94,17 @@ class MainWindow(QMainWindow):
         self.btnBox.setText('Get frame')
         self.btnBox.clicked.connect(self.get_image_when_clicked)
 
-
-        
-        self.frame_1_layout = QVBoxLayout()
-        self.frame_2_layout = QVBoxLayout()
-        
-        self.label_pix_1 = QLabel()
-        #self.pixmap_1 = QPixmap(self.frame_1)
-        #self.label_pix_1.setPixmap(self.pixmap_1)
-       # self.frame_1_layout.addWidget(self.label_pix_1)
-        
-        self.label_pix_2 = QLabel()
-        #self.pixmap_2 = QPixmap(self.frame_2)
-        #self.label_pix_2.setPixmap(self.pixmap_2)
-        #self.frame_2_layout.addWidget(self.label_pix_2)
-
         # Set the layout on the dialog
         self.main_layout.addLayout(self.conf_image_layout, 0, 0)
         self.main_layout.addWidget(self.btnBox, 1, 0)
-        self.main_layout.addLayout(self.frame_1_layout, 0, 1)
-        self.main_layout.addLayout(self.frame_2_layout, 0, 2)
+        
 
 
         self.setLayout(self.main_layout)        
         self.container = QWidget()
         self.container.setLayout(self.main_layout)
         self.setCentralWidget(self.container)
+        
         
         
     def get_image_when_clicked(self):
@@ -127,15 +126,35 @@ class MainWindow(QMainWindow):
         use_median = self.median_filt.isChecked()
         use_canny = self.canny_al.isChecked()
         min_bkg_im = int(self.min_bkg_image.text())
-        print('todo ok')
+
         frame_1_cv2 = fast_camera_detection.adjust_frame(gray_1, canny_al = use_canny, median_al = use_median, min_bkg = min_bkg_im, div_mask_limits = None)
-        print('todo ok 2')
         frame_2_cv2 = fast_camera_detection.adjust_frame(gray_2, canny_al = use_canny, median_al = use_median, min_bkg = min_bkg_im, div_mask_limits = None)
+        
+        misc_tools.save_frame('.', 1, frame_1_cv2)
+        misc_tools.save_frame('.', 2, frame_2_cv2)
+
+        self.frame_1 = '1.png'
+        self.frame_2 = '2.png'
+    
+        self.frame_1_layout = QVBoxLayout()
+        self.frame_2_layout = QVBoxLayout()
+        
+        self.label_pix_1 = QLabel()
+        self.label_pix_1.setText('Frame {0}'.format(frame_number_int))
+        self.pixmap_1 = QPixmap(self.frame_1)
+        self.label_pix_1.setPixmap(self.pixmap_1)
+        self.frame_1_layout.addWidget(self.label_pix_1)
+        
+        self.label_pix_2 = QLabel()
+        self.pixmap_2 = QPixmap(self.frame_2)
+        self.label_pix_2.setPixmap(self.pixmap_2)
+        self.frame_2_layout.addWidget(self.label_pix_2)
 
 
-        self.frame_1 = cv2_to_QImage(frame_1_cv2)
-    
-    
+        self.main_layout.addLayout(self.frame_1_layout, 0, 1)
+        self.main_layout.addLayout(self.frame_2_layout, 0, 2)
+        
+        
     def get_video_filename(self):
         """
         Opens the file browser and updates the video file path, updated in 
@@ -174,6 +193,7 @@ def get_frame_from_video(path_to_video, frame_number):
     
     video = cv2.VideoCapture(path_to_video)
     frame_counter = 1
+    
     while True:
         ret, frame = video.read()
         
