@@ -31,7 +31,7 @@ def filter_camera_ddbb(fieldname, expr):
 
     """
     
-    ufo_path = "./data/complete_UFO_ddbb.xlsx"
+    ufo_path = "complete_UFO_ddbb.xlsx"
     UFO_df = pd.read_excel(ufo_path)
     
     if fieldname == 'Camera':
