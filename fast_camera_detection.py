@@ -162,7 +162,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
         detector = cv2.SimpleBlobDetector_create(params)
         #treated_frame = gray
         #treated_frame = misc_tools.auto_canny(median)
-        adjusted_frame = adjust_frame(gray, canny_al = True, median_al = True, min_bkg = min_bkg, div_mask_limits = (560, -1, 120, 180))
+        adjusted_frame = adjust_frame(gray, canny_al = True, median_al = True, LoG = False, min_bkg = min_bkg, div_mask_limits = (560, -1, 120, 180))
         keypoints = detector.detect(adjusted_frame)
         im_with_keypoints = cv2.drawKeypoints(gray, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
@@ -200,7 +200,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
     return 1
     
 
-def adjust_frame(frame, canny_al = True, median_al = True, min_bkg = 0, div_mask_limits = None):
+def adjust_frame(frame, canny_al = True, median_al = True, LoG = False, min_bkg = 0, div_mask_limits = None):
     """
     Substracts two consecutive frames in colour space (:, :, 3).
     
@@ -219,6 +219,9 @@ def adjust_frame(frame, canny_al = True, median_al = True, min_bkg = 0, div_mask
         frame = cv2.medianBlur(frame, 5) 
     if canny_al:
         frame = cv2.Canny(frame, int(min_bkg - frame.std()), 255)
+        
+    if LoG:
+        pass
     
     if div_mask_limits is not None:
         ymin = div_mask_limits[0]
