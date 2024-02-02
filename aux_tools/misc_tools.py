@@ -355,3 +355,60 @@ def save_frame(folder_name, counter, final_frame):
         cv2.imwrite(r"{0}\{1}.png".format(folder_name, counter), final_frame)
     else:
         raise OSError('Not applicable to current OS. Either linux or win32 expected.')
+    
+
+def set_params_object():
+    """
+    """
+
+    # Detect blobs.
+    params = cv2.SimpleBlobDetector_Params()
+        
+    # Change thresholds
+    params.minThreshold = 20
+    params.maxThreshold = 255
+        
+    # Filter by Area.
+    params.filterByArea = True
+    params.minArea = 5
+    params.maxArea = 1000
+        
+    params.filterByColor = False
+    params.blobColor = 40
+        
+    # Filter by Circularity
+    params.filterByCircularity = True
+    params.minCircularity = 0.2
+        
+     # Filter by Convexity
+    params.filterByConvexity = False
+    params.minConvexity = 0.2
+        
+    # Filter by Inertia
+    params.filterByInertia = False
+    params.minInertiaRatio = 0.25
+        
+    # Create a detector with the parameters
+    # OLD: detector = cv2.SimpleBlobDetector(params)
+    detector = cv2.SimpleBlobDetector_create(params)
+    
+
+def save_min_image(keypoint, frame):
+    
+    
+    xy_coords = (int(keypoint.pt[0]), int(keypoint.pt[1]))
+    
+    min_frame = frame[xy_coords[0] - 30 : xy_coords[0] + 35, xy_coords[1] - 35 : xy_coords[1] + 35]
+    
+    if not os.path.isdir('saves'):
+        os.mkdir('saves')
+        
+    file_path = 1
+    while str(file_path) + '.png' in os.listdir('saves'):
+        file_path = file_path + 1
+        
+        
+    cv2.imwrite(r"{0}\{1}.png".format('saves', file_path), min_frame)
+
+    return 1
+    
