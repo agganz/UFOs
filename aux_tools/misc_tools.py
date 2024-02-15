@@ -359,6 +359,7 @@ def save_frame(folder_name, counter, final_frame):
 
 def set_params_object():
     """
+    Creates a detector. TODO: define the arguments.
     """
 
     # Detect blobs.
@@ -391,10 +392,16 @@ def set_params_object():
     # Create a detector with the parameters
     # OLD: detector = cv2.SimpleBlobDetector(params)
     detector = cv2.SimpleBlobDetector_create(params)
+
+    return detector
     
 
 def save_min_image(keypoint, frame):
-    
+    """
+    Saves a part of a frame specified by either a keypoint or coordinates.
+
+    TODO worki in progress
+    """
     
     xy_coords = (int(keypoint.pt[0]), int(keypoint.pt[1]))
     
