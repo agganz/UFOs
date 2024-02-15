@@ -8,6 +8,7 @@ Created on Mon Nov 13 16:44:13 2023
 ChangeLog
     0.1 (AG): First version.
     0.1.1 (AG): Bug fixing shenanigans
+    0.1.2 (AG): added two extra experimental cameras
 """
 
 import pandas as pd
@@ -34,7 +35,7 @@ def create_ddbb_from_op_cameras():
     pulses_with_op8 = filter_ddbb.filter_camera_ddbb('Camera', '-O8W')
 
     list_of_exp_5_cameras = ('KLDT-E5WC', 'KLDT-E5WD', 'KLDT-E5WE')
-    list_of_exp_8_cameras = ('KL7-E8WB', 'KL8-E8WA')
+    list_of_exp_8_cameras = ('KL7-E8WB', 'KL8-E8WA', 'KL8-E8WC', 'KL8-E8WB')
 
 
     # Data for the 5th octant:
