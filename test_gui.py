@@ -11,46 +11,36 @@ ChangeLog
     0.2 (AG): Added pulse search; changed function arguments.
     0.2.1 (AG): Still on progress - noow it shows the frames
     0.2.2 (AG): almost functional
+    0.2.3 (AG): working up to selecting keypoints
 """
 
 import sys
 import cv2
 import os
 import numpy as np
+import pandas as pd
 import re
 import fast_camera_detection
 from aux_tools import misc_tools
 
-from PyQt5.QtGui import *
+# QT5 stuff
+from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import (
-
     QApplication,
-
     QDialog,
-    
+    QTableWidget, QTableWidgetItem,
+    QMessageBox,
     QLabel,
-    
     QGridLayout,
-    
     QFileDialog,
-
-    QDialogButtonBox,
-    
     QMainWindow,
-
     QFormLayout,
-    
     QWidget,
-
     QLineEdit,
-
     QVBoxLayout,
-    
     QCheckBox,
-    
     QPushButton
-
 )
 
 
@@ -77,14 +67,20 @@ class MainWindow(QMainWindow):
         
         self.frame_number = QLineEdit()
         self.conf_image_layout.addRow("Frame number:", self.frame_number)
+
         self.median_filt = QCheckBox('Apply median filter')
         self.conf_image_layout.addWidget(self.median_filt)
         self.canny_al = QCheckBox('Apply Canny algorithm')
         self.conf_image_layout.addWidget(self.canny_al)
-        
-        self.min_bkg_image = QLineEdit()
-        self.conf_image_layout.addRow("Minimum background for the Canny algorithm:", self.min_bkg_image)
+        self.LoG_btn = QCheckBox('Apply Laplacian of Gaussian filter')
+        self.conf_image_layout.addWidget(self.LoG_btn)
+        self.threshold_btn = QCheckBox('Apply threshold with min. brightness')
+        self.conf_image_layout.addWidget(self.threshold_btn)
 
+        self.min_bkg_image = QLineEdit()
+        self.conf_image_layout.addRow("Minimum background for frame:", self.min_bkg_image)
+        self.delta_time_box = QLineEdit()
+        self.conf_image_layout.addRow("Video real frame rate:", self.delta_time_box)
 
         # detecting set up
         self.conf_detect_layout = QFormLayout()
@@ -132,17 +128,20 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.container)
         
         
-        
     def get_image_when_clicked(self):
         """
-        
-
-
+        Shows the image corresponding to the current frame and the next, including 
+        all the filtering options.
         """
         
         video_name_str = self.video_filename
-        frame_number_int = int(self.frame_number.text())
-    
+        try:
+            frame_number_int = int(self.frame_number.text())
+        except ValueError:
+            self.show_error_message('Please enter a valid frame number. Switching to 1.')
+            frame_number_int = 1
+            self.frame_number.setText('1')
+
         if not os.path.isfile(video_name_str):
             raise FileNotFoundError('Could not locate the video file in the given path ({0})'.format(video_name_str))
         
@@ -151,14 +150,16 @@ class MainWindow(QMainWindow):
 
         use_median = self.median_filt.isChecked()
         use_canny = self.canny_al.isChecked()
+        use_LoG = self.LoG_btn.isChecked()
+        use_threshold = self.threshold_btn.isChecked()
         
         try:
             min_bkg_im = int(self.min_bkg_image.text())
         except ValueError:
             min_bkg_im = int(np.mean(gray_1))
             
-        self.frame_1_cv2 = fast_camera_detection.adjust_frame(gray_1, canny_al = use_canny, median_al = use_median, min_bkg = min_bkg_im, div_mask_limits = None)
-        self.frame_2_cv2 = fast_camera_detection.adjust_frame(gray_2, canny_al = use_canny, median_al = use_median, min_bkg = min_bkg_im, div_mask_limits = None)
+        self.frame_1_cv2 = fast_camera_detection.adjust_frame(gray_1, canny_al = use_canny, median_al = use_median, LoG = use_LoG,  min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
+        self.frame_2_cv2 = fast_camera_detection.adjust_frame(gray_2, canny_al = use_canny, median_al = use_median, LoG = use_LoG, min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
         misc_tools.save_frame('.', 1, self.frame_1_cv2)
         misc_tools.save_frame('.', 2, self.frame_2_cv2)
 
@@ -198,43 +199,71 @@ class MainWindow(QMainWindow):
         
         self.main_layout.addWidget(self.btn_prevframe, 2, 1)
         
+        self.btn_keypoints = QPushButton()
+        self.btn_keypoints.setCheckable(False)
+        self.btn_keypoints.setText('Open keypoints dialog')
+        self.btn_keypoints.clicked.connect(self.keypoints_dialog)
+        
+        self.main_layout.addWidget(self.btn_keypoints, 3, 2)
+
         if self.auto_detect.isChecked():
             self.make_detection()
         
         
     def go_next(self):
+        """
+        Moves the frame number up by one number.
+        """
+        
         self.frame_number.setText(str(int(self.frame_number.text()) + 1))
         self.get_image_when_clicked()
         
 
     def go_prev(self):
+        """
+        Moves the frame number down by one number.
+        """
+
         self.frame_number.setText(str(int(self.frame_number.text()) - 1))
         self.get_image_when_clicked()
         
         
     def define_detector(self):
-        
+        """
+        Defines the detector parameters for creating a blob detector.
+
+        Returns
+        -------
+        detector : cv2.detector type
+            The detector with the new parameters.
+        """
         
         params = cv2.SimpleBlobDetector_Params()
 
         brightness_det = self.det_brightness.text()
-        if brightness_det is not None:
+        if brightness_det != '':
             minb, maxb = re.findall(r"[+]?(?:\d*\.*\d+)", brightness_det)
             params.minThreshold = int(minb)
             params.maxThreshold = int(maxb)
-            
+        else:
+            self.show_error_message('At least the detector brightness must be specified. Default value will be set.')
+            self.det_brightness.setText('40-255')
+            brightness_det = self.det_brightness.text()
+            minb, maxb = re.findall(r"[+]?(?:\d*\.*\d+)", brightness_det)
+            params.minThreshold = int(minb)
+            params.maxThreshold = int(maxb)
         size_det = self.det_size.text()
-        print('size: ', size_det)
-        if size_det is not '':
+
+        if size_det != '':
             params.filterByArea = True
             min_size, max_size = re.findall(r"[+]?(?:\d*\.*\d+)", size_det)
-            params.minArea = int(minb)
-            params.maxArea = int(maxb)
+            params.minArea = int(min_size)
+            params.maxArea = int(max_size)
         else:
             params.filterByArea = False
             
         inertia_det = self.det_inertia.text()
-        if inertia_det is not '':
+        if inertia_det != '':
             params.filterByInertia = True
             min_inertia, max_inertia = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
             params.minInertiaRatio = float(min_inertia)
@@ -243,7 +272,7 @@ class MainWindow(QMainWindow):
             params.filterByArea = False
         
         convexity_det = self.det_convexety.text()
-        if convexity_det is not '':
+        if convexity_det != '':
             params.filterByConvexity = True
             min_convexity, max_convexity = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
             params.minConvexity = float(min_convexity)
@@ -252,13 +281,15 @@ class MainWindow(QMainWindow):
             params.filterByConvexity = False
             
         circularity_det = self.det_circularity.text()
-        if circularity_det is not '':
+        if circularity_det != '':
             params.filterByCircularity = True
             min_circularity, max_circularity = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
             params.minCircularity = float(min_circularity)
             params.maxCircularity = float(max_circularity)
         else:
             params.filterByCircularity = False
+
+        params.minRepeatability = 2
         
         detector = cv2.SimpleBlobDetector_create(params)
             
@@ -266,6 +297,10 @@ class MainWindow(QMainWindow):
     
     
     def make_detection(self):
+        """
+        Makes detection over the current frames.
+        If possible, will try to connect the keypoints.
+        """
         
         self.detector = self.define_detector()
         keypoints_A = self.detector.detect(self.frame_1_cv2)
@@ -274,12 +309,27 @@ class MainWindow(QMainWindow):
         self.im_with_keypoints_A = cv2.drawKeypoints(self.frame_1_cv2, keypoints_A, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         self.im_with_keypoints_B = cv2.drawKeypoints(self.frame_1_cv2, keypoints_B, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         print(keypoints_A, keypoints_B)
+
+        try:
+            delta_time = int(self.delta_time_box.text())
+        except ValueError:
+            self.show_error_message('Could not read delta time. Setting it to 30.')
+            self.delta_time_box.setText('30')
+            delta_time = int(self.delta_time_box.text())
+
+        if len(keypoints_A) != 0 and len(keypoints_B) != 0:
+            (start_points, end_points) = fast_camera_detection.filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 100, check_brightness = 0, frame_A = self.frame_1_cv2, frame_B = self.frame_2_cv2)
+            if start_points is None:
+                pass
+            else:
+                self.im_with_keypoints_A, self.speed_dict = fast_camera_detection.draw_arrow_in_frame(self.im_with_keypoints_A, start_points, end_points, frame_number = None, time_vec = None, delta_time = delta_time)
+            
         self.refresh_image_detection()
         
         
     def refresh_image_detection(self):
         """
-        
+        Refresh the current images with new inputs after the detection.
         """
         
         misc_tools.save_frame('.', 1, self.im_with_keypoints_A)
@@ -316,8 +366,54 @@ class MainWindow(QMainWindow):
         
         path = QFileDialog.getOpenFileName()
         self.video_filename = path[0]
-                
-        
+
+
+    def show_error_message(self, message):
+        """
+        Shows an error message instead of crashing (I hope?)
+        """
+
+        error_dialog = QMessageBox() 
+        error_dialog.setIcon(QMessageBox.Information) 
+  
+        # setting message for Message Box 
+        error_dialog.setText(message) 
+        error_dialog.setStandardButtons(QMessageBox.Ok) 
+        error_dialog.exec_() 
+
+
+    def keypoints_dialog(self):
+        """
+        Creates a table with the present keypoints and their speed.
+        """
+
+        data_dict = self.speed_dict
+        keypoints_main_dialog = QDialog()
+        layout_dialog = QVBoxLayout()
+        keypoints_main_dialog.setLayout(layout_dialog)
+        table = QTableWidget()
+        table.setRowCount(len(data_dict))
+        table.setColumnCount(3)
+        table.setHorizontalHeaderLabels(["Keypoint", "Speed", "Action"])
+
+        # define button
+        btn_save_keypoint = QPushButton()
+        btn_save_keypoint.setCheckable(False)
+        btn_save_keypoint.setText('Save')
+
+        for i, key in enumerate(data_dict):
+            item_pos = QTableWidgetItem(str(key))
+            item_vel = QTableWidgetItem(str(data_dict[key]))
+            table.setItem(i, 0, item_pos)
+            table.setItem(i, 1, item_vel)
+            print(data_dict)
+        #    btn_save_keypoint.clicked.connect(save_point(key, data_dict[key]))
+            table.setCellWidget(i, 2, btn_save_keypoint)
+
+        layout_dialog.addWidget(table)
+        keypoints_main_dialog.exec_()
+
+
 def cv2_to_QImage(cv2_frame):
     """
     Currently not used due to a bug in the cv2 installation?
@@ -381,6 +477,12 @@ def get_frame_from_video(path_to_video, frame_number):
   #  cv2.destroyAllWindows()
     
     return frame
+
+
+def save_point(position, speed):
+    column_names = ('Position', 'Velocity')
+    final_ddbb = pd.DataFrame(columns = column_names)
+    pd_speed = {'Position' : position, 'Speed' : speed}
 
 
 app = QApplication(sys.argv)
