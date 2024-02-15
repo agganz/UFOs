@@ -14,6 +14,8 @@ ChangeLog:
     (AG): changes in parameters and bugs. No version issued.
     0.2.1 (AG): added instant. speed to the arrows (in pixels)
     0.2.2 (AG): increased modularity
+    0.3 (AG): several changes to the adjust_frame function
+        NOTE: 0.3 has not been checked in Heimdall without GUI
 """
 
 import numpy as np
@@ -125,6 +127,9 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
     # Filter by Inertia
     params.filterByInertia = False
     params.minInertiaRatio = 0.1
+
+    # Other
+    params.inDistBetweenBlobs = 50
         
     # Create a detector with the parameters
     # OLD: detector = cv2.SimpleBlobDetector(params)
@@ -162,7 +167,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
         detector = cv2.SimpleBlobDetector_create(params)
         #treated_frame = gray
         #treated_frame = misc_tools.auto_canny(median)
-        adjusted_frame = adjust_frame(gray, canny_al = True, median_al = True, LoG = False, min_bkg = min_bkg, div_mask_limits = (560, -1, 120, 180))
+        adjusted_frame = adjust_frame(gray, canny_al = True, median_al = True, LoG = False, min_bkg = min_bkg, thresholding = False, div_mask_limits = (560, -1, 120, 180))
         keypoints = detector.detect(adjusted_frame)
         im_with_keypoints = cv2.drawKeypoints(gray, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
@@ -171,7 +176,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
             if start_points is None:
                 pass
             else:
-                im_with_keypoints = draw_arrow_in_frame(im_with_keypoints, start_points, end_points, counter, time_vec)
+                im_with_keypoints, _ = draw_arrow_in_frame(im_with_keypoints, start_points, end_points, counter, time_vec)
             
         # Draw detected blobs as red circles.
         # cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
@@ -200,7 +205,7 @@ def examine_video_for_UFOs(vid_path, pulse_id, camera_name, time_vec = None, fra
     return 1
     
 
-def adjust_frame(frame, canny_al = True, median_al = True, LoG = False, min_bkg = 0, div_mask_limits = None):
+def adjust_frame(frame, canny_al = True, median_al = True, LoG = False, min_bkg = 0, thresholding = False, div_mask_limits = None):
     """
     Substracts two consecutive frames in colour space (:, :, 3).
     
@@ -208,7 +213,13 @@ def adjust_frame(frame, canny_al = True, median_al = True, LoG = False, min_bkg 
     in contrast can be written as f' = f * alpha + beta, being beta additional 
     brightness.
     
-    
+    Parameters:
+    -------
+    frame : cv2.image
+        The frame to be modified.
+    canny_al : bool
+        Whether or not to perform the Canny border algorithm.
+    median_al:
     Returns
     -------
     None.
@@ -219,10 +230,14 @@ def adjust_frame(frame, canny_al = True, median_al = True, LoG = False, min_bkg 
         frame = cv2.medianBlur(frame, 5) 
     if canny_al:
         frame = cv2.Canny(frame, int(min_bkg - frame.std()), 255)
-        
+
     if LoG:
-        pass
+        frame = cv2.GaussianBlur(frame, (13,13), 0)
+        frame = cv2.Laplacian(frame, -1, ksize = 5, scale = 1, delta = 0, borderType = cv2.BORDER_DEFAULT)
     
+    if thresholding:
+        _, frame = cv2.threshold(frame, min_bkg, 255, cv2.THRESH_BINARY)
+
     if div_mask_limits is not None:
         ymin = div_mask_limits[0]
         ymax = div_mask_limits[1]
@@ -314,7 +329,7 @@ def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10,
     return start_points, end_points
 
     
-def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, time_vec = None):
+def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, time_vec = None, delta_time = None):
     """
     Draws arrows int othe given frame following the positions 
 
@@ -333,6 +348,8 @@ def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, ti
         The number of the current frame.
     time_vec : array. None by default.
         The real time array in seconds.
+    delta_time : int. None by default
+        The frame rate without time vec.
 
     Returns
     -------
@@ -340,22 +357,27 @@ def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, ti
         frame edited with the arrow
     """
 
-    delta_time = None
     if frame_number is not None and time_vec is not None:
         time_flag = True
         delta_time = time_vec[frame_number] - time_vec[frame_number - 1]
     else:
-        time_flag = False
+        if delta_time is None:
+            time_flag = False
+        else:
+            time_flag = True
     
+    speed_dict = dict()
+
     for p in range(0, len(start_points)):
         initial_point = start_points[p]
         final_point = end_points[p]
         if time_flag:
             disp_mod = math.dist(initial_point, final_point)
             coords = (int((final_point[0] + initial_point[0]) / 2), int((final_point[1] + initial_point[1]) / 2))
-            ins_speed = int(disp_mod / delta_time * 6.068e-3)  # displacement in pixels
+            ins_speed = int(disp_mod / delta_time)  # displacement in pixels
             frame = misc_tools.add_small_annotation(str(ins_speed), frame, coords)
+            speed_dict.update({final_point : ins_speed})
         frame = cv2.arrowedLine(frame, initial_point, final_point, (0, 255, 0), 3, 1, 0, 0.2)
 
-    return frame
+    return frame, speed_dict
 
