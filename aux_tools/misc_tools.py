@@ -15,6 +15,7 @@ Changelog:
     0.5.2 (AG): recreate_videos has been moved here. Added add_small_anotation
     0.5.3 (AG): fixed a small bug in add_small_annotation
     0.5.4 (AG): now frames are saved here.
+    0.6 (AG): added get_camera_pulse
 """
 
 import math
@@ -48,6 +49,35 @@ def get_pulse_str(pulse_id):
         pulse_str = '0' + pulse_str
         
     return pulse_str
+
+
+def get_camera_pulse(video_name):
+    """
+    Returns the camera and the JPN from a video path, assuming the naming 
+    convention for jet2video is used (KL**-****_JPN.mp4).
+
+    Parameters
+    ----------
+    video_name : str
+        The path to the video.
+    
+    Output
+    ------
+    camera : str
+        The camera name. None if could not be found.
+    JPN : int
+        The JPN. None if could not be found
+    """
+    
+    try:
+        video_path_no_ext = os.path.splitext(os.path.basename(video_name))[0]
+        camera, JPN = video_path_no_ext.split('_')
+        camera = camera.upper()
+        JPN = int(JPN)
+    except: # extremely lazy and ambigous, but there are LOTS of things that can go wrong if the format is not the same
+        return None, None
+
+    return camera, JPN
 
 
 def synchronise_video_with_time(real_time, frame, frame_number):
