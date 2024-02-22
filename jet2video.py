@@ -162,6 +162,27 @@ def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_
     return vid.tvec[start_frame : end_frame + 1]
 
 
+def get_framerate(camera, pulse):
+    """
+    Returns the frame rate of a given video. Assumes constant
+    framerate and it's obtained substracting the two initial times.
+
+    Parameters:
+    -----------
+    camera : str
+        Noramlsied camera name.
+    pulse : int
+        JPN
+    """
+
+    vid = VVideo(camera,pulse)
+
+    # Load various metadata
+    vid.load_conf()
+
+    framerate = vid.tvec[1] - vid.tvec[0]
+    return framerate
+
 
 def set_ffmpeg_path(ffmpeg_path):
     '''
