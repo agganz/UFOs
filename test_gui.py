@@ -12,6 +12,7 @@ ChangeLog
     0.2.1 (AG): Still on progress - noow it shows the frames
     0.2.2 (AG): almost functional
     0.2.3 (AG): working up to selecting keypoints
+    0.2.4 (AG): LOOOTS of fixes.
 """
 
 import sys
@@ -48,6 +49,8 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        column_names = ('Position', 'Velocity')
+        self.saved_points_table = pd.DataFrame(columns = column_names)
 
         self.setWindowTitle("JUUT")
         
@@ -81,7 +84,11 @@ class MainWindow(QMainWindow):
         self.conf_image_layout.addRow("Minimum background for frame:", self.min_bkg_image)
         self.delta_time_box = QLineEdit()
         self.conf_image_layout.addRow("Video real frame rate:", self.delta_time_box)
-
+        self.btn_keypoints = QPushButton()
+        self.btn_keypoints.setCheckable(False)
+        self.btn_keypoints.setText('Open keypoints dialog')
+        self.btn_keypoints.clicked.connect(self.keypoints_dialog)
+        
         # detecting set up
         self.conf_detect_layout = QFormLayout()
         self.det_brightness = QLineEdit()
@@ -95,10 +102,6 @@ class MainWindow(QMainWindow):
         self.conf_detect_layout.addRow("Detector convexity:", self.det_convexety)
         self.conf_detect_layout.addRow("Detector circularity:", self.det_circularity)
 
-        # Image
-       # self.frame_1 = None
-       #♠ self.frame_2 = None
-        
         
         # Add a button box
         self.btnBox = QPushButton()
@@ -145,8 +148,16 @@ class MainWindow(QMainWindow):
         if not os.path.isfile(video_name_str):
             raise FileNotFoundError('Could not locate the video file in the given path ({0})'.format(video_name_str))
         
-        gray_1 = get_frame_from_video(video_name_str, frame_number_int)
-        gray_2 = get_frame_from_video(video_name_str, 1 + frame_number_int)
+        try:
+            gray_1 = get_frame_from_video(video_name_str, frame_number_int)
+            gray_2 = get_frame_from_video(video_name_str, 1 + frame_number_int)
+        except IndexError:
+            self.show_error_message('The video does not have enough frames. Getting second to last frame')
+            max_frames = get_max_frames_from_video(video_name_str)
+            frame_number_int = max_frames - 1
+            self.frame_number.setText(str(frame_number_int))
+            gray_1 = get_frame_from_video(video_name_str, frame_number_int)
+            gray_2 = get_frame_from_video(video_name_str, 1 + frame_number_int)
 
         use_median = self.median_filt.isChecked()
         use_canny = self.canny_al.isChecked()
@@ -209,7 +220,29 @@ class MainWindow(QMainWindow):
         if self.auto_detect.isChecked():
             self.make_detection()
         
+
+    def estimate_delta_time(self):
+        """
+        Estimates the value for the delta time using functions from jet2video.
+        """
+
+        try:
+            import jet2video
+        except ModuleNotFoundError:
+            self.show_error_message('Needs to be on a Heimdall machine to execute this. Also check the Pythonpath. You might want to run start_py_juvil.sh.')
+            return None
         
+        camera, pulse = misc_tools.get_camera_pulse(self.video_filename)
+
+        if camera is None or pulse is None:
+            self.show_error_message('Could not find a proper delta time with the video filename.')
+            return None
+        else:
+            est_delta_time = jet2video.get_framerate(camera, pulse)
+            self.delta_time_box.setText(str(est_delta_time))
+            return est_delta_time
+        
+
     def go_next(self):
         """
         Moves the frame number up by one number.
@@ -252,6 +285,7 @@ class MainWindow(QMainWindow):
             minb, maxb = re.findall(r"[+]?(?:\d*\.*\d+)", brightness_det)
             params.minThreshold = int(minb)
             params.maxThreshold = int(maxb)
+
         size_det = self.det_size.text()
 
         if size_det != '':
@@ -311,11 +345,18 @@ class MainWindow(QMainWindow):
         print(keypoints_A, keypoints_B)
 
         try:
-            delta_time = int(self.delta_time_box.text())
+            delta_time = float(self.delta_time_box.text())
         except ValueError:
-            self.show_error_message('Could not read delta time. Setting it to 30.')
-            self.delta_time_box.setText('30')
-            delta_time = int(self.delta_time_box.text())
+            self.show_error_message('Could not read delta time. Will try to estimate..')
+            try:
+                est_delta_time = self.estimate_delta_time()
+            except:
+                est_delta_time = 30
+            if est_delta_time is None:
+                est_delta_time = 30
+
+            self.delta_time_box.setText(str(est_delta_time))
+            delta_time = float(self.delta_time_box.text())
 
         if len(keypoints_A) != 0 and len(keypoints_B) != 0:
             (start_points, end_points) = fast_camera_detection.filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 100, check_brightness = 0, frame_A = self.frame_1_cv2, frame_B = self.frame_2_cv2)
@@ -371,6 +412,11 @@ class MainWindow(QMainWindow):
     def show_error_message(self, message):
         """
         Shows an error message instead of crashing (I hope?)
+
+        Parameters:
+        ----------
+        message : str
+            The message to be displayed.
         """
 
         error_dialog = QMessageBox() 
@@ -391,27 +437,41 @@ class MainWindow(QMainWindow):
         keypoints_main_dialog = QDialog()
         layout_dialog = QVBoxLayout()
         keypoints_main_dialog.setLayout(layout_dialog)
-        table = QTableWidget()
-        table.setRowCount(len(data_dict))
-        table.setColumnCount(3)
-        table.setHorizontalHeaderLabels(["Keypoint", "Speed", "Action"])
 
-        # define button
-        btn_save_keypoint = QPushButton()
-        btn_save_keypoint.setCheckable(False)
-        btn_save_keypoint.setText('Save')
+        self.table = QTableWidget()
+        self.table.setRowCount(len(data_dict))
+        self.table.setColumnCount(3)
+        self.table.setHorizontalHeaderLabels(["Keypoint", "Speed", "Action"])
 
         for i, key in enumerate(data_dict):
             item_pos = QTableWidgetItem(str(key))
             item_vel = QTableWidgetItem(str(data_dict[key]))
-            table.setItem(i, 0, item_pos)
-            table.setItem(i, 1, item_vel)
-            print(data_dict)
-        #    btn_save_keypoint.clicked.connect(save_point(key, data_dict[key]))
-            table.setCellWidget(i, 2, btn_save_keypoint)
+            self.table.setItem(i, 0, item_pos)
+            self.table.setItem(i, 1, item_vel)
+            
+        self.table.cellClicked.connect(self.cellClick)
 
-        layout_dialog.addWidget(table)
+        layout_dialog.addWidget(self.table)
         keypoints_main_dialog.exec_()
+
+
+    def cellClick(self, row, col):
+        self.row = row
+        self.col = col
+        self.save_point()
+
+
+
+    def save_point(self):
+        """
+        """
+
+        print(self.table.item(self.row, self.col))
+
+        
+        column_names = ('Position', 'Velocity')
+        final_ddbb = pd.DataFrame(columns = column_names)
+        pd_speed = {'Position' : position, 'Speed' : speed}
 
 
 def cv2_to_QImage(cv2_frame):
@@ -434,6 +494,37 @@ def cv2_to_QImage(cv2_frame):
     QImg = QImage(cv2_frame.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
     
     return QImg
+
+
+def get_max_frames_from_video(path_to_video):
+    """
+    Returns the total number of frames in the video.
+
+    Parameters
+    ----------
+    path_to_video : str
+        The path to the video.
+
+    outputs
+    -------
+    frame_counter : int
+        The total number of frames.
+    """
+
+    video = cv2.VideoCapture(path_to_video)
+    frame_counter = 0
+    
+    # this is probably slower than the built-in cv2.CAP_PROP_FRAME_COUNT but seems way more reliable
+    while True:
+        ret, _ = video.read()
+        
+        if not ret:
+            break
+    
+        frame_counter = frame_counter + 1
+    
+    video.release()
+    return frame_counter
 
 
 def get_frame_from_video(path_to_video, frame_number):
@@ -459,35 +550,22 @@ def get_frame_from_video(path_to_video, frame_number):
     while True:
         ret, frame = video.read()
         
-        if ret == False:
-            break
-        
-       # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        
         if not ret:
-            break
+            video.release()
+            #  cv2.destroyAllWindows() # I have no idea why this works sometimes but hell if I care - it's out
+
+            raise IndexError
         
         if frame_counter == frame_number:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            break
+            video.release()
+             #  cv2.destroyAllWindows()
+            return frame
     
         frame_counter = frame_counter + 1
-    
-    video.release()
-  #  cv2.destroyAllWindows()
-    
-    return frame
-
-
-def save_point(position, speed):
-    column_names = ('Position', 'Velocity')
-    final_ddbb = pd.DataFrame(columns = column_names)
-    pd_speed = {'Position' : position, 'Speed' : speed}
 
 
 app = QApplication(sys.argv)
-
 window = MainWindow()
 window.show()
-
 app.exec()
