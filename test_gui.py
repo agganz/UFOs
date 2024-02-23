@@ -46,6 +46,11 @@ from PyQt5.QtWidgets import (
 
 
 class MainWindow(QMainWindow):
+    """
+    Will define the whole GUI except some table data and the error messages.
+    Those are handled separately but in the same class. Don't see the point of 
+    creating dedicated classes for just that.
+    """
 
     def __init__(self):
         super().__init__()
@@ -412,6 +417,8 @@ class MainWindow(QMainWindow):
     def show_error_message(self, message):
         """
         Shows an error message instead of crashing (I hope?)
+        TODO: try to force it out of the class broadcasting lambda functiions.
+        This is working well tho
 
         Parameters:
         ----------
@@ -456,27 +463,36 @@ class MainWindow(QMainWindow):
 
 
     def cellClick(self, row, col):
+        """
+        Get's the row and column number of the clicked cell.
+        Will also save the clicked data into a pandas dataframe.
+
+        Technically it's got more inputs, but those are gathered 
+        from the cellclicked signal. 
+        """
+
         self.row = row
         self.col = col
         self.save_point()
 
 
-
     def save_point(self):
         """
+        Once a cell is selected, it will save both the position and
+        the velocity into a pandas dataframe.
         """
-
-        print(self.table.item(self.row, self.col))
-
         
-        column_names = ('Position', 'Velocity')
-        final_ddbb = pd.DataFrame(columns = column_names)
-        pd_speed = {'Position' : position, 'Speed' : speed}
+        position = self.table.item(self.row, 0).text()
+        pos_tuple = re.findall('\d+', position)
+        position = (int(pos_tuple[0]), int(pos_tuple[1]))
+        velocity = float(self.table.item(self.row, 1).text())
+        pd_speed = {'Position' : position, 'Speed' : velocity}
 
 
 def cv2_to_QImage(cv2_frame):
     """
     Currently not used due to a bug in the cv2 installation?
+    Might be moved to aux code for the GUI, as this here is useless.
 
     Parameters
     ----------
