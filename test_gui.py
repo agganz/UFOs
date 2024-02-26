@@ -13,6 +13,8 @@ ChangeLog
     0.2.2 (AG): almost functional
     0.2.3 (AG): working up to selecting keypoints
     0.2.4 (AG): LOOOTS of fixes.
+    0.2.5 (AG): several crashes fixed, and image info is now
+        available. Also fixed the issue with the tables.
 """
 
 import sys
@@ -55,7 +57,9 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         column_names = ('Position', 'Velocity')
-        self.saved_points_table = pd.DataFrame(columns = column_names)
+
+        self.velocities_selected = []
+        self.velocity = 0.0
 
         self.setWindowTitle("JUUT")
         
@@ -179,6 +183,11 @@ class MainWindow(QMainWindow):
         misc_tools.save_frame('.', 1, self.frame_1_cv2)
         misc_tools.save_frame('.', 2, self.frame_2_cv2)
 
+        self.mean_frame_1 = np.mean(self.frame_1_cv2)
+        self.mean_frame_2 = np.mean(self.frame_2_cv2)
+        self.std_frame_1 = np.std(self.frame_1_cv2)
+        self.std_frame_2 = np.std(self.frame_2_cv2)
+
         self.frame_1 = '1.png'
         self.frame_2 = '2.png'
     
@@ -199,6 +208,17 @@ class MainWindow(QMainWindow):
         self.main_layout.addLayout(self.frame_1_layout, 0, 1)
         self.main_layout.addLayout(self.frame_2_layout, 0, 2)
         
+
+        msg_1 = 'Media: {0}. Std. dev: {1}'.format(round(self.mean_frame_1, 2), round(self.std_frame_1, 2))
+        self.im_info_1 = QLabel(msg_1, self) 
+        self.im_info_1.setText(msg_1) 
+        self.main_layout.addWidget(self.im_info_1, 1, 1)
+
+        msg_2 = 'Media: {0}. Std. dev: {1}'.format(round(self.mean_frame_2, 2), round(self.std_frame_2, 2))
+        self.im_info_2 = QLabel(msg_2, self) 
+        self.im_info_2.setText(msg_2)
+        self.main_layout.addWidget(self.im_info_2, 1, 2)
+
         # Go to next frame
         self.btn_nextframe = QPushButton()
         self.btn_nextframe.setCheckable(False)
@@ -219,6 +239,12 @@ class MainWindow(QMainWindow):
         self.btn_keypoints.setCheckable(False)
         self.btn_keypoints.setText('Open keypoints dialog')
         self.btn_keypoints.clicked.connect(self.keypoints_dialog)
+        
+        self.vel_display = QLineEdit()
+        self.vel_display.setText(str(self.velocity))
+        self.vel_display()
+        self.vel_display.setReadOnly(True)
+        self.main_layout.addWidget(self.vel_display, 3, 1)
         
         self.main_layout.addWidget(self.btn_keypoints, 3, 2)
 
@@ -412,6 +438,8 @@ class MainWindow(QMainWindow):
         
         path = QFileDialog.getOpenFileName()
         self.video_filename = path[0]
+        video_basename = os.path.basename(path[0])
+        self.video_btn.setText('Current file: {0}'.format(video_basename))
 
 
     def show_error_message(self, message):
@@ -440,7 +468,12 @@ class MainWindow(QMainWindow):
         Creates a table with the present keypoints and their speed.
         """
 
-        data_dict = self.speed_dict
+        try:
+            data_dict = self.speed_dict
+        except AttributeError:
+            self.show_error_message('There are no keypoints available.')
+            data_dict = dict()
+
         keypoints_main_dialog = QDialog()
         layout_dialog = QVBoxLayout()
         keypoints_main_dialog.setLayout(layout_dialog)
@@ -486,7 +519,9 @@ class MainWindow(QMainWindow):
         pos_tuple = re.findall('\d+', position)
         position = (int(pos_tuple[0]), int(pos_tuple[1]))
         velocity = float(self.table.item(self.row, 1).text())
-        pd_speed = {'Position' : position, 'Speed' : velocity}
+        self.velocities_selected.append(velocity)
+        self.velocity = np.mean(self.velocities_selected)
+        self.vel_display.setText(str(self.velocity))
 
 
 def cv2_to_QImage(cv2_frame):
