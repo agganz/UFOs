@@ -10,8 +10,8 @@ ChangeLog
     0.1 (AG): First version (GIT)
     0.2 (AG): Added pulse search; changed function arguments.
     0.2.1 (AG): Still on progress - noow it shows the frames
-    0.2.2 (AG): almost functional
-    0.2.3 (AG): working up to selecting keypoints
+    0.2.2 (AG): almost functional.
+    0.2.3 (AG): working up to selecting keypoints. This might take a while.
     0.2.4 (AG): LOOOTS of fixes.
     0.2.5 (AG): several crashes fixed, and image info is now
         available. Also fixed the issue with the tables.
@@ -21,7 +21,6 @@ import sys
 import cv2
 import os
 import numpy as np
-import pandas as pd
 import re
 import fast_camera_detection
 from aux_tools import misc_tools
@@ -56,7 +55,6 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        column_names = ('Position', 'Velocity')
 
         self.velocities_selected = []
         self.velocity = 0.0
@@ -242,7 +240,7 @@ class MainWindow(QMainWindow):
         
         self.vel_display = QLineEdit()
         self.vel_display.setText(str(self.velocity))
-        self.vel_display()
+        # TODO quick fix to add label
         self.vel_display.setReadOnly(True)
         self.main_layout.addWidget(self.vel_display, 3, 1)
         
@@ -346,6 +344,7 @@ class MainWindow(QMainWindow):
             params.filterByConvexity = False
             
         circularity_det = self.det_circularity.text()
+
         if circularity_det != '':
             params.filterByCircularity = True
             min_circularity, max_circularity = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
@@ -355,7 +354,6 @@ class MainWindow(QMainWindow):
             params.filterByCircularity = False
 
         params.minRepeatability = 2
-        
         detector = cv2.SimpleBlobDetector_create(params)
             
         return detector
@@ -370,10 +368,8 @@ class MainWindow(QMainWindow):
         self.detector = self.define_detector()
         keypoints_A = self.detector.detect(self.frame_1_cv2)
         keypoints_B = self.detector.detect(self.frame_2_cv2)
-        
         self.im_with_keypoints_A = cv2.drawKeypoints(self.frame_1_cv2, keypoints_A, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         self.im_with_keypoints_B = cv2.drawKeypoints(self.frame_1_cv2, keypoints_B, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-        print(keypoints_A, keypoints_B)
 
         try:
             delta_time = float(self.delta_time_box.text())
@@ -409,9 +405,7 @@ class MainWindow(QMainWindow):
 
         self.frame_1 = '1.png'
         self.frame_2 = '2.png'
-        
-        print('max', np.max(self.frame_1_cv2))
-    
+            
         self.frame_1_layout = QVBoxLayout()
         self.frame_2_layout = QVBoxLayout()
         
@@ -475,13 +469,14 @@ class MainWindow(QMainWindow):
             data_dict = dict()
 
         keypoints_main_dialog = QDialog()
+        keypoints_main_dialog.setWindowTitle('JUUT - Keypoints')
         layout_dialog = QVBoxLayout()
         keypoints_main_dialog.setLayout(layout_dialog)
 
         self.table = QTableWidget()
         self.table.setRowCount(len(data_dict))
-        self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderLabels(["Keypoint", "Speed", "Action"])
+        self.table.setColumnCount(2)
+        self.table.setHorizontalHeaderLabels(["Keypoint", "Speed (pix/s)"])
 
         for i, key in enumerate(data_dict):
             item_pos = QTableWidgetItem(str(key))
