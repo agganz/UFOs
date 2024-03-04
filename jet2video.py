@@ -180,7 +180,7 @@ def get_framerate(camera, pulse):
     # Load various metadata
     vid.load_conf()
 
-    framerate = vid.tvec[1] - vid.tvec[0]
+    framerate = vid.tvec[2] - vid.tvec[1]
     return framerate
 
 
