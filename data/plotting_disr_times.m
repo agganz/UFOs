@@ -21,8 +21,8 @@ for i = 1 : length(unique_pulses)
         continue
     end
     ufo_time = data_table.Time(row_ind);
-    scatter(i, disr_time, 'red');
-    scatter(i, ufo_time, 'blue');
+    scatter(i, disr_time, 'red', 'filled');
+    scatter(i, ufo_time, 'blue', 'filled');
 end
 hold off
 
