@@ -10,6 +10,7 @@ ChangeLog
     0.1.1 (AG): Bug fixing shenanigans
     0.1.2 (AG): added two extra experimental cameras
     0.1.3 (AG): bug fixing checking the 8th octant
+    0.2 (AG): fixed a bug related to the time vector max value.
 """
 
 import pandas as pd
@@ -52,7 +53,7 @@ def create_ddbb_from_op_cameras():
                 continue
             vid.load_conf()
             try:
-                if vid.tvec[0] <= time_range[0] and vid.tvec[1] <= time_range[1]:
+                if vid.tvec[0] <= time_range[0] and time_range[1] <= vid.tvec[1]:
                     continue
                 else:
                 # adds configuration to the dataframe
