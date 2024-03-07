@@ -176,7 +176,7 @@ class MainWindow(QMainWindow):
         except ValueError:
             min_bkg_im = int(np.mean(gray_1))
             
-        self.frame_1_cv2 = fast_camera_detection.adjust_frame(gray_1, canny_al = use_canny, median_al = use_median, LoG = use_LoG,  min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
+        self.frame_1_cv2 = fast_camera_detection.adjust_frame(gray_1, canny_al = use_canny, median_al = use_median, LoG = use_LoG, min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
         self.frame_2_cv2 = fast_camera_detection.adjust_frame(gray_2, canny_al = use_canny, median_al = use_median, LoG = use_LoG, min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
         misc_tools.save_frame('.', 1, self.frame_1_cv2)
         misc_tools.save_frame('.', 2, self.frame_2_cv2)
@@ -207,12 +207,12 @@ class MainWindow(QMainWindow):
         self.main_layout.addLayout(self.frame_2_layout, 0, 2)
         
 
-        msg_1 = 'Media: {0}. Std. dev: {1}'.format(round(self.mean_frame_1, 2), round(self.std_frame_1, 2))
+        msg_1 = 'Mean: {0}. Std. dev: {1}'.format(round(self.mean_frame_1, 2), round(self.std_frame_1, 2))
         self.im_info_1 = QLabel(msg_1, self) 
         self.im_info_1.setText(msg_1) 
         self.main_layout.addWidget(self.im_info_1, 1, 1)
 
-        msg_2 = 'Media: {0}. Std. dev: {1}'.format(round(self.mean_frame_2, 2), round(self.std_frame_2, 2))
+        msg_2 = 'Mean: {0}. Std. dev: {1}'.format(round(self.mean_frame_2, 2), round(self.std_frame_2, 2))
         self.im_info_2 = QLabel(msg_2, self) 
         self.im_info_2.setText(msg_2)
         self.main_layout.addWidget(self.im_info_2, 1, 2)
@@ -369,7 +369,7 @@ class MainWindow(QMainWindow):
         keypoints_A = self.detector.detect(self.frame_1_cv2)
         keypoints_B = self.detector.detect(self.frame_2_cv2)
         self.im_with_keypoints_A = cv2.drawKeypoints(self.frame_1_cv2, keypoints_A, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-        self.im_with_keypoints_B = cv2.drawKeypoints(self.frame_1_cv2, keypoints_B, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+        self.im_with_keypoints_B = cv2.drawKeypoints(self.frame_2_cv2, keypoints_B, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
         try:
             delta_time = float(self.delta_time_box.text())
