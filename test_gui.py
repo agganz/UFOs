@@ -386,11 +386,11 @@ class MainWindow(QMainWindow):
             delta_time = float(self.delta_time_box.text())
 
         if len(keypoints_A) != 0 and len(keypoints_B) != 0:
-            (start_points, end_points) = fast_camera_detection.filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 100, check_brightness = 0, frame_A = self.frame_1_cv2, frame_B = self.frame_2_cv2)
+            (start_points, end_points) = fast_camera_detection.filter_points_with_distance_matrix(keypoints_B, keypoints_A, threshold = 100, check_brightness = 0, frame_A = self.frame_2_cv2, frame_B = self.frame_1_cv2)
             if start_points is None:
                 pass
             else:
-                self.im_with_keypoints_A, self.speed_dict = fast_camera_detection.draw_arrow_in_frame(self.im_with_keypoints_A, start_points, end_points, frame_number = None, time_vec = None, delta_time = delta_time)
+                self.im_with_keypoints_B, self.speed_dict = fast_camera_detection.draw_arrow_in_frame(self.im_with_keypoints_B, start_points, end_points, frame_number = None, time_vec = None, delta_time = delta_time)
             
         self.refresh_image_detection()
         
