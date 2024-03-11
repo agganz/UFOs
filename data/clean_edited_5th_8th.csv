@@ -163,9 +163,9 @@ Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s a
 158,99643,KLDT-O5WB,48.12607,KLDT-E5WC,0,Frame 252-257,,
 159,99643,KLDT-O5WB,48.12607,KLDT-E5WD,0,Frame 252-257,,
 160,99643,KLDT-O5WB,48.12607,KLDT-E5WE,0,Frame 252-257,,
-161,99640,KLDT-O5WB,46.2,KLDT-E5WC,46.377,Frames: 208-211,,
-162,99640,KLDT-O5WB,46.2,KLDT-E5WD,46.377,Frames: 208-211,,
-163,99640,KLDT-O5WB,46.2,KLDT-E5WE,46.377,Frames: 208-211,,
+161,99640,KLDT-O5WB,46.2,KLDT-E5WC,46.377,Frames: 208-211,0,"Bunch of UFOs, almost impossible to track down"
+162,99640,KLDT-O5WB,46.2,KLDT-E5WD,46.377,Frames: 208-211,0,"Bunch of UFOs, almost impossible to track down"
+163,99640,KLDT-O5WB,46.2,KLDT-E5WE,46.377,Frames: 208-211,0,"Bunch of UFOs, almost impossible to track down"
 164,99630,KLDT-O5WB,52.31259,KLDT-E5WC,0,Several UFOs in divertor,,
 165,99630,KLDT-O5WB,52.31259,KLDT-E5WD,0,Several UFOs in divertor,,
 166,99630,KLDT-O5WB,52.31259,KLDT-E5WE,0,Several UFOs in divertor,,
@@ -344,8 +344,8 @@ Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s a
 341,98793,KLDT-O5WB,50.0645,KLDT-E5WC,49.953,Many blue UFOs flying around at the disruption. Corroborated by KLDT-E5WD with the Be II filter.,,
 342,98793,KLDT-O5WB,50.0645,KLDT-E5WD,49.953,Many blue UFOs flying around at the disruption. Corroborated by KLDT-E5WD with the Be II filter.,,
 343,98793,KLDT-O5WB,50.0645,KLDT-E5WE,49.953,Many blue UFOs flying around at the disruption. Corroborated by KLDT-E5WD with the Be II filter.,,
-344,98786,KLDT-O5WB,57.53,KLDT-E5WC,57.531,Big UFO near mushrooms over 4D outer limiter (2 frames).,,
-345,98786,KLDT-O5WB,57.53,KLDT-E5WD,57.531,Big UFO near mushrooms over 4D outer limiter (2 frames).,,
+344,98786,KLDT-O5WB,57.53,KLDT-E5WC,57.531,Big UFO near mushrooms over 4D outer limiter (2 frames).,6134.5,"Causes disruption. Another object seems to fall as well. Measured the speed of the first, which appears at (65, 15)"
+345,98786,KLDT-O5WB,57.53,KLDT-E5WD,57.531,Big UFO near mushrooms over 4D outer limiter (2 frames).,6134.5,"Causes disruption. Another object seems to fall as well. Measured the speed of the first, which appears at (65, 15)"
 346,98586,KLDT-O5WB,55.5349,KLDT-E5WD,0,UFO during termination.,,
 347,98586,KLDT-O5WB,55.5349,KLDT-E5WE,0,UFO during termination.,,
 348,98570,KLDT-O5WB,49.322,KLDT-E5WD,0,Small blue UFO on the divertor also visible in KLDT-E5WD at frame 818 and 823,,
@@ -733,9 +733,9 @@ saw nothing at that time.",,
 727,96820,KLDT-O5WB,51.57034,KLDT-E5WC,53.162,Bright flash on outer wall. Numerous other hotspots on ops cam during pulse.,,
 728,96820,KLDT-O5WB,51.57034,KLDT-E5WD,53.162,Bright flash on outer wall. Numerous other hotspots on ops cam during pulse.,,
 729,96820,KLDT-O5WB,51.57034,KLDT-E5WE,53.162,Bright flash on outer wall. Numerous other hotspots on ops cam during pulse.,,
-730,96818,KLDT-O5WB,43.74,KLDT-E5WC,43.744,"Blue-ish shades and UFOs soon after, just before end of the pulse. Also seen on KLDT-E5WD.",,
-731,96818,KLDT-O5WB,43.74,KLDT-E5WD,43.744,"Blue-ish shades and UFOs soon after, just before end of the pulse. Also seen on KLDT-E5WD.",,
-732,96818,KLDT-O5WB,43.74,KLDT-E5WE,43.744,"Blue-ish shades and UFOs soon after, just before end of the pulse. Also seen on KLDT-E5WD.",,
+730,96818,KLDT-O5WB,43.74,KLDT-E5WC,43.744,"Blue-ish shades and UFOs soon after, just before end of the pulse. Also seen on KLDT-E5WD.",0,"There is an UFO, but doesn’t seem to move"
+731,96818,KLDT-O5WB,43.74,KLDT-E5WD,43.744,"Blue-ish shades and UFOs soon after, just before end of the pulse. Also seen on KLDT-E5WD.",0,"There is an UFO, but doesn’t seem to move"
+732,96818,KLDT-O5WB,43.74,KLDT-E5WE,43.744,"Blue-ish shades and UFOs soon after, just before end of the pulse. Also seen on KLDT-E5WD.",0,"There is an UFO, but doesn’t seem to move"
 733,96817,KLDT-O5WB,42.69,KLDT-E5WC,0,From outer wall.,,
 734,96817,KLDT-O5WB,42.69,KLDT-E5WD,0,From outer wall.,,
 735,96817,KLDT-O5WB,42.69,KLDT-E5WE,0,From outer wall.,,
@@ -930,9 +930,7 @@ saw nothing at that time.",,
 927,96175,KLDT-O5WB,51.42947,KLDT-E5WC,59.8,Two UFO's (two lights seen on REION4?) and also seen at KLDT- P5WA and KLDT-E5WD,,
 928,96175,KLDT-O5WB,51.42947,KLDT-E5WD,59.8,Two UFO's (two lights seen on REION4?) and also seen at KLDT- P5WA and KLDT-E5WD,,
 929,96175,KLDT-O5WB,51.42947,KLDT-E5WE,59.8,Two UFO's (two lights seen on REION4?) and also seen at KLDT- P5WA and KLDT-E5WD,,
-930,96125,KLDT-O5WB,63.04422,KLDT-E5WC,63.056,UFOs before disruption frame 625-626,,
-931,96125,KLDT-O5WB,63.04422,KLDT-E5WD,63.056,UFOs before disruption frame 625-626,,
-932,96125,KLDT-O5WB,63.04422,KLDT-E5WE,63.056,UFOs before disruption frame 625-626,,
+932,96125,KLDT-O5WB,63.04422,KLDT-E5WE,63.056,UFOs before disruption frame 625-626,3810,Moves in various directions. Seen in KLDT-E5WD
 933,96124,KLDT-O5WB,63.2587,KLDT-E5WC,0,"UFOs before disruption, frame 630",,
 934,96124,KLDT-O5WB,63.2587,KLDT-E5WD,0,"UFOs before disruption, frame 630",,
 935,96124,KLDT-O5WB,63.2587,KLDT-E5WE,0,"UFOs before disruption, frame 630",,
@@ -2200,12 +2198,12 @@ but not on the protection camera)",,
 2162,94515,KL1-O8WA,51.1,KL7-E8WB,51.047,Cloud of slow-moving particles expelled from the outer wall,,
 2163,90932,KL1-O8WA,59.765,KL7-E8WB,0,Dust events (frames 1292-1298),,
 2164,89870,KL1-O8WA,50.628,KL7-E8WB,50.445,Various UFOs visible on KL7 after disruption.,,
-2165,103559,KL1-O8WA,50.22336,KL7-E8WB,50.551,"Bouncing UFO, also something visible on KL7-P8WA camera.",,
+2165,103559,KL1-O8WA,50.22336,KL7-E8WB,50.551,"Bouncing UFO, also something visible on KL7-P8WA camera.",1929,It simply bounces towards the divertor.
 2166,103127,KL1-O8WA,48.905,KL7-E8WB,0,"UFO/droplet spotted, dropping across four frames",,
 2167,103063,KL1-O8WA,48.86963,KL7-E8WB,0,UFOs at 48.86963s & 48.99636s,,
 2169,102608,KL1-O8WA,48.38537,KL7-E8WB,0,UFO falling over a few frames. Moves too fast for a falling droplet. Probably just dust/debris,,
-2170,101432,KL1-O8WA,51.699,KL8-E8WA,55.845,"Large flash from UFO, also visible on KL1-08WA",,
-2171,101282,KL1-O8WA,63.87473,KL7-E8WB,0,Large UFO falls from near upper inner sausages,,
+2170,101432,KL1-O8WA,51.699,KL8-E8WA,55.845,"Large flash from UFO, also visible on KL1-08WA",4927.1,Literally beautiful tracking
+2171,101282,KL1-O8WA,63.87473,KL7-E8WB,0,Large UFO falls from near upper inner sausages,4291.5,Nice tracking of the big one.
 2172,99910,KLDT-O5WB,54.612,KLDT-E5WD,0,A lot of particles mOn the termination a lot of UFOs . E5WD seems to be the most sensitive camera showing many UFOs throughout the pulse.,,
 2173,99910,KLDT-O5WB,50.712,KLDT-E5WD,0,"A lot of particles seen coming from the beam duct area in the pulse.
 E5WD seems to be the most sensitive camera showing many UFOs throughout the pulse.",,
@@ -2219,9 +2217,9 @@ E5WD seems to be the most sensitive camera showing many UFOs throughout the puls
 2180,99874,KLDT-O5WB,42.1125,KLDT-E5WD,47.281,"Still quite a lot of UFOs in this pulse (here onwards), still MARFE and disruption.",,
 2181,99865,KLDT-O5WB,41.575,KLDT-E5WD,0,"Particles in the divertor for ~15 frames, followed by MARFE",,
 2182,99817,KLDT-O5WB,52.9875,KLDT-E5WD,52.957,Frame: 1118-1129. Divertor region after disruption,,
-2183,99811,KLDT-O5WB,55.512,KLDT-E5WD,55.52,Frames: 1320-1347 (Inner side during the termination phase),,
-2184,99802,KLDT-O5WB,47.4125,KLDT-E5WD,49.021,Very bright UFO. Note this camera has Be filter.,,
-2185,99802,KLDT-O5WB,48.0875,KLDT-E5WD,49.021,Very bright UFO falling vertically. Apparently the cause of radiation spike.,,
+2183,99811,KLDT-O5WB,55.512,KLDT-E5WD,55.52,Frames: 1320-1347 (Inner side during the termination phase),-999,Massive cloud of UFOs
+2184,99802,KLDT-O5WB,47.4125,KLDT-E5WD,49.021,Very bright UFO. Note this camera has Be filter.,0,Doesn’t move in any camera
+2185,99802,KLDT-O5WB,48.0875,KLDT-E5WD,49.021,Very bright UFO falling vertically. Apparently the cause of radiation spike.,7121,"From small to very, very bright"
 2186,99797,KLDT-O5WB,51.863,KLDT-E5WC,51.72,A second UFO coming in from the left.,,
 2187,99797,KLDT-O5WB,51.806,KLDT-E5WC,51.72,UFO coming in from the left.,,
 2188,99778,KLDT-O5WB,53.3375,KLDT-E5WD,53.287,Lots UFOs during disruption flying around the vessel (also KLDT- E5WE).,,
@@ -2244,7 +2242,8 @@ E5WD seems to be the most sensitive camera showing many UFOs throughout the puls
 2205,99542,KLDT-O5WB,47.4083,KLDT-E5WE,0,Between 47.4083s to 47.9 small UFOs at the divertor,,
 2206,99516,KLDT-O5WB,42.2,KLDT-E5WD,0,"Spray over several frames. This is the same event as logged on the Ops Cam, but for some reason it appears 100 ms earlier.",,
 2208,99516,KLDT-O5WB,41.7375,KLDT-E5WD,0,UFO on frames 217-8. Not visible on Protection camera.,,
-2209,99513,KLDT-O5WB,50.8875,KLDT-E5WD,51.659,Something seems to drop at the top of the LH (but it is not seen in any other cam),,
+2209,99513,KLDT-O5WB,50.8875,KLDT-E5WD,51.659,Something seems to drop at the top of the LH (but it is not seen in any other cam),0,It simply appears. There is another one at 50.2
+,99513,KLDT-O5WB,50.3,KLDT-E5WD,51.689,Taken from the one above,0,It simply appears. There is another one at 50.2
 2210,99457,KLDT-O5WB,49.4191,KLDT-E5WE,0,Cleaning pulse,,
 2211,99457,KLDT-O5WB,49.3446,KLDT-E5WE,0,Cleaning pulse,,
 2212,99457,KLDT-O5WB,49.116,KLDT-E5WE,0,Cleaning pulse,,
@@ -2268,8 +2267,6 @@ E5WD seems to be the most sensitive camera showing many UFOs throughout the puls
 2230,99331,KLDT-O5WB,41.46,KLDT-E5WD,0,Small UFOs on the divertor lasting several frames.,,
 2231,99226,KLDT-O5WB,57.469,KLDT-E5WE,0,A number of small blue and white glowing rats can be seen running along the railway tracks on the inboard side.,,
 2232,99205,KLDT-O5WB,48.76,KLDT-E5WD,48.945,UFOs.No clear from spettroscopy if this is berillium.,,
-2233,98786,KLDT-O5WB,57.453,KLDT-E5WC,57.531,2 consecutive UFOs coming from mushrooms area over 4D outer limiter until 57.547 secs.,,
-2234,98786,KLDT-O5WB,57.45,KLDT-E5WD,57.531,2 consecutive UFOs coming from mushrooms area over 4D outer limiter (9 frames).,,
 2235,98548,KLDT-O5WB,51.316,KLDT-E5WB,0,,,
 2236,98143,KLDT-O5WB,41.246,KLDT-E5WE,0,UFO from BEION during breakdown. Bright flash on visible cameras and breaks into multiple pieces.,,
 2237,97823,KLDT-O5WB,42.05,KLDT-E5WD,0,"Almost continuous stream of UFOs flying toroidally above the divertor for roughly 1.5 s, ending with a big one bouncing off from the outer divertor and splitting in several pieces at 43.46 s; last one also seen by KLDT-O5WB and faintly by KLDT-P5WA",,
@@ -2298,7 +2295,7 @@ and KLDT-P5TB; another similarish shower of UFOs seen after 45.85 s;",,
 49.9 seconds.",,
 2261,96799,KLDT-O5WB,50.455,KLDT-E5WC,50.986,"Slow-moving UFO of unknown origin right in front of mirror box, BEFORE disruption.",,
 2262,96788,KLDT-O5WB,50.42,KLDT-E5WC,50.075,Still some UFOs from 4B but fewer than in 96782. UFOs also seen in KL7E8WB.,,
-2263,96782,KLDT-O5WB,50.07,KLDT-E5WC,50.073,Snow of UFOs (some of them very big) after the disruption,,
+2263,96782,KLDT-O5WB,50.07,KLDT-E5WC,50.073,Snow of UFOs (some of them very big) after the disruption,0,Pretty much untrackable (11-03). Might as well discard all E5WC?
 2264,96777,KLDT-O5WB,47.0074,KLDT-E5WE,0,"Bits coming off limiter 4D again, also seen by op cam.",,
 2265,96559,KLDT-O5WB,41.7125,KLDT-E5WD,0,Lots of Be bits flying around early in the pulse.,,
 2266,96361,KLDT-O5WB,54.85,KLDT-E5WD,56.096,Apparently material coming out of the lower corner of ILA --> Be signal in spectroscopy observed as well,,
