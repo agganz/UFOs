@@ -9,6 +9,7 @@
 % Changelog:
 %	0.1 (AG): first version.
 %   0.2 (AG): new plots with better labeling
+%   0.2.1 (AG): updated labels
 
 data_table = importfile('clean_edited_5th_8th.csv');
 unique_pulses = unique(data_table.Pulse);
@@ -57,7 +58,9 @@ xlim([1, length(unique_pulses)])
 
 legend()
 hold off
-
+ylabel('Time (s)')
+xlabel('Pulse counter')
+title('Time of TIE and disruption occurrences')
 nexttile
 % Comparing times
 bar(list_disr_time)
@@ -65,7 +68,9 @@ msg1 = strcat("Pulsos con disrupciones: ", num2str(total_pulses - count_no_disr)
 disp(msg1)
 disp(strcat("Total pulses: ", num2str(total_pulses)))
 xlim([1, length(unique_pulses)])
-
+ylabel('Time (s)')
+xlabel('Pulse counter')
+title('Time difference between TIE and disruption')
 
 
 function cleanedited5th8th = importfile(filename, dataLines)
