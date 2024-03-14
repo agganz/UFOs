@@ -159,6 +159,6 @@ def increase_contrast_brightness_gray(gray_image, contrast_inc, brightness_int):
     """
     
     new_image = gray_image * contrast_inc + brightness_int
-    new_image = new_image.astype('float32')
+    new_image = new_image.astype('uint8')
     
     return new_image
