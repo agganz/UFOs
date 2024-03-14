@@ -15,6 +15,7 @@ ChangeLog
     0.2.4 (AG): LOOOTS of fixes.
     0.2.5 (AG): several crashes fixed, and image info is now
         available. Also fixed the issue with the tables.
+    0.3 (AG): now contrast and brightness can be enhanced.
 """
 
 import sys
@@ -24,6 +25,7 @@ import numpy as np
 import re
 import fast_camera_detection
 from aux_tools import misc_tools
+from aux_tools import simple_image_editor
 
 # QT5 stuff
 from PyQt5.QtGui import QPixmap, QImage
@@ -91,6 +93,11 @@ class MainWindow(QMainWindow):
         self.conf_image_layout.addRow("Minimum background for frame:", self.min_bkg_image)
         self.delta_time_box = QLineEdit()
         self.conf_image_layout.addRow("Video real frame rate:", self.delta_time_box)
+
+        self.contrast_and_brightness = QLineEdit()
+        self.conf_image_layout.addRow('Enhance image as contrast-brightness:', self.contrast_and_brightness)
+        self.contrast_and_brightness.setText('1-0')
+
         self.btn_keypoints = QPushButton()
         self.btn_keypoints.setCheckable(False)
         self.btn_keypoints.setText('Open keypoints dialog')
@@ -176,8 +183,17 @@ class MainWindow(QMainWindow):
         except ValueError:
             min_bkg_im = int(np.mean(gray_1))
             
+
+        text_enhance = self.contrast_and_brightness.text()
+        extra_contrast, extra_brightness = re.findall(r"[+]?(?:\d*\.*\d+)", text_enhance)
+        extra_contrast = float(extra_contrast)
+        extra_brightness = int(extra_brightness)
+        
+        gray_1 = simple_image_editor.increase_contrast_brightness_gray(gray_1, extra_contrast, extra_brightness)
+        gray_2 = simple_image_editor.increase_contrast_brightness_gray(gray_2, extra_contrast, extra_brightness)
         self.frame_1_cv2 = fast_camera_detection.adjust_frame(gray_1, canny_al = use_canny, median_al = use_median, LoG = use_LoG, min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
         self.frame_2_cv2 = fast_camera_detection.adjust_frame(gray_2, canny_al = use_canny, median_al = use_median, LoG = use_LoG, min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
+        
         misc_tools.save_frame('.', 1, self.frame_1_cv2)
         misc_tools.save_frame('.', 2, self.frame_2_cv2)
 
@@ -609,7 +625,6 @@ def get_frame_from_video(path_to_video, frame_number):
             return frame
     
         frame_counter = frame_counter + 1
-
 
 app = QApplication(sys.argv)
 window = MainWindow()
