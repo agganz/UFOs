@@ -302,8 +302,8 @@ class MainWindow(QMainWindow):
         If possible, will try to connect the keypoints.
         """
         
-        self.im_with_keypoints_A, keypoints_A = fast_camera_countours.get_detected_shapes(self.frame_1_cv2)
-        self.im_with_keypoints_B, keypoints_B = fast_camera_countours.get_detected_shapes(self.frame_2_cv2)
+        self.im_with_keypoints_A, self.keypoints_A = fast_camera_countours.get_detected_shapes(self.frame_1_cv2)
+        self.im_with_keypoints_B, self.keypoints_B = fast_camera_countours.get_detected_shapes(self.frame_2_cv2)
 
         try:
             delta_time = float(self.delta_time_box.text())
@@ -319,8 +319,8 @@ class MainWindow(QMainWindow):
             self.delta_time_box.setText(str(est_delta_time))
             delta_time = float(self.delta_time_box.text())
 
-        if len(keypoints_A) != 0 and len(keypoints_B) != 0:
-            (start_points, end_points) = fast_camera_countours.filter_points_with_distance_matrix(keypoints_B, keypoints_A, threshold = 100)
+        if len(self.keypoints_A) != 0 and len(self.keypoints_B) != 0:
+            (start_points, end_points) = fast_camera_countours.filter_points_with_distance_matrix(self.keypoints_B, self.keypoints_A, threshold = 100)
             if start_points is None or len(start_points) == 0:
                 pass
             else:
@@ -423,6 +423,44 @@ class MainWindow(QMainWindow):
         layout_dialog.addWidget(self.table)
         keypoints_main_dialog.exec_()
 
+
+    def keypoints_dialog_rework(self):
+        """
+        Creates a table with the present keypoints and their speed.
+        """
+
+        try:
+            data_dict = self.speed_dict
+        except AttributeError:
+            self.show_error_message('There are no keypoints available.')
+            data_dict = dict()
+
+        if len(self.keypoints_A) > len(self.keypoints_B):
+            n_rows = len(self.keypoints_A)
+        else:
+            n_rows = len(self.keypoints_B)
+
+        keypoints_main_dialog = QDialog()
+        keypoints_main_dialog.setWindowTitle('JUUT - Keypoints')
+        layout_dialog = QVBoxLayout()
+        keypoints_main_dialog.setLayout(layout_dialog)
+
+        
+        self.table = QTableWidget()
+        self.table.setRowCount(n_rows)
+        self.table.setColumnCount(2)
+        self.table.setHorizontalHeaderLabels(["Keypoint", "Speed (pix/s)"])
+
+        for i in range(n_rows):
+            item_A = QTableWidgetItem(str(self.keypoints_A[i]))
+            item_B = QTableWidgetItem(str(self.keypoints_B[i]))
+            self.table.setItem(i, 0, item_A)
+            self.table.setItem(i, 1, item_B)
+            
+        self.table.cellClicked.connect(self.cellClick)
+
+        layout_dialog.addWidget(self.table)
+        keypoints_main_dialog.exec_()
 
     def cellClick(self, row, col):
         """
