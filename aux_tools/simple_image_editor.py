@@ -7,7 +7,8 @@ Created on Thu Nov 30 12:05:58 2023
 Contains tools for easy and simple image modification
 
 ChangeLog:
-    V.- 0.1 (AG): First version
+    0.1 (AG): First version
+    0.2 (AG): added increase_contrast_image_gray
 """
 
 import cv2
@@ -135,3 +136,29 @@ def increase_contrast_brightness_RGB(RGB_image, contrast_inc, brightness_int):
     return new_image
 
 
+def increase_contrast_brightness_gray(gray_image, contrast_inc, brightness_int):
+    """
+    Changes the contrast and brightness of an grayscale image using the simple 
+    formula f' = f * contrast_int + brightness_int.
+    
+    This is not compatible with HSV/other bases.
+
+    Parameters
+    ----------
+    gray_image : ndarray -- image
+        The image to be modify -- either in grayscale or in RGB format.
+    contrast_inc : float
+        The contrast increase.
+    brightness_int : float
+        The brightness increase.
+
+    Returns
+    -------
+    new_image : ndarray -- image
+        The edited image.
+    """
+    
+    new_image = gray_image * contrast_inc + brightness_int
+    new_image = new_image.astype('uint8')
+    
+    return new_image

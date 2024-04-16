@@ -15,7 +15,6 @@ ChangeLog
     0.2.4 (AG): LOOOTS of fixes.
     0.2.5 (AG): several crashes fixed, and image info is now
         available. Also fixed the issue with the tables.
-    0.3 (AG): now contrast and brightness can be enhanced.
 """
 
 import sys
@@ -26,6 +25,7 @@ import re
 import fast_camera_detection
 from aux_tools import misc_tools
 from aux_tools import simple_image_editor
+import fast_camera_countours
 
 # QT5 stuff
 from PyQt5.QtGui import QPixmap, QImage
@@ -105,17 +105,6 @@ class MainWindow(QMainWindow):
         
         # detecting set up
         self.conf_detect_layout = QFormLayout()
-        self.det_brightness = QLineEdit()
-        self.det_inertia = QLineEdit()
-        self.det_convexety = QLineEdit()
-        self.det_size = QLineEdit()
-        self.det_circularity = QLineEdit()
-        self.conf_detect_layout.addRow("Detector brightness:", self.det_brightness)
-        self.conf_detect_layout.addRow("Detector size:", self.det_size)
-        self.conf_detect_layout.addRow("Detector inertia:", self.det_inertia)
-        self.conf_detect_layout.addRow("Detector convexity:", self.det_convexety)
-        self.conf_detect_layout.addRow("Detector circularity:", self.det_circularity)
-
         
         # Add a button box
         self.btnBox = QPushButton()
@@ -191,6 +180,7 @@ class MainWindow(QMainWindow):
         
         gray_1 = simple_image_editor.increase_contrast_brightness_gray(gray_1, extra_contrast, extra_brightness)
         gray_2 = simple_image_editor.increase_contrast_brightness_gray(gray_2, extra_contrast, extra_brightness)
+
         self.frame_1_cv2 = fast_camera_detection.adjust_frame(gray_1, canny_al = use_canny, median_al = use_median, LoG = use_LoG, min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
         self.frame_2_cv2 = fast_camera_detection.adjust_frame(gray_2, canny_al = use_canny, median_al = use_median, LoG = use_LoG, min_bkg = min_bkg_im, thresholding = use_threshold, div_mask_limits = None)
         
@@ -304,75 +294,6 @@ class MainWindow(QMainWindow):
 
         self.frame_number.setText(str(int(self.frame_number.text()) - 1))
         self.get_image_when_clicked()
-        
-        
-    def define_detector(self):
-        """
-        Defines the detector parameters for creating a blob detector.
-
-        Returns
-        -------
-        detector : cv2.detector type
-            The detector with the new parameters.
-        """
-        
-        params = cv2.SimpleBlobDetector_Params()
-
-        brightness_det = self.det_brightness.text()
-        if brightness_det != '':
-            minb, maxb = re.findall(r"[+]?(?:\d*\.*\d+)", brightness_det)
-            params.minThreshold = int(minb)
-            params.maxThreshold = int(maxb)
-        else:
-            self.show_error_message('At least the detector brightness must be specified. Default value will be set.')
-            self.det_brightness.setText('40-255')
-            brightness_det = self.det_brightness.text()
-            minb, maxb = re.findall(r"[+]?(?:\d*\.*\d+)", brightness_det)
-            params.minThreshold = int(minb)
-            params.maxThreshold = int(maxb)
-
-        size_det = self.det_size.text()
-
-        if size_det != '':
-            params.filterByArea = True
-            min_size, max_size = re.findall(r"[+]?(?:\d*\.*\d+)", size_det)
-            params.minArea = int(min_size)
-            params.maxArea = int(max_size)
-        else:
-            params.filterByArea = False
-            
-        inertia_det = self.det_inertia.text()
-        if inertia_det != '':
-            params.filterByInertia = True
-            min_inertia, max_inertia = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
-            params.minInertiaRatio = float(min_inertia)
-            params.maxInertiaRatio = float(max_inertia)
-        else:
-            params.filterByArea = False
-        
-        convexity_det = self.det_convexety.text()
-        if convexity_det != '':
-            params.filterByConvexity = True
-            min_convexity, max_convexity = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
-            params.minConvexity = float(min_convexity)
-            params.maxConvexity = float(max_convexity)
-        else:
-            params.filterByConvexity = False
-            
-        circularity_det = self.det_circularity.text()
-
-        if circularity_det != '':
-            params.filterByCircularity = True
-            min_circularity, max_circularity = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
-            params.minCircularity = float(min_circularity)
-            params.maxCircularity = float(max_circularity)
-        else:
-            params.filterByCircularity = False
-
-        params.minRepeatability = 2
-        detector = cv2.SimpleBlobDetector_create(params)
-            
-        return detector
     
     
     def make_detection(self):
@@ -381,11 +302,8 @@ class MainWindow(QMainWindow):
         If possible, will try to connect the keypoints.
         """
         
-        self.detector = self.define_detector()
-        keypoints_A = self.detector.detect(self.frame_1_cv2)
-        keypoints_B = self.detector.detect(self.frame_2_cv2)
-        self.im_with_keypoints_A = cv2.drawKeypoints(self.frame_1_cv2, keypoints_A, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-        self.im_with_keypoints_B = cv2.drawKeypoints(self.frame_2_cv2, keypoints_B, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+        self.im_with_keypoints_A, self.keypoints_A = fast_camera_countours.get_detected_shapes(self.frame_1_cv2)
+        self.im_with_keypoints_B, self.keypoints_B = fast_camera_countours.get_detected_shapes(self.frame_2_cv2)
 
         try:
             delta_time = float(self.delta_time_box.text())
@@ -401,12 +319,12 @@ class MainWindow(QMainWindow):
             self.delta_time_box.setText(str(est_delta_time))
             delta_time = float(self.delta_time_box.text())
 
-        if len(keypoints_A) != 0 and len(keypoints_B) != 0:
-            (start_points, end_points) = fast_camera_detection.filter_points_with_distance_matrix(keypoints_B, keypoints_A, threshold = 100, check_brightness = 0, frame_A = self.frame_2_cv2, frame_B = self.frame_1_cv2)
-            if start_points is None:
+        if len(self.keypoints_A) != 0 and len(self.keypoints_B) != 0:
+            (start_points, end_points) = fast_camera_countours.filter_points_with_distance_matrix(self.keypoints_B, self.keypoints_A, threshold = 100)
+            if start_points is None or len(start_points) == 0:
                 pass
             else:
-                self.im_with_keypoints_B, self.speed_dict = fast_camera_detection.draw_arrow_in_frame(self.im_with_keypoints_B, start_points, end_points, frame_number = None, time_vec = None, delta_time = delta_time)
+                self.im_with_keypoints_B, self.speed_dict = fast_camera_countours.draw_arrow_in_frame(self.im_with_keypoints_B, start_points, end_points, frame_number = None, time_vec = None, delta_time = delta_time)
             
         self.refresh_image_detection()
         
@@ -505,6 +423,44 @@ class MainWindow(QMainWindow):
         layout_dialog.addWidget(self.table)
         keypoints_main_dialog.exec_()
 
+
+    def keypoints_dialog_rework(self):
+        """
+        Creates a table with the present keypoints and their speed.
+        """
+
+        try:
+            data_dict = self.speed_dict
+        except AttributeError:
+            self.show_error_message('There are no keypoints available.')
+            data_dict = dict()
+
+        if len(self.keypoints_A) > len(self.keypoints_B):
+            n_rows = len(self.keypoints_A)
+        else:
+            n_rows = len(self.keypoints_B)
+
+        keypoints_main_dialog = QDialog()
+        keypoints_main_dialog.setWindowTitle('JUUT - Keypoints')
+        layout_dialog = QVBoxLayout()
+        keypoints_main_dialog.setLayout(layout_dialog)
+
+        
+        self.table = QTableWidget()
+        self.table.setRowCount(n_rows)
+        self.table.setColumnCount(2)
+        self.table.setHorizontalHeaderLabels(["Keypoint", "Speed (pix/s)"])
+
+        for i in range(n_rows):
+            item_A = QTableWidgetItem(str(self.keypoints_A[i]))
+            item_B = QTableWidgetItem(str(self.keypoints_B[i]))
+            self.table.setItem(i, 0, item_A)
+            self.table.setItem(i, 1, item_B)
+            
+        self.table.cellClicked.connect(self.cellClick)
+
+        layout_dialog.addWidget(self.table)
+        keypoints_main_dialog.exec_()
 
     def cellClick(self, row, col):
         """
@@ -625,6 +581,22 @@ def get_frame_from_video(path_to_video, frame_number):
             return frame
     
         frame_counter = frame_counter + 1
+
+
+def get_contour_data(frame):
+    cnts = cv2.findContours(frame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+
+    min_area = 50
+    white_dots = []
+    for c in cnts:
+        area = cv2.contourArea(c)
+        print(c)
+        if area > min_area:
+            cv2.drawContours(frame, [c], -1, (36, 255, 12), 2)
+            white_dots.append(c)
+
+    
 
 app = QApplication(sys.argv)
 window = MainWindow()
