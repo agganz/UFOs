@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ,Pulse,Op.Cam,Time,Exp.Cam,Disruption,Comments,Measured speed,Comments_personal,Initial_pos,Zone
-=======
-,Pulse,Op.Cam,Time,Exp.Cam,Disruption,Comments,Measured speed,Comments_personal,Initial_pos,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 0,99999,KLDT-O5WB,40.37884,KLDT-E5WD,0,Blue streak on a couple of frames,,,,
 1,99999,KLDT-O5WB,40.37884,KLDT-E5WE,0,Blue streak on a couple of frames,,,,
 2,99981,KLDT-O5WB,50.97353,KLDT-E5WC,0,"Very bright white double flash, one frame only. Not visible on PIW cam.",,,,
@@ -14,11 +10,7 @@
 8,99971,KLDT-O5WB,55.871,KLDT-E5WC,0,Plenty UFOs during disruption,,,,
 9,99971,KLDT-O5WB,55.871,KLDT-E5WD,0,Plenty UFOs during disruption,,,,
 10,99971,KLDT-O5WB,55.871,KLDT-E5WE,0,Plenty UFOs during disruption,,,,
-<<<<<<< HEAD
 12,99965,KLDT-O5WB,53.22096,KLDT-E5WD,53.729,Orange UFO from NBI. Nothing obvious on spectroscopy.,3024,"UFO goes into two, then a cloud. Measured the first  occurrence","(188, 175)",ILA/ICRH
-=======
-12,99965,KLDT-O5WB,53.22096,KLDT-E5WD,53.729,Orange UFO from NBI. Nothing obvious on spectroscopy.,3024,"UFO goes into two, then a cloud. Measured the first  occurrence","(188, 175)",
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 14,99964,KLDT-O5WB,47.89104,KLDT-E5WC,0,UFOs near limiter 4B,,,,
 15,99964,KLDT-O5WB,47.89104,KLDT-E5WD,0,UFOs near limiter 4B,,,,
 16,99964,KLDT-O5WB,47.89104,KLDT-E5WE,0,UFOs near limiter 4B,,,,
@@ -28,11 +20,7 @@
 20,99957,KLDT-O5WB,48.27347,KLDT-E5WC,57.316,Two UFOs fall from top of machine. Frames 255 and 266.,,,,
 21,99957,KLDT-O5WB,48.27347,KLDT-E5WD,57.316,Two UFOs fall from top of machine. Frames 255 and 266.,,,,
 22,99957,KLDT-O5WB,48.27347,KLDT-E5WE,57.316,Two UFOs fall from top of machine. Frames 255 and 266.,,,,
-<<<<<<< HEAD
-25,99944,KLDT-O5WB,44.209,KLDT-E5WE,0,Bright UFO on the inner upper side of the machine @ frames 154-157.,2999,Barely moving,"(191, 61)",UDPT
-=======
 25,99944,KLDT-O5WB,44.209,KLDT-E5WE,0,Bright UFO on the inner upper side of the machine @ frames 154-157.,2999,Barely moving,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 27,99929,KLDT-O5WB,52.67188,KLDT-E5WD,65.314,Bright spot near outboard midplane,0,"Two spots in op camera, not visible in exp cameras","(159, 559)",
 30,99926,KLDT-O5WB,51.17863,KLDT-E5WD,64.265,Bright white/blue spot,0,"Visible, but cannot be tracked. Doesn’t move","(157, 193)",
 32,99912,KLDT-O5WB,48.252,KLDT-E5WC,0,UFO coming from the beam duct throughout the pulse.,,,,
@@ -54,12 +42,9 @@
 48,99904,KLDT-O5WB,57.3684,KLDT-E5WD,57.317,Cloud of UFOs on inner wall during disruption,,,,
 49,99904,KLDT-O5WB,57.3684,KLDT-E5WE,57.317,Cloud of UFOs on inner wall during disruption,,,,
 52,99896,KLDT-O5WB,53.24289,KLDT-E5WE,53.111,Frame: 379,0,"There are two UFOs: a very small one and the last one, possibly this is the recorded one, that does not seem to move. Also visible on E5WD.","(157, 31)",
-53,99891,KLDT-O5WB,51.38887,KLDT-E5WC,51.227,"A cloud of UFOs emmanating from the divertor after the disruption.
-Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s and quite impressive on P5TB.",,,,
-54,99891,KLDT-O5WB,51.38887,KLDT-E5WD,51.227,"A cloud of UFOs emmanating from the divertor after the disruption.
-Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s and quite impressive on P5TB.",,,,
-55,99891,KLDT-O5WB,51.38887,KLDT-E5WE,51.227,"A cloud of UFOs emmanating from the divertor after the disruption.
-Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s and quite impressive on P5TB.",,,,
+53,99891,KLDT-O5WB,51.38887,KLDT-E5WC,51.227,"A cloud of UFOs emmanating from the divertor after the disruption. Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s and quite impressive on P5TB.",,,,
+54,99891,KLDT-O5WB,51.38887,KLDT-E5WD,51.227,"A cloud of UFOs emmanating from the divertor after the disruption. Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s and quite impressive on P5TB.",,,,
+55,99891,KLDT-O5WB,51.38887,KLDT-E5WE,51.227,"A cloud of UFOs emmanating from the divertor after the disruption. Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s and quite impressive on P5TB.",,,,
 56,99886,KLDT-O5WB,56.21431,KLDT-E5WC,0,If you look carefully you can see a cloud of UFOs against the bright plasma background caused by the floppy termination.,,,,
 57,99886,KLDT-O5WB,56.21431,KLDT-E5WD,0,If you look carefully you can see a cloud of UFOs against the bright plasma background caused by the floppy termination.,,,,
 58,99886,KLDT-O5WB,56.21431,KLDT-E5WE,0,If you look carefully you can see a cloud of UFOs against the bright plasma background caused by the floppy termination.,,,,
@@ -67,12 +52,7 @@ Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s a
 62,99882,KLDT-O5WB,42.28373,KLDT-E5WC,49.246,Unusual yellowish explosion probably on the outboard side of the divertor.,,,,
 63,99882,KLDT-O5WB,42.28373,KLDT-E5WD,49.246,Unusual yellowish explosion probably on the outboard side of the divertor.,,,,
 64,99882,KLDT-O5WB,42.28373,KLDT-E5WE,49.246,Unusual yellowish explosion probably on the outboard side of the divertor.,,,,
-66,99880,KLDT-O5WB,61.33549,KLDT-E5WD,0,"A fast moving UFO leaving a long blue streak across a single frame. Hard to tell where it is coming from
-<<<<<<< HEAD
-- probably outboard wall.",3847,It corsses the entire screen diagonally.,"(114, 18)",
-=======
-- probably outboard wall.",3847,It corsses the entire screen diagonally.,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
+66,99880,KLDT-O5WB,61.33549,KLDT-E5WD,0,"A fast moving UFO leaving a long blue streak across a single frame. Hard to tell where it is coming from- probably outboard wall.",3847,It corsses the entire screen diagonally.,"(114, 18)",
 68,99869,KLDT-O5WB,48.07249,KLDT-E5WC,56.417,UFOs at the outboard side (near NBI),,,,
 69,99869,KLDT-O5WB,48.07249,KLDT-E5WD,56.417,UFOs at the outboard side (near NBI),,,,
 70,99869,KLDT-O5WB,48.07249,KLDT-E5WE,56.417,UFOs at the outboard side (near NBI),,,,
@@ -143,17 +123,10 @@ Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s a
 142,99733,KLDT-O5WB,70.27232,KLDT-E5WD,0,2 frames of UFOs coming from oct.4 duct(?) - Also seen by E5WD (Be II),,,,
 143,99727,KLDT-O5WB,70.1499,KLDT-E5WD,0,Shower of UFOs around limiters 4B and 4D at end of pulse.,,,,
 144,99727,KLDT-O5WB,70.1499,KLDT-E5WE,0,Shower of UFOs around limiters 4B and 4D at end of pulse.,,,,
-<<<<<<< HEAD
 145,99724,KLDT-O5WB,53.6163,KLDT-E5WD,61.037,UFO comes out Oct 4 NBI. Visible on op and sci cameras.,0,Can’t be tracked,"(35, 176)",
 147,99720,KLDT-O5WB,40.65645,KLDT-E5WD,0,Large UFO fragments near the top of the vessel,,,,
 148,99720,KLDT-O5WB,40.65645,KLDT-E5WE,0,Large UFO fragments near the top of the vessel,,,,
 150,99697,KLDT-O5WB,53.51,KLDT-E5WD,58.751,Cluster of UFOs on outboard side (this frame +- 2). Very fast even on fast camera - suspect from NBI. Nothing visible on KT2.,1409,"Suddently dissappears, visible at the left.","(38, 149)",
-=======
-145,99724,KLDT-O5WB,53.6163,KLDT-E5WD,61.037,UFO comes out Oct 4 NBI. Visible on op and sci cameras.,0,Can’t be tracked,,
-147,99720,KLDT-O5WB,40.65645,KLDT-E5WD,0,Large UFO fragments near the top of the vessel,,,,
-148,99720,KLDT-O5WB,40.65645,KLDT-E5WE,0,Large UFO fragments near the top of the vessel,,,,
-150,99697,KLDT-O5WB,53.51,KLDT-E5WD,58.751,Cluster of UFOs on outboard side (this frame +- 2). Very fast even on fast camera - suspect from NBI. Nothing visible on KT2.,1409,"Suddently dissappears, visible at the left.",,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 152,99692,KLDT-O5WB,51.03447,KLDT-E5WD,0,Small blue flash at the top of th einner wall,,,,
 153,99676,KLDT-O5WB,69.82732,KLDT-E5WD,0,streaky blue UFOs for a few frames just before pulse end,,,,
 154,99670,KLDT-O5WB,70.53454,KLDT-E5WD,0,Cloud of UFOs for 1 frame at end of pulse. More vissible on KLDT-E5WD at the same time and prior.,,,,
@@ -232,13 +205,7 @@ Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s a
 233,99450,KLDT-O5WB,49.50994,KLDT-E5WC,49.35,Plasma too close to inner wall (single frame = 286),,,,
 234,99450,KLDT-O5WB,49.50994,KLDT-E5WD,49.35,Plasma too close to inner wall (single frame = 286),,,,
 235,99450,KLDT-O5WB,49.50994,KLDT-E5WE,49.35,Plasma too close to inner wall (single frame = 286),,,,
-<<<<<<< HEAD
 237,99381,KLDT-O5WB,55.52,KLDT-E5WD,57.458,UFOs coming from the outer wall (frames 436-444). Spectroscopy shows Ti.,894,"Very faint, near divertor","(136, 252)",Divertor
-=======
-236,99381,KLDT-O5WB,55.52,KLDT-E5WC,57.458,UFOs coming from the outer wall (frames 436-444). Spectroscopy shows Ti.,,,,
-237,99381,KLDT-O5WB,55.52,KLDT-E5WD,57.458,UFOs coming from the outer wall (frames 436-444). Spectroscopy shows Ti.,,,,
-238,99381,KLDT-O5WB,55.52,KLDT-E5WE,57.458,UFOs coming from the outer wall (frames 436-444). Spectroscopy shows Ti.,,,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 239,99380,KLDT-O5WB,50.76,KLDT-E5WC,53.735,UFOs near the inner wall.,,,,
 240,99380,KLDT-O5WB,50.76,KLDT-E5WD,53.735,UFOs near the inner wall.,,,,
 241,99380,KLDT-O5WB,50.76,KLDT-E5WE,53.735,UFOs near the inner wall.,,,,
@@ -340,12 +307,7 @@ Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s a
 341,98793,KLDT-O5WB,50.0645,KLDT-E5WC,49.953,Many blue UFOs flying around at the disruption. Corroborated by KLDT-E5WD with the Be II filter.,,,,
 342,98793,KLDT-O5WB,50.0645,KLDT-E5WD,49.953,Many blue UFOs flying around at the disruption. Corroborated by KLDT-E5WD with the Be II filter.,,,,
 343,98793,KLDT-O5WB,50.0645,KLDT-E5WE,49.953,Many blue UFOs flying around at the disruption. Corroborated by KLDT-E5WD with the Be II filter.,,,,
-<<<<<<< HEAD
 345,98786,KLDT-O5WB,57.53,KLDT-E5WD,57.531,Big UFO near mushrooms over 4D outer limiter (2 frames).,6134.5,"Causes disruption. Another object seems to fall as well. Measured the speed of the first, which appears at (65, 15)","(65, 15)",
-=======
-344,98786,KLDT-O5WB,57.53,KLDT-E5WC,57.531,Big UFO near mushrooms over 4D outer limiter (2 frames).,6134.5,"Causes disruption. Another object seems to fall as well. Measured the speed of the first, which appears at (65, 15)",,
-345,98786,KLDT-O5WB,57.53,KLDT-E5WD,57.531,Big UFO near mushrooms over 4D outer limiter (2 frames).,6134.5,"Causes disruption. Another object seems to fall as well. Measured the speed of the first, which appears at (65, 15)",,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 346,98586,KLDT-O5WB,55.5349,KLDT-E5WD,0,UFO during termination.,,,,
 347,98586,KLDT-O5WB,55.5349,KLDT-E5WE,0,UFO during termination.,,,,
 348,98570,KLDT-O5WB,49.322,KLDT-E5WD,0,Small blue UFO on the divertor also visible in KLDT-E5WD at frame 818 and 823,,,,
@@ -379,18 +341,12 @@ Also seen by P5WA, E5WD and E5WE. Particularly spectacular on E5TA from 51.22s a
 378,98190,KLDT-O5WB,50.30672,KLDT-E5WC,0,Frames: 306-309. Particles exploding in divertor area,,,,
 379,98190,KLDT-O5WB,50.30672,KLDT-E5WD,0,Frames: 306-309. Particles exploding in divertor area,,,,
 380,98190,KLDT-O5WB,50.30672,KLDT-E5WE,0,Frames: 306-309. Particles exploding in divertor area,,,,
-381,98186,KLDT-O5WB,45.46594,KLDT-E5WC,48.037,"UFOs lasting several frames. Similar to the one in 98184. Visible on protection camera as well and on KLDT-E5WD in frames 509 and
-510. It looks like titanium and berillium from spectroscopy data. Very small spicks.",,,,
-382,98186,KLDT-O5WB,45.46594,KLDT-E5WD,48.037,"UFOs lasting several frames. Similar to the one in 98184. Visible on protection camera as well and on KLDT-E5WD in frames 509 and
-510. It looks like titanium and berillium from spectroscopy data. Very small spicks.",,,,
-383,98186,KLDT-O5WB,45.46594,KLDT-E5WE,48.037,"UFOs lasting several frames. Similar to the one in 98184. Visible on protection camera as well and on KLDT-E5WD in frames 509 and
-510. It looks like titanium and berillium from spectroscopy data. Very small spicks.",,,,
-384,98184,KLDT-O5WB,45.26628,KLDT-E5WC,48.038,"UFOs. I think also briefly seen on KLDT-E5WD at 45.18750 and on
-Protection camera. It looks like titanium and berillium from spectroscopy data.",,,,
-385,98184,KLDT-O5WB,45.26628,KLDT-E5WD,48.038,"UFOs. I think also briefly seen on KLDT-E5WD at 45.18750 and on
-Protection camera. It looks like titanium and berillium from spectroscopy data.",,,,
-386,98184,KLDT-O5WB,45.26628,KLDT-E5WE,48.038,"UFOs. I think also briefly seen on KLDT-E5WD at 45.18750 and on
-Protection camera. It looks like titanium and berillium from spectroscopy data.",,,,
+381,98186,KLDT-O5WB,45.46594,KLDT-E5WC,48.037,"UFOs lasting several frames. Similar to the one in 98184. Visible on protection camera as well and on KLDT-E5WD in frames 509 and 510. It looks like titanium and berillium from spectroscopy data. Very small spicks.",,,,
+382,98186,KLDT-O5WB,45.46594,KLDT-E5WD,48.037,"UFOs lasting several frames. Similar to the one in 98184. Visible on protection camera as well and on KLDT-E5WD in frames 509 and 510. It looks like titanium and berillium from spectroscopy data. Very small spicks.",,,,
+383,98186,KLDT-O5WB,45.46594,KLDT-E5WE,48.037,"UFOs lasting several frames. Similar to the one in 98184. Visible on protection camera as well and on KLDT-E5WD in frames 509 and 510. It looks like titanium and berillium from spectroscopy data. Very small spicks.",,,,
+384,98184,KLDT-O5WB,45.26628,KLDT-E5WC,48.038,"UFOs. I think also briefly seen on KLDT-E5WD at 45.18750 and on Protection camera. It looks like titanium and berillium from spectroscopy data.",,,,
+385,98184,KLDT-O5WB,45.26628,KLDT-E5WD,48.038,"UFOs. I think also briefly seen on KLDT-E5WD at 45.18750 and on Protection camera. It looks like titanium and berillium from spectroscopy data.",,,,
+386,98184,KLDT-O5WB,45.26628,KLDT-E5WE,48.038,"UFOs. I think also briefly seen on KLDT-E5WD at 45.18750 and on Protection camera. It looks like titanium and berillium from spectroscopy data.",,,,
 387,98125,KLDT-O5WB,49.52041,KLDT-E5WC,48.027,REs strike top of Tile 1 or HFGC shower of particles confirmed by KLDT-O5WB,,,,
 388,98125,KLDT-O5WB,49.52041,KLDT-E5WD,48.027,REs strike top of Tile 1 or HFGC shower of particles confirmed by KLDT-O5WB,,,,
 389,98125,KLDT-O5WB,49.52041,KLDT-E5WE,48.027,REs strike top of Tile 1 or HFGC shower of particles confirmed by KLDT-O5WB,,,,
@@ -456,10 +412,8 @@ Protection camera. It looks like titanium and berillium from spectroscopy data."
 451,97814,KLDT-O5WB,43.21537,KLDT-E5WE,0,Slow UFO coming out of the divertor - also seen by KLDT-E5WD with Be II filter,,,,
 452,97799,KLDT-O5WB,0,KLDT-E5WC,0,I ahve lost count of all the UFOs I have seen. Last pulse of the session i am going home.,,,,
 453,97799,KLDT-O5WB,0,KLDT-E5WD,0,I ahve lost count of all the UFOs I have seen. Last pulse of the session i am going home.,,,,
-454,97797,KLDT-O5WB,47.92,KLDT-E5WC,0,"Frames: 247;
-279-281;327-329;331;336;361",,,,
-455,97797,KLDT-O5WB,47.92,KLDT-E5WD,0,"Frames: 247;
-279-281;327-329;331;336;361",,,,
+454,97797,KLDT-O5WB,47.92,KLDT-E5WC,0,"Frames: 247;279-281;327-329;331;336;361",,,,
+455,97797,KLDT-O5WB,47.92,KLDT-E5WD,0,"Frames: 247;279-281;327-329;331;336;361",,,,
 456,97796,KLDT-O5WB,56.76287,KLDT-E5WC,0,Frame: 467. Lots of particles above the divertor. I can only see them with this camera.,,,,
 457,97796,KLDT-O5WB,56.76287,KLDT-E5WD,0,Frame: 467. Lots of particles above the divertor. I can only see them with this camera.,,,,
 458,97794,KLDT-O5WB,42.44588,KLDT-E5WC,0,Frame: 42.44s. No heating observed.,,,,
@@ -544,8 +498,7 @@ Protection camera. It looks like titanium and berillium from spectroscopy data."
 539,97517,KLDT-O5WB,48.60557,KLDT-E5WE,0,"Multiple UFOs close to 4D limiter, possibly coming out of NBI. Nothing noticeable in spectroscopy.",,,,
 540,97511,KLDT-O5WB,51.95,KLDT-E5WC,0,UFOs from the top. This is Titanium.,,,,
 541,97511,KLDT-O5WB,51.95,KLDT-E5WD,0,UFOs from the top. This is Titanium.,,,,
-542,97510,KLDT-O5WB,45.67,KLDT-E5WD,0,"Several UFOs during the whole pulse. Main ones @45.67, @48.80, @50.29, @51.01, @51.61, @52.53.
-Some of them on the NPL3B (@48.80, @50.29, @51.01, @51.61)",,,,
+542,97510,KLDT-O5WB,45.67,KLDT-E5WD,0,"Several UFOs during the whole pulse. Main ones @45.67, @48.80, @50.29, @51.01, @51.61, @52.53. Some of them on the NPL3B (@48.80, @50.29, @51.01, @51.61)",,,,
 543,97508,KLDT-O5WB,42.58,KLDT-E5WD,0,UFos in the main chamber. also seen on KLDT-O5WD starting @42.43,,,,
 544,97495,KLDT-O5WB,43.37404,KLDT-E5WC,48.52,"UFOs all around the Chamber, at first appearing close to the divertor region. Higher concentration of NEON before the disruption, no other anomalies in the impurity concentrations.",,,,
 545,97495,KLDT-O5WB,43.37404,KLDT-E5WD,48.52,"UFOs all around the Chamber, at first appearing close to the divertor region. Higher concentration of NEON before the disruption, no other anomalies in the impurity concentrations.",,,,
@@ -645,20 +598,12 @@ Some of them on the NPL3B (@48.80, @50.29, @51.01, @51.61)",,,,
 641,97060,KLDT-O5WB,47.81597,KLDT-E5WC,47.775,Frame: 245 Dust flying around observed during disruption,,,,
 642,97060,KLDT-O5WB,47.81597,KLDT-E5WD,47.775,Frame: 245 Dust flying around observed during disruption,,,,
 643,97060,KLDT-O5WB,47.81597,KLDT-E5WE,47.775,Frame: 245 Dust flying around observed during disruption,,,,
-647,97050,KLDT-O5WB,49.01988,KLDT-E5WC,51.573,"Splattering from WOPL, first sign at
-45.4 s, weakly seen on KLDT-P5WA.",,,,
-648,97050,KLDT-O5WB,49.01988,KLDT-E5WD,51.573,"Splattering from WOPL, first sign at
-45.4 s, weakly seen on KLDT-P5WA.",,,,
+647,97050,KLDT-O5WB,49.01988,KLDT-E5WC,51.573,"Splattering from WOPL; first sign at 45.4 s; weakly seen on KLDT-P5WA.",,,,
+648,97050,KLDT-O5WB,49.01988,KLDT-E5WD,51.573,"Splattering from WOPL; first sign at 45.4 s; weakly seen on KLDT-P5WA.",,,,
 649,97050,KLDT-O5WB,45.53698,KLDT-E5WC,51.573,Falling (?) piece from the mashroom.,,,,
 650,97050,KLDT-O5WB,45.53698,KLDT-E5WD,51.573,Falling (?) piece from the mashroom.,,,,
-652,97045,KLDT-O5WB,48.50496,KLDT-E5WD,0,"Splattering from RFBsh, seen also at KLDT-P5WA and KLDT-E5WD. DC
-<<<<<<< HEAD
-saw nothing at that time.",-999,Massive cloud of UFOs with different brightness nand sizes.,"(151, 181)",
+652,97045,KLDT-O5WB,48.50496,KLDT-E5WD,0,"Splattering from RFBsh; seen also at KLDT-P5WA and KLDT-E5WD. DCsaw nothing at that time.",-999,Massive cloud of UFOs with different brightness nand sizes.,"(151, 181)",
 655,97044,KLDT-O5WB,42.34682,KLDT-E5WD,42.408,"Splattering from IWGL followed by UFO's, seen also on KLDT-E5WD with Be filter. Be?",-999,Lots of UFOs even when the plasma’s already left the divertor main area.,"(266, 149)",
-=======
-saw nothing at that time.",-999,Massive cloud of UFOs with different brightness nand sizes.,,
-655,97044,KLDT-O5WB,42.34682,KLDT-E5WD,42.408,"Splattering from IWGL followed by UFO's, seen also on KLDT-E5WD with Be filter. Be?",-999,Lots of UFOs even when the plasma’s already left the divertor main area.,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 657,97020,KLDT-O5WB,47.61125,KLDT-E5WC,50.008,"Frames:238-240, next to outer limiter 4D and 3B",,,,
 658,97020,KLDT-O5WB,47.61125,KLDT-E5WD,50.008,"Frames:238-240, next to outer limiter 4D and 3B",,,,
 659,97020,KLDT-O5WB,47.61125,KLDT-E5WE,50.008,"Frames:238-240, next to outer limiter 4D and 3B",,,,
@@ -674,21 +619,13 @@ saw nothing at that time.",-999,Massive cloud of UFOs with different brightness 
 669,96991,KLDT-O5WB,60.47309,KLDT-E5WC,0,Flying blue objects (Ti?).,,,,
 670,96991,KLDT-O5WB,60.47309,KLDT-E5WD,0,Flying blue objects (Ti?).,,,,
 671,96991,KLDT-O5WB,60.47309,KLDT-E5WE,0,Flying blue objects (Ti?).,,,,
-<<<<<<< HEAD
 673,96990,KLDT-O5WB,60.21477,KLDT-E5WD,60.258,"Sparks, seen also on KLDT-E5WD. There is also a spike at the same time for almost all the impurities.",3259,Lots of UFOs – measured the average speed of them all.,"(66, 172)",
-=======
-673,96990,KLDT-O5WB,60.21477,KLDT-E5WD,60.258,"Sparks, seen also on KLDT-E5WD. There is also a spike at the same time for almost all the impurities.",3259,Lots of UFOs – measured the average speed of them all.,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 675,96981,KLDT-O5WB,51.14943,KLDT-E5WC,0,Single frame large UFO at top of machine. Probably Falling Ti.,,,,
 676,96981,KLDT-O5WB,51.14943,KLDT-E5WD,0,Single frame large UFO at top of machine. Probably Falling Ti.,,,,
 677,96981,KLDT-O5WB,51.14943,KLDT-E5WE,0,Single frame large UFO at top of machine. Probably Falling Ti.,,,,
 678,96958,KLDT-O5WB,49.19039,KLDT-E5WC,0,UFO (blue light) coming from WOPL,,,,
 679,96958,KLDT-O5WB,49.19039,KLDT-E5WD,0,UFO (blue light) coming from WOPL,,,,
-<<<<<<< HEAD
 681,96956,KLDT-O5WB,55.5719,KLDT-E5WD,55.588,UFO's during disruption also seen by KLDT-E5WD,-999,Literally dozens of UFOs over the 50s mark.,"(226, 334)",
-=======
-681,96956,KLDT-O5WB,55.5719,KLDT-E5WD,55.588,UFO's during disruption also seen by KLDT-E5WD,-999,Literally dozens of UFOs over the 50s mark.,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 683,96955,KLDT-O5WB,47.51477,KLDT-E5WC,0,Small blue light in the vessel flying around,,,,
 684,96955,KLDT-O5WB,47.51477,KLDT-E5WD,0,Small blue light in the vessel flying around,,,,
 685,96955,KLDT-O5WB,47.51477,KLDT-E5WE,0,Small blue light in the vessel flying around,,,,
@@ -758,11 +695,7 @@ saw nothing at that time.",-999,Massive cloud of UFOs with different brightness 
 754,96655,KLDT-O5WB,58.8755,KLDT-E5WC,0,UFO from outer limiter as seen in many high power pulses last year.,,,,
 755,96655,KLDT-O5WB,58.8755,KLDT-E5WD,0,UFO from outer limiter as seen in many high power pulses last year.,,,,
 756,96647,KLDT-O5WB,40.30145,KLDT-E5WD,0,Single frame UFO also seen on KLDT-E5WD with a Be filter so  might be berillium. Temperatures look OK on protection camera KLDT- P5WA,,,,
-<<<<<<< HEAD
 757,96611,KLDT-O5WB,40.58,KLDT-E5WD,0,Bright flash at the top of the vessel.  also faintly seen during one frame by KLDT-P5WA,,,,
-=======
-757,96611,KLDT-O5WB,40.58,KLDT-E5WD,0,Bright flash at the top of the vessel, also faintly seen during one frame by KLDT-P5WA,,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 758,96542,KLDT-O5WB,49.31,KLDT-E5WD,0,Same as 96541,,,,
 759,96542,KLDT-O5WB,49.31,KLDT-E5WE,0,Same as 96541,,,,
 760,96541,KLDT-O5WB,51.53355,KLDT-E5WD,0,Particle influx coming out from near the outer limiter -Ivor could not identify element,,,,
@@ -807,11 +740,7 @@ saw nothing at that time.",-999,Massive cloud of UFOs with different brightness 
 802,96450,KLDT-O5WB,49.91578,KLDT-E5WD,0,UFO around reionizaation plate Oct 4 for ~7 frames,,,,
 803,96444,KLDT-O5WB,54.07855,KLDT-E5WD,0,UFO at the left edge of the field of view moving downwards for 5 frames,,,,
 804,96444,KLDT-O5WB,51.19607,KLDT-E5WD,0,"Small UFO coming out of NPL 3B or LHCD antenna, 2 pulses",,,,
-<<<<<<< HEAD
 806,96442,KLDT-O5WB,53.8185,KLDT-E5WD,54.226,Large UFO making the plasma go purple and quickly disrupt.,960,"The UFO that probably causes the disruption is in the upper part (UIWP,  probably Ti))","(156, 82)",
-=======
-806,96442,KLDT-O5WB,53.8185,KLDT-E5WD,54.226,Large UFO making the plasma go purple and quickly disrupt.,960,The UFO that probably causes the disruption is in the upper part (UIWP, probably Ti) ,"(156, 82)"
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 814,96435,KLDT-O5WB,49.329,KLDT-E5WC,0,"A series of extremely horrible looking events on the edge of antenna B / nPL 3B; lots of bits seen coming off on high speed, very bright on opcam. Also affects limiter 4D. First event at 48.929s, ""main"" event at 49.329s.",,,,
 815,96435,KLDT-O5WB,49.329,KLDT-E5WD,0,"A series of extremely horrible looking events on the edge of antenna B / nPL 3B; lots of bits seen coming off on high speed, very bright on opcam. Also affects limiter 4D. First event at 48.929s, ""main"" event at 49.329s.",,,,
 816,96435,KLDT-O5WB,49.329,KLDT-E5WE,0,"A series of extremely horrible looking events on the edge of antenna B / nPL 3B; lots of bits seen coming off on high speed, very bright on opcam. Also affects limiter 4D. First event at 48.929s, ""main"" event at 49.329s.",,,,
@@ -990,11 +919,7 @@ saw nothing at that time.",-999,Massive cloud of UFOs with different brightness 
 1004,95783,KLDT-O5WB,66.90518,KLDT-E5WE,0,"UFOs in frame 722, 726-727",,,,
 1005,95781,KLDT-O5WB,64.5004,KLDT-E5WD,64.443,UFOs 'rainfall' from upper dump plate in frame 661,,,,
 1006,95781,KLDT-O5WB,64.5004,KLDT-E5WE,64.443,UFOs 'rainfall' from upper dump plate in frame 661,,,,
-<<<<<<< HEAD
 1008,95716,KLDT-O5WB,45.12257,KLDT-E5WD,0,Small one.,0,Nothing relevant,"(97, 187)",
-=======
-1008,95716,KLDT-O5WB,45.12257,KLDT-E5WD,0,Small one.,0,Not visible in exp cameras,"(371, 474)",
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 1011,95713,KLDT-O5WB,43.339,KLDT-E5WD,43.664,"UFO seen coming from the divertor in the bottom right part of the image, that corresponds to a increase on radiated light as SL says.",2604,In reality there are lots of small UFOs. In fact there are more than two that fit with the original comment. The measured speed corresponds to an UFO that comes from the left lower corner and moves up following the wall.,"(312, 396)",
 1013,95662,KLDT-O5WB,55.69179,KLDT-E5WC,0,Sparklies as the plasma terminates,,,,
 1014,95662,KLDT-O5WB,55.69179,KLDT-E5WD,0,Sparklies as the plasma terminates,,,,
@@ -1069,19 +994,11 @@ saw nothing at that time.",-999,Massive cloud of UFOs with different brightness 
 1086,95375,KLDT-O5WB,53.35868,KLDT-E5WC,53.198,Constellation of UFOs,,,,
 1087,95375,KLDT-O5WB,53.35868,KLDT-E5WD,53.198,Constellation of UFOs,,,,
 1088,95375,KLDT-O5WB,53.35868,KLDT-E5WE,53.198,Constellation of UFOs,,,,
-<<<<<<< HEAD
-1090,95374,KLDT-O5WB,50.81901,KLDT-E5WD,51.164,,-999,Lots of different object that disappear and reappear on almost non-consecutive frames. ,"(219, 203)",
+1090,95374,KLDT-O5WB,50.81901,KLDT-E5WD,51.164,,-999,Lots of different objects that disappear and reappear on almost non-consecutive frames. ,"(219, 203)",
 1092,95364,KLDT-O5WB,50.88534,KLDT-E5WD,0,Shower of UFOs very likely from the limiters. Also visible on the Evolve.,,,,
 1093,95333,KLDT-O5WB,49.28908,KLDT-E5WC,0,"Frame: 282, UFO next to the Outer Poloidal Limiter",,,,
 1094,95333,KLDT-O5WB,49.28908,KLDT-E5WD,0,"Frame: 282, UFO next to the Outer Poloidal Limiter",,,,
 1095,95319,KLDT-O5WB,48.36104,KLDT-E5WD,48.565,Lot of material coming from inner wall from this point to the disruption.,839,Added speed of the first UFO  other TIEs can be found near the upper right corner – those probably cause the disruption?,"(189, 257)",
-=======
-1090,95374,KLDT-O5WB,50.81901,KLDT-E5WD,51.164,,-999,Lots of different object that disappear and reappear on almost non-consecutive frames.,,
-1092,95364,KLDT-O5WB,50.88534,KLDT-E5WD,0,Shower of UFOs very likely from the limiters. Also visible on the Evolve.,,,,
-1093,95333,KLDT-O5WB,49.28908,KLDT-E5WC,0,"Frame: 282, UFO next to the Outer Poloidal Limiter",,,,
-1094,95333,KLDT-O5WB,49.28908,KLDT-E5WD,0,"Frame: 282, UFO next to the Outer Poloidal Limiter",,,,
-1095,95319,KLDT-O5WB,48.36104,KLDT-E5WD,48.565,Lot of material coming from inner wall from this point to the disruption.,839,Added speed of the first UFO, other TIEs can be found near the upper right corner – those probably cause the disruption?,"(189, 257)"
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 1096,95314,KLDT-O5WB,47.01321,KLDT-E5WD,47.787,Ni UFO,1412,"Yes, there’s a green (OP) UFO at the left upper corner, but even closer in time to the disruption there’s a mobile UFO (t = 47.2). This is the one measured.","(180, 230)",
 1097,95303,KLDT-O5WB,61.878,KLDT-E5WD,0,flake from LH launcher?,,,,
 1098,95303,KLDT-O5WB,61.878,KLDT-E5WE,0,flake from LH launcher?,,,,
@@ -1141,20 +1058,17 @@ saw nothing at that time.",-999,Massive cloud of UFOs with different brightness 
 1158,94794,KLDT-O5WB,46.63019,KLDT-E5WE,52.196,on the inner guard limiter. Identified by the KLDT-E5WD as Be,,,,
 1159,94729,KLDT-O5WB,52.08911,KLDT-E5WD,0,,,,,
 1160,94729,KLDT-O5WB,52.08911,KLDT-E5WE,0,,,,,
-1161,94637,KLDT-O5WB,47.457,KLDT-E5WC,0,"Large UFO near Oct 4 beam duct / wOPLs. Another big bright flash at
-50.579. The plasma doesn't seem to notice either?",,,,
-1162,94637,KLDT-O5WB,47.457,KLDT-E5WD,0,"Large UFO near Oct 4 beam duct / wOPLs. Another big bright flash at
-50.579. The plasma doesn't seem to notice either?",,,,
-1163,94637,KLDT-O5WB,47.457,KLDT-E5WE,0,"Large UFO near Oct 4 beam duct / wOPLs. Another big bright flash at
-50.579. The plasma doesn't seem to notice either?",,,,
+1161,94637,KLDT-O5WB,47.457,KLDT-E5WC,0,"Large UFO near Oct 4 beam duct / wOPLs. Another big bright flash at 50.579. The plasma doesn't seem to notice either?",,,,
+1162,94637,KLDT-O5WB,47.457,KLDT-E5WD,0,"Large UFO near Oct 4 beam duct / wOPLs. Another big bright flash at 50.579. The plasma doesn't seem to notice either?",,,,
+1163,94637,KLDT-O5WB,47.457,KLDT-E5WE,0,"Large UFO near Oct 4 beam duct / wOPLs. Another big bright flash at 50.579. The plasma doesn't seem to notice either?",,,,
 1164,94634,KLDT-O5WB,48.048,KLDT-E5WC,0,"UFOs near Oct 4 beam duct / limiters. More around 49.6,",,,,
 1165,94634,KLDT-O5WB,48.048,KLDT-E5WD,0,"UFOs near Oct 4 beam duct / limiters. More around 49.6,",,,,
-1166,94615,KLDT-O5WB,49.85,KLDT-E5WC,54.63,UFO at the outer limiter, not seen in the protection cameras,,,
-1167,94615,KLDT-O5WB,49.85,KLDT-E5WD,54.63,UFO at the outer limiter, not seen in the protection cameras,,,
-1168,94615,KLDT-O5WB,49.85,KLDT-E5WE,54.63,UFO at the outer limiter, not seen in the protection cameras,,,
-1169,94614,KLDT-O5WB,51.3,KLDT-E5WC,0,UFO at upper dump plate, smaller one at 52.78, not seen in protection cameras,,
-1170,94614,KLDT-O5WB,51.3,KLDT-E5WD,0,UFO at upper dump plate, smaller one at 52.78, not seen in protection cameras,,
-1171,94614,KLDT-O5WB,51.3,KLDT-E5WE,0,UFO at upper dump plate, smaller one at 52.78, not seen in protection cameras,,
+1166,94615,KLDT-O5WB,49.85,KLDT-E5WC,54.63,UFO at the outer limiter not seen in the protection cameras,,,
+1167,94615,KLDT-O5WB,49.85,KLDT-E5WD,54.63,UFO at the outer limiter not seen in the protection cameras,,,
+1168,94615,KLDT-O5WB,49.85,KLDT-E5WE,54.63,UFO at the outer limiter not seen in the protection cameras,,,
+1169,94614,KLDT-O5WB,51.3,KLDT-E5WC,0,UFO at upper dump plate smaller one at 52.78 not seen in protection cameras,,
+1170,94614,KLDT-O5WB,51.3,KLDT-E5WD,0,UFO at upper dump plate smaller one at 52.78 not seen in protection cameras,,
+1171,94614,KLDT-O5WB,51.3,KLDT-E5WE,0,UFO at upper dump plate smaller one at 52.78 not seen in protection cameras,,
 1172,94547,KLDT-O5WB,44.41449,KLDT-E5WC,0,UFO coming from left for one frame,,,,
 1173,94547,KLDT-O5WB,44.41449,KLDT-E5WD,0,UFO coming from left for one frame,,,,
 1174,94547,KLDT-O5WB,44.41449,KLDT-E5WE,0,UFO coming from left for one frame,,,,
@@ -1191,9 +1105,8 @@ saw nothing at that time.",-999,Massive cloud of UFOs with different brightness 
 1209,94212,KLDT-O5WB,47.25,KLDT-E5WD,0,"Frame: 231, Time: 47.250s",,,,
 1210,94212,KLDT-O5WB,47.25,KLDT-E5WE,0,"Frame: 231, Time: 47.250s",,,,
 1211,94211,KLDT-O5WB,46.255,KLDT-E5WD,50.696,"Frame: 221, Time: 46.855s",,,,
-1213,94209,KLDT-O5WB,49.149,KLDT-E5WD,0,frame: 329, Time: 51.186s, Titanium influx confirmed by spectroscopy,,
-1214,94208,KLDT-O5WB,49.149,KLDT-E5WD,52.347,"Frames: 277-281, Time: 49.149,
-UFOs at the UDPT, possibly Ti?",,,,
+1213,94209,KLDT-O5WB,49.149,KLDT-E5WD,0,frame: 329 Time: 51.186s  Titanium influx confirmed by spectroscopy,,
+1214,94208,KLDT-O5WB,49.149,KLDT-E5WD,52.347,"Frames: 277-281 Time: 49.149, UFOs at the UDPT, possibly Ti?",,,,
 1216,94206,KLDT-O5WB,50.96614,KLDT-E5WD,0,"Frame: 323, material falling from the top",,,,
 1217,94182,KLDT-O5WB,48.825,KLDT-E5WD,0,Ti influx,,,,
 1218,94181,KLDT-O5WB,49.902,KLDT-E5WD,0,Ti influx,,,,
@@ -1206,26 +1119,16 @@ UFOs at the UDPT, possibly Ti?",,,,
 1225,94129,KLDT-O5WB,48.702,KLDT-E5WD,0,Big UFO appears to fall from the top over several frames. Also small UFOs on outboard and inboard),,,,
 1226,94093,KLDT-O5WB,48.979,KLDT-E5WD,0,,,,,
 1227,94093,KLDT-O5WB,48.979,KLDT-E5WE,0,,,,,
-1228,94089,KLDT-O5WB,51.38,KLDT-E5WD,0,"Big UFO visible at 51.34, 51.38,
-51.42 (also UFOs at 47.97, 49.01,
-49.05, 49.73, 49.77, 50.37, 50.93s)",,,,
-1229,94089,KLDT-O5WB,51.38,KLDT-E5WE,0,"Big UFO visible at 51.34, 51.38,
-51.42 (also UFOs at 47.97, 49.01,
-49.05, 49.73, 49.77, 50.37, 50.93s)",,,,
-1230,94087,KLDT-O5WB,48.504,KLDT-E5WD,0,"UFOs mostly at the top near upper dump plates @ 48.50, 51.26, 51.30,
-51.98, 52.42, 52.98s",,,,
-1231,94087,KLDT-O5WB,48.504,KLDT-E5WE,0,"UFOs mostly at the top near upper dump plates @ 48.50, 51.26, 51.30,
-51.98, 52.42, 52.98s",,,,
-1232,94086,KLDT-O5WB,50.71,KLDT-E5WD,0,"Nice UFO (also at 50.87, 51.03,
-51.31, 52.23, 52.27s)",,,,
-1233,94086,KLDT-O5WB,50.71,KLDT-E5WE,0,"Nice UFO (also at 50.87, 51.03,
-51.31, 52.23, 52.27s)",,,,
+1228,94089,KLDT-O5WB,51.38,KLDT-E5WD,0,"Big UFO visible at 51.34; 51.38; 51.42 (also UFOs at 47.97; 49.01, 49.05; 49.73; 49.77; 50.37;  50.93s)",,,,
+1229,94089,KLDT-O5WB,51.38,KLDT-E5WE,0,"Big UFO visible at 51.34, 51.38,51.42 (also UFOs at 47.97, 49.01, 49.05, 49.73, 49.77, 50.37, 50.93s)",,,,
+1230,94087,KLDT-O5WB,48.504,KLDT-E5WD,0,"UFOs mostly at the top near upper dump plates @ 48.50, 51.26, 51.30, 51.98, 52.42, 52.98s",,,,
+1231,94087,KLDT-O5WB,48.504,KLDT-E5WE,0,"UFOs mostly at the top near upper dump plates @ 48.50, 51.26, 51.30,51.98, 52.42, 52.98s",,,,
+1232,94086,KLDT-O5WB,50.71,KLDT-E5WD,0,"Nice UFO (also at 50.87, 51.03, 51.31, 52.23, 52.27s)",,,,
+1233,94086,KLDT-O5WB,50.71,KLDT-E5WE,0,"Nice UFO (also at 50.87, 51.03, 51.31, 52.23, 52.27s)",,,,
 1234,94085,KLDT-O5WB,50.226,KLDT-E5WD,0,UFOs near REION plates in Oct 4 (also in the next frame at 50.266),,,,
 1235,94085,KLDT-O5WB,50.226,KLDT-E5WE,0,UFOs near REION plates in Oct 4 (also in the next frame at 50.266),,,,
-1236,94085,KLDT-O5WB,52.348,KLDT-E5WD,0,"Big UFO at the top (also at 48.50, 48.78, 49.10, 49.38, 49.42, 52.62,
-55.19, 55.71, 56.51s)",,,,
-1237,94085,KLDT-O5WB,52.348,KLDT-E5WE,0,"Big UFO at the top (also at 48.50, 48.78, 49.10, 49.38, 49.42, 52.62,
-55.19, 55.71, 56.51s)",,,,
+1236,94085,KLDT-O5WB,52.348,KLDT-E5WD,0,"Big UFO at the top (also at 48.50; 48.78; 49.10; 49.38; 49.42, 52.62,55.19, 55.71, 56.51s)",,,,
+1237,94085,KLDT-O5WB,52.348,KLDT-E5WE,0,"Big UFO at the top (also at 48.50; 48.78; 49.10; 49.38; 49.42, 52.62,55.19, 55.71, 56.51s)",,,,
 1238,93913,KLDT-O5WB,56.699,KLDT-E5WD,0,UFO taking off vertically from Tile 5,,,,
 1239,93913,KLDT-O5WB,56.699,KLDT-E5WE,0,UFO taking off vertically from Tile 5,,,,
 1240,93727,KLDT-O5WB,50.928,KLDT-E5WC,0,UFOs close to LH frame (Frames 322-324),,,,
@@ -1251,12 +1154,9 @@ UFOs at the UDPT, possibly Ti?",,,,
 1260,104523,KLDT-O5WB,53.61013,KLDT-E5WC,0,"UFO on the outerwall close to the WOPL, seen also by KLDT-E5WD",,,,
 1261,104523,KLDT-O5WB,53.61013,KLDT-E5WD,0,"UFO on the outerwall close to the WOPL, seen also by KLDT-E5WD",,,,
 1262,104523,KLDT-O5WB,53.61013,KLDT-E5WE,0,"UFO on the outerwall close to the WOPL, seen also by KLDT-E5WD",,,,
-1263,104520,KLDT-O5WB,51.78857,KLDT-E5WC,0,"UFO seen on outerwall also at
-54.27s. During all pulse a few UFOs seen also on UDPT the biggest one at 52.99s.",,,,
-1264,104520,KLDT-O5WB,51.78857,KLDT-E5WD,0,"UFO seen on outerwall also at
-54.27s. During all pulse a few UFOs seen also on UDPT the biggest one at 52.99s.",,,,
-1265,104520,KLDT-O5WB,51.78857,KLDT-E5WE,0,"UFO seen on outerwall also at
-54.27s. During all pulse a few UFOs seen also on UDPT the biggest one at 52.99s.",,,,
+1263,104520,KLDT-O5WB,51.78857,KLDT-E5WC,0,"UFO seen on outerwall also at 54.27s. During all pulse a few UFOs seen also on UDPT the biggest one at 52.99s.",,,,
+1264,104520,KLDT-O5WB,51.78857,KLDT-E5WD,0,"UFO seen on outerwall also at 54.27s. During all pulse a few UFOs seen also on UDPT the biggest one at 52.99s.",,,,
+1265,104520,KLDT-O5WB,51.78857,KLDT-E5WE,0,"UFO seen on outerwall also at 54.27s. During all pulse a few UFOs seen also on UDPT the biggest one at 52.99s.",,,,
 1266,104518,KLDT-O5WB,49.1504,KLDT-E5WC,0,"UFO on UDPT (Ti according to JETDSP), also seen by KLDT-E5We camera (few frames) and also one frame by KLDT-E5WD camera.",,,,
 1267,104518,KLDT-O5WB,49.1504,KLDT-E5WD,0,"UFO on UDPT (Ti according to JETDSP), also seen by KLDT-E5We camera (few frames) and also one frame by KLDT-E5WD camera.",,,,
 1268,104518,KLDT-O5WB,49.1504,KLDT-E5WE,0,"UFO on UDPT (Ti according to JETDSP), also seen by KLDT-E5We camera (few frames) and also one frame by KLDT-E5WD camera.",,,,
@@ -1398,12 +1298,9 @@ UFOs at the UDPT, possibly Ti?",,,,
 1407,104173,KLDT-O5WB,50.23474,KLDT-E5WC,0,several UFOs spotted mainly around UDPL from 50.2-56.7s,,,,
 1408,104173,KLDT-O5WB,50.23474,KLDT-E5WD,0,several UFOs spotted mainly around UDPL from 50.2-56.7s,,,,
 1409,104173,KLDT-O5WB,50.23474,KLDT-E5WE,0,several UFOs spotted mainly around UDPL from 50.2-56.7s,,,,
-1410,104172,KLDT-O5WB,40.23552,KLDT-E5WC,0,"Weird blue streak at 40.235s and several UFOs spotted b/w
-51.9s-54.6s",,,,
-1411,104172,KLDT-O5WB,40.23552,KLDT-E5WD,0,"Weird blue streak at 40.235s and several UFOs spotted b/w
-51.9s-54.6s",,,,
-1412,104172,KLDT-O5WB,40.23552,KLDT-E5WE,0,"Weird blue streak at 40.235s and several UFOs spotted b/w
-51.9s-54.6s",,,,
+1410,104172,KLDT-O5WB,40.23552,KLDT-E5WC,0,"Weird blue streak at 40.235s and several UFOs spotted b/w 51.9s-54.6s",,,,
+1411,104172,KLDT-O5WB,40.23552,KLDT-E5WD,0,"Weird blue streak at 40.235s and several UFOs spotted b/w 51.9s-54.6s",,,,
+1412,104172,KLDT-O5WB,40.23552,KLDT-E5WE,0,"Weird blue streak at 40.235s and several UFOs spotted b/w 51.9s-54.6s",,,,
 1413,104143,KLDT-O5WB,51.57829,KLDT-E5WC,0,Large sparkle seen near upper dump plate - splits off into multiple UFOs,,,,
 1414,104143,KLDT-O5WB,51.57829,KLDT-E5WD,0,Large sparkle seen near upper dump plate - splits off into multiple UFOs,,,,
 1415,104143,KLDT-O5WB,51.57829,KLDT-E5WE,0,Large sparkle seen near upper dump plate - splits off into multiple UFOs,,,,
@@ -1453,15 +1350,9 @@ UFOs at the UDPT, possibly Ti?",,,,
 1459,104052,KLDT-O5WB,67.39208,KLDT-E5WC,0,Quite a few Beryllium UFOs from the outer wall - 2 frames. Another very bright at 68.19443 for 3 frames.,,,,
 1460,104052,KLDT-O5WB,67.39208,KLDT-E5WD,0,Quite a few Beryllium UFOs from the outer wall - 2 frames. Another very bright at 68.19443 for 3 frames.,,,,
 1461,104052,KLDT-O5WB,67.39208,KLDT-E5WE,0,Quite a few Beryllium UFOs from the outer wall - 2 frames. Another very bright at 68.19443 for 3 frames.,,,,
-1462,104050,KLDT-O5WB,48.95893,KLDT-E5WC,50.944,"More Titanium UFOs @47.99602, 48.79855, 48.95893 (2frames),
-49.40066, 49.76191 (2 frames),
-51.00629 (also a very cool frame of the start of DMV gas where some tendrils from the cloud are visible)",,,,
-1463,104050,KLDT-O5WB,48.95893,KLDT-E5WD,50.944,"More Titanium UFOs @47.99602, 48.79855, 48.95893 (2frames),
-49.40066, 49.76191 (2 frames),
-51.00629 (also a very cool frame of the start of DMV gas where some tendrils from the cloud are visible)",,,,
-1464,104050,KLDT-O5WB,48.95893,KLDT-E5WE,50.944,"More Titanium UFOs @47.99602, 48.79855, 48.95893 (2frames),
-49.40066, 49.76191 (2 frames),
-51.00629 (also a very cool frame of the start of DMV gas where some tendrils from the cloud are visible)",,,,
+1462,104050,KLDT-O5WB,48.95893,KLDT-E5WC,50.944,"More Titanium UFOs @47.99602, 48.79855, 48.95893 (2frames), 49.40066, 49.76191 (2 frames), 51.00629 (also a very cool frame of the start of DMV gas where some tendrils from the cloud are visible)",,,,
+1463,104050,KLDT-O5WB,48.95893,KLDT-E5WD,50.944,"More Titanium UFOs @47.99602, 48.79855, 48.95893 (2frames), 49.40066, 49.76191 (2 frames), 51.00629 (also a very cool frame of the start of DMV gas where some tendrils from the cloud are visible)",,,,
+1464,104050,KLDT-O5WB,48.95893,KLDT-E5WE,50.944,"More Titanium UFOs @47.99602, 48.79855, 48.95893 (2frames), 49.40066, 49.76191 (2 frames), 51.00629 (also a very cool frame of the start of DMV gas where some tendrils from the cloud are visible)",,,,
 1465,104048,KLDT-O5WB,48.22376,KLDT-E5WC,59.111,Very bright Ti(?) UFO from UPDT. Blue one at 48.34422. Curious 2 at 48.42452 for 4 frames. Blue jet at 48.62529. Another Ti(?) UFO at 51.75566.,,,,
 1466,104048,KLDT-O5WB,48.22376,KLDT-E5WD,59.111,Very bright Ti(?) UFO from UPDT. Blue one at 48.34422. Curious 2 at 48.42452 for 4 frames. Blue jet at 48.62529. Another Ti(?) UFO at 51.75566.,,,,
 1467,104048,KLDT-O5WB,48.22376,KLDT-E5WE,59.111,Very bright Ti(?) UFO from UPDT. Blue one at 48.34422. Curious 2 at 48.42452 for 4 frames. Blue jet at 48.62529. Another Ti(?) UFO at 51.75566.,,,,
@@ -1516,18 +1407,12 @@ UFOs at the UDPT, possibly Ti?",,,,
 1516,103948,KLDT-O5WB,50.55536,KLDT-E5WC,0,A series of small UFO's in the UDPT region frames 312-320. Similar events seen throughout pulse.,,,,
 1517,103948,KLDT-O5WB,50.55536,KLDT-E5WD,0,A series of small UFO's in the UDPT region frames 312-320. Similar events seen throughout pulse.,,,,
 1518,103948,KLDT-O5WB,50.55536,KLDT-E5WE,0,A series of small UFO's in the UDPT region frames 312-320. Similar events seen throughout pulse.,,,,
-1519,103941,KLDT-O5WB,43.47919,KLDT-E5WC,49.909,"UFO in UDPT region frame 136-141 (smaller one visible at frame
-128-129). Really clear on KLDT- E5WD frames 353-361 and also on KLDT-P5WA frame 213.",,,,
-1520,103941,KLDT-O5WB,43.47919,KLDT-E5WD,49.909,"UFO in UDPT region frame 136-141 (smaller one visible at frame
-128-129). Really clear on KLDT- E5WD frames 353-361 and also on KLDT-P5WA frame 213.",,,,
-1521,103941,KLDT-O5WB,43.47919,KLDT-E5WE,49.909,"UFO in UDPT region frame 136-141 (smaller one visible at frame
-128-129). Really clear on KLDT- E5WD frames 353-361 and also on KLDT-P5WA frame 213.",,,,
-1522,103925,KLDT-O5WB,54.27813,KLDT-E5WC,59.233,"Multiple UFOs at different times. The one here is the brightest. Other times: 53.55584s, 53.87705s, 53.99738s, 54.11767s, 54.23807s
-and 54.59943s)",,,,
-1523,103925,KLDT-O5WB,54.27813,KLDT-E5WE,59.233,"Multiple UFOs at different times. The one here is the brightest. Other times: 53.55584s, 53.87705s, 53.99738s, 54.11767s, 54.23807s
-and 54.59943s)",,,,
-1524,103923,KLDT-O5WB,52.92538,KLDT-E5WC,0,"Multiple UFOs at observed at the UDPT, outer wall, and divertor (other times are: 49.07283s, 49.27366s, 52.68486s and
-52.64471s)",,,,
+1519,103941,KLDT-O5WB,43.47919,KLDT-E5WC,49.909,"UFO in UDPT region frame 136-141 (smaller one visible at frame 128-129). Really clear on KLDT- E5WD frames 353-361 and also on KLDT-P5WA frame 213.",,,,
+1520,103941,KLDT-O5WB,43.47919,KLDT-E5WD,49.909,"UFO in UDPT region frame 136-141 (smaller one visible at frame 128-129). Really clear on KLDT- E5WD frames 353-361 and also on KLDT-P5WA frame 213.",,,,
+1521,103941,KLDT-O5WB,43.47919,KLDT-E5WE,49.909,"UFO in UDPT region frame 136-141 (smaller one visible at frame 128-129). Really clear on KLDT- E5WD frames 353-361 and also on KLDT-P5WA frame 213.",,,,
+1522,103925,KLDT-O5WB,54.27813,KLDT-E5WC,59.233,"Multiple UFOs at different times. The one here is the brightest. Other times: 53.55584s, 53.87705s, 53.99738s, 54.11767s, 54.23807s and 54.59943s)",,,,
+1523,103925,KLDT-O5WB,54.27813,KLDT-E5WE,59.233,"Multiple UFOs at different times. The one here is the brightest. Other times: 53.55584s, 53.87705s, 53.99738s, 54.11767s, 54.23807s and 54.59943s)",,,,
+1524,103923,KLDT-O5WB,52.92538,KLDT-E5WC,0,"Multiple UFOs at observed at the UDPT, outer wall, and divertor (other times are: 49.07283s, 49.27366s, 52.68486s and 52.64471s)",,,,
 1525,103918,KLDT-O5WB,55.78395,KLDT-E5WD,56.831,Ti UFO over 7 frames (one frame has no UFO),,,,
 1526,103918,KLDT-O5WB,55.78395,KLDT-E5WE,56.831,Ti UFO over 7 frames (one frame has no UFO),,,,
 1527,103913,KLDT-O5WB,49.39117,KLDT-E5WC,50.989,"A blue UFO seen on WOPL and a few frames later other, as well a typical UFO appears on UDPT.",,,,
@@ -1565,11 +1450,7 @@ and 54.59943s)",,,,
 1561,103830,KLDT-O5WB,50.91532,KLDT-E5WC,0,Large Ti UFO,,,,
 1562,103830,KLDT-O5WB,50.91532,KLDT-E5WD,0,Large Ti UFO,,,,
 1564,103816,KLDT-O5WB,47.52139,KLDT-E5WD,48.02,Laarge UFO ffor 3 frames,12700,"I assume there are lots of different UFOs. Otherwise, the speed would be something of the likes of 12700. Still marked just in case","(127, 126)",
-<<<<<<< HEAD
 1565,103816,KLDT-O5WB,47.52139,KLDT-E5WE,48.02,Laarge UFO ffor 3 frames,0,Tracked with fast camera barely any movement,"(103, 98)",
-=======
-1565,103816,KLDT-O5WB,47.52139,KLDT-E5WE,48.02,Laarge UFO ffor 3 frames,0,Tracked with fast camera, barely any movement,"(103, 98)"
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 1566,103816,KLDT-O5WB,46.7988,KLDT-E5WC,48.02,Laarge UFO falling from the top for 2 frames,,,,
 1567,103816,KLDT-O5WB,46.7988,KLDT-E5WD,48.02,Laarge UFO falling from the top for 2 frames,,,,
 1568,103816,KLDT-O5WB,46.7988,KLDT-E5WE,48.02,Laarge UFO falling from the top for 2 frames,,,,
@@ -1577,11 +1458,7 @@ and 54.59943s)",,,,
 1570,103809,KLDT-O5WB,51.31883,KLDT-E5WC,0,Is that a UFO or some radiation from a recessed are between the top inner sausages and the limiters?,,,,
 1571,103809,KLDT-O5WB,51.31883,KLDT-E5WD,0,Is that a UFO or some radiation from a recessed are between the top inner sausages and the limiters?,,,,
 1572,103809,KLDT-O5WB,51.31883,KLDT-E5WE,0,Is that a UFO or some radiation from a recessed are between the top inner sausages and the limiters?,,,,
-<<<<<<< HEAD
 1574,103806,KLDT-O5WB,56.2243,KLDT-E5WD,56.252,Titanium UFO possibly causing the disruption,1111,It simply appears in both OP and E5WD. The blob ‘expands’ rather than moves.,"(199, 87)",
-=======
-1574,103806,KLDT-O5WB,56.2243,KLDT-E5WD,56.252,Titanium UFO possibly causing the disruption,1111,It simply appears in both OP and E5WD. The blob ‘expands’ rather than moves.,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
 1576,103800,KLDT-O5WB,50.03907,KLDT-E5WC,0,Many UFOs throughout the pulse coming from the outer limiters,,,,
 1577,103800,KLDT-O5WB,50.03907,KLDT-E5WD,0,Many UFOs throughout the pulse coming from the outer limiters,,,,
 1578,103800,KLDT-O5WB,50.03907,KLDT-E5WE,0,Many UFOs throughout the pulse coming from the outer limiters,,,,
@@ -1629,12 +1506,9 @@ and 54.59943s)",,,,
 1620,103577,KLDT-O5WB,54.2654,KLDT-E5WC,0,Large-ish UFO. Frame 405.,,,,
 1621,103577,KLDT-O5WB,54.2654,KLDT-E5WD,0,Large-ish UFO. Frame 405.,,,,
 1622,103577,KLDT-O5WB,54.2654,KLDT-E5WE,0,Large-ish UFO. Frame 405.,,,,
-1623,103574,KLDT-O5WB,53.53,KLDT-E5WC,0,"Large UFO at top of vessel frame
-386. Also seen on KLDT-P5WA at frame 543.",,,,
-1624,103574,KLDT-O5WB,53.53,KLDT-E5WD,0,"Large UFO at top of vessel frame
-386. Also seen on KLDT-P5WA at frame 543.",,,,
-1625,103574,KLDT-O5WB,53.53,KLDT-E5WE,0,"Large UFO at top of vessel frame
-386. Also seen on KLDT-P5WA at frame 543.",,,,
+1623,103574,KLDT-O5WB,53.53,KLDT-E5WC,0,"Large UFO at top of vessel frame 386. Also seen on KLDT-P5WA at frame 543.",,,,
+1624,103574,KLDT-O5WB,53.53,KLDT-E5WD,0,"Large UFO at top of vessel frame 386. Also seen on KLDT-P5WA at frame 543.",,,,
+1625,103574,KLDT-O5WB,53.53,KLDT-E5WE,0,"Large UFO at top of vessel frame 386. Also seen on KLDT-P5WA at frame 543.",,,,
 1626,103573,KLDT-O5WB,52.79649,KLDT-E5WC,0,"Muktiple UFO's frame368-371, 381, 390, 459 due to unsuccessful clean up pulse last session.",,,,
 1627,103573,KLDT-O5WB,52.79649,KLDT-E5WD,0,"Muktiple UFO's frame368-371, 381, 390, 459 due to unsuccessful clean up pulse last session.",,,,
 1628,103573,KLDT-O5WB,52.79649,KLDT-E5WE,0,"Muktiple UFO's frame368-371, 381, 390, 459 due to unsuccessful clean up pulse last session.",,,,
@@ -1701,8 +1575,7 @@ and 54.59943s)",,,,
 1692,103370,KLDT-O5WB,50.32634,KLDT-E5WE,54.318,small Ti UFo visible on camera and spectroscopy,,,,
 1693,103370,KLDT-O5WB,54.25969,KLDT-E5WD,54.318,Falling UFO Causes disruption. Spectroscopy suggests Ti,,,,
 1694,103370,KLDT-O5WB,54.25969,KLDT-E5WE,54.318,Falling UFO Causes disruption. Spectroscopy suggests Ti,,,,
-1695,103367,KLDT-O5WB,51.4968,KLDT-E5WD,54.112,"UFO on UDPT frame 292, 323, 329,
-336 similar to previous pulse.",,,,
+1695,103367,KLDT-O5WB,51.4968,KLDT-E5WD,54.112,"UFO on UDPT frame 292, 323, 329, 336 similar to previous pulse.",,,,
 1696,103367,KLDT-O5WB,50.97,KLDT-E5WD,54.112,UFO on BEION plate frame 364 similar to previous pulse.,,,,
 1697,103366,KLDT-O5WB,51.46,KLDT-E5WD,54.856,UFO's seen frame 335 from BEION plate and frame 336-337 from UDPT. Not seen on other cameras but increased radiation and Tungsten impurities found at same time on cview.,,,,
 1698,103362,KLDT-O5WB,52.16985,KLDT-E5WD,0,Two UFOs next to the NBI duct,,,,
@@ -2166,10 +2039,8 @@ but not on the protection camera)",,,,
 2170,101432,KL1-O8WA,51.699,KL8-E8WA,55.845,"Large flash from UFO, also visible on KL1-08WA",4927.1,Literally beautiful tracking,"(302, 187)",
 2171,101282,KL1-O8WA,63.87473,KL7-E8WB,0,Large UFO falls from near upper inner sausages,4291.5,Nice tracking of the big one. There are other UFO (smaller) in the video.,"(102, 20)",
 2172,99910,KLDT-O5WB,54.612,KLDT-E5WD,0,A lot of particles mOn the termination a lot of UFOs . E5WD seems to be the most sensitive camera showing many UFOs throughout the pulse.,,,,
-2173,99910,KLDT-O5WB,50.712,KLDT-E5WD,0,"A lot of particles seen coming from the beam duct area in the pulse.
-E5WD seems to be the most sensitive camera showing many UFOs throughout the pulse.",,,,
-2174,99910,KLDT-O5WB,48.287,KLDT-E5WD,0,"A lot of particles seen coming from the beam duct area in the pulse.
-E5WD seems to be the most sensitive camera showing many UFOs throughout the pulse.",,,,
+2173,99910,KLDT-O5WB,50.712,KLDT-E5WD,0,"A lot of particles seen coming from the beam duct area in the pulse. E5WD seems to be the most sensitive camera showing many UFOs throughout the pulse.",,,,
+2174,99910,KLDT-O5WB,48.287,KLDT-E5WD,0,"A lot of particles seen coming from the beam duct area in the pulse. E5WD seems to be the most sensitive camera showing many UFOs throughout the pulse.",,,,
 2175,99910,KLDT-O5WB,48.314,KLDT-E5WE,0,A lot of particles seen coming from the beam duct area in the pulse,,,,
 2176,99908,KLDT-O5WB,48.25,KLDT-E5WD,0,"Many small UFOs throughout most of pulse, staring around 48s and concentrated at the lower inner wall",,,,
 2177,99904,KLDT-O5WB,57.475,KLDT-E5WD,57.317,Spectacular cloud of UFOs on inner wall during disruption,,,,
@@ -2230,8 +2101,7 @@ E5WD seems to be the most sensitive camera showing many UFOs throughout the puls
 2235,98548,KLDT-O5WB,51.316,KLDT-E5WB,0,,,,,
 2236,98143,KLDT-O5WB,41.246,KLDT-E5WE,0,UFO from BEION during breakdown. Bright flash on visible cameras and breaks into multiple pieces.,,,,
 2237,97823,KLDT-O5WB,42.05,KLDT-E5WD,0,"Almost continuous stream of UFOs flying toroidally above the divertor for roughly 1.5 s, ending with a big one bouncing off from the outer divertor and splitting in several pieces at 43.46 s; last one also seen by KLDT-O5WB and faintly by KLDT-P5WA",,,,
-2238,97767,KLDT-O5WB,42.45,KLDT-E5WD,0,"A large continuous fleet of UFOs seen flying toroidally above the divertor with the Be II filter, possibly arising from impact on top part of tile 1 which flashes before the UFOs appear (SL suspected deposition of loose dust after several disruptions of the day); also seen by KLDT-O5WB, KL11-P1DB
-and KLDT-P5TB; another similarish shower of UFOs seen after 45.85 s;",,,,
+2238,97767,KLDT-O5WB,42.45,KLDT-E5WD,0,"A large continuous fleet of UFOs seen flying toroidally above the divertor with the Be II filter, possibly arising from impact on top part of tile 1 which flashes before the UFOs appear (SL suspected deposition of loose dust after several disruptions of the day); also seen by KLDT-O5WB, KL11-P1DB and KLDT-P5TB; another similarish shower of UFOs seen after 45.85 s;",,,,
 2239,97717,KLDT-O5WB,47.186,KLDT-E5WC,0,The same UFO traveling from the right bottom to the outer divertor and then towards the inner wall from 47.18 to 47.28 secs (seeing on KLDT-O5WB at 47.292 secs),,,,
 2240,97510,KLDT-O5WB,51.51,KLDT-E5WD,0,Several UFOs during the whole pulse. This one looks like on the NPL 3B,,,,
 2241,97501,KLDT-O5WB,49.3,KLDT-E5WC,49.054,"Very large number of raining UFOs after disruption starting around 49,3s",,,,
@@ -2316,12 +2186,6 @@ and KLDT-P5TB; another similarish shower of UFOs seen after 45.85 s;",,,,
 2321,100210,KLDT-O5WB,54.1625,KLDT-E5WD,54.218,Stereographic UFO from IWGL during disruption,5672,Lots of things going on: I took the average speed of all the particles and trajectories from the right side of the video.,"(280, 180)",
 2322,100208,KLDT-O5WB,52.5875,KLDT-E5WD,52.75,UFOs from IWGL during disruption. Seem to come from section which breifly exceeded MCHS and panic limit. SL to reduce DMV voltage for following pulse.,-999,Huge clouds,"(244, 67)",
 2323,100186,KLDT-O5WB,57.583,KLDT-E5WC,0,Stereographic UFO view after rough landing.,2236.067,Two small UFOs fall,"(56, 0)",
-<<<<<<< HEAD
 2324,100130,KLDT-O5WB,53.8851,KLDT-E5WD,53.925,cloud of UFOs seeming to come from outer limiters during floppy end of pulse,-999,"agree with comments from VSO – cloudy, not trackable","(57, 210)",
 2325,100125,KLDT-O5WB,47.212,KLDT-E5WE,0,UFO seems to break off the outer limiter and fall into the machine.,,,,
 2326,100103,KLDT-O5WB,55.6,KLDT-E5WD,55.478,Frame:829,-999,Several UFOs from all directions,,
-=======
-2324,100130,KLDT-O5WB,53.8851,KLDT-E5WD,53.925,cloud of UFOs seeming to come from outer limiters during floppy end of pulse,60075,"A small particle (E5WE) can be seen falling down, but everything happens when the plasma already escaped the divertor","(168, 222)",
-2325,100125,KLDT-O5WB,47.212,KLDT-E5WE,0,UFO seems to break off the outer limiter and fall into the machine.,,,,
-2326,100103,KLDT-O5WB,55.6,KLDT-E5WD,55.478,Frame:829,,,,
->>>>>>> e109875ba45cd3b1a263e46d081f32e660e237b1
