@@ -38,7 +38,7 @@ for i = 1 : length(unique_pulses)
     if ufo_time > 70
         continue
     end
-    list_disr_time(i) = ufo_time - disr_time;
+    list_disr_time(i) = ufo_time - disr_time; % negative number = UFO prior to disruption
     if disr_flag
         scatter(i, disr_time, 'red', 'filled', 'HandleVisibility', 'off');
     else
@@ -62,16 +62,16 @@ xlabel('Pulse counter')
 title('Time of TIE and disruption occurrences')
 % nexttile
 % Comparing times
-
+close all;
 scatter(1 : length(list_disr_time), list_disr_time, 'filled', 'HandleVisibility', 'off')
 msg1 = strcat("Pulsos con disrupciones: ", num2str(total_pulses - count_no_disr));
 disp(msg1)
 disp(strcat("Total pulses: ", num2str(total_pulses)))
 xlim([1, length(unique_pulses)])
-ylabel('Time (s)')
+ylabel('Time (s)', 'Interpreter', 'latex')
 yregion(-0.5, 0.5,'FaceColor','g','EdgeColor','k', 'DisplayName', char(177) + "0.5 seconds discrepancy")
-xlabel('Pulse counter')
-title('Time difference between TIE and disruption')
+xlabel('Pulse counter', 'Interpreter', 'latex')
+title('Time difference between TIE and disruption', 'Interpreter', 'latex')
 legend()
 set(gca,'FontSize',13);
 
