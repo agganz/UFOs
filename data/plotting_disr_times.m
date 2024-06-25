@@ -65,7 +65,7 @@ title('Time of TIE and disruption occurrences', 'Interpreter', 'latex')
 close all;
 
 datavuv = importvuv('data_vuv.xlsx');
-unique_vuv_pulses = unique(datavuv.Pulses);
+unique_vuv_pulses = unique(datavuv.Pulse);
 
 scatter(1 : length(list_disr_time), list_disr_time, 'filled', 'HandleVisibility', 'off')
 msg1 = strcat("Pulsos con disrupciones: ", num2str(total_pulses - count_no_disr));
