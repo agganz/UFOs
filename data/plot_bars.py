@@ -1,3 +1,9 @@
+# Plots bars that counts the TIE incident for materials and zones.
+# Plot data must be changed manually.
+#
+# Changelog:
+#    0.1 (AG): first version.
+#    0.2 (AG): fixed label in zones.
 
 import matplotlib
 from matplotlib import pyplot as plt
@@ -17,7 +23,7 @@ disr_materials = [18, 20, 0, 2, 0, 4, 13]
 no_disr_materials = [5, 3, 1, 3, 2, 0, 3]
 total_data_materials = list(np.array(disr_materials) + np.array(no_disr_materials))
 
-zone = ["UDPT", "IWGL", "UIWP", "NPL", "LH","ILA", "Divertor", "BEION", "4D", 'ICRH', 'NS/NC']
+zone = ["UDPT", "IWGL", "UIWP", "NPL", "LH","ILA", "Divertor", "BEION4", "4D", 'ICRH', 'NS/NC']
 no_disr_zone = [4, 0, 1, 0, 1, 0, 1, 4, 2, 1, 3]
 disr_zone = [15, 3, 3, 4, 0, 4, 13, 9, 4, 0, 2]
 total_data_zone = list(np.array(disr_zone) + np.array(no_disr_zone))
@@ -42,8 +48,8 @@ def plot_bar(disr, no_disr, labels):
     rects2 = ax.bar(x + width/2, no_disr, width, label='Non Disruptive', color='tab:green')
 
     ax.set_ylabel('Number of TIEs')
-    ax.set_xlabel('TIE composition')
-    ax.set_title('TIE composition in disruptive and non-disruptive discharges')
+    ax.set_xlabel('Area in device')
+    ax.set_title('Location of TIEs in disruptive and non-disruptive discharges')
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.set_yticks(new_y_axis)
@@ -53,4 +59,4 @@ def plot_bar(disr, no_disr, labels):
     plt.show()
 
 # Example usage
-plot_bar(disr_materials, no_disr_materials, material)
+plot_bar(disr_zone, no_disr_zone, zone)
