@@ -16,6 +16,7 @@ ChangeLog
     0.2.5 (AG): several crashes fixed, and image info is now
         available. Also fixed the issue with the tables.
     0.3 (AG): now contrast and brightness can be enhanced.
+    0.3.1 (AG): fixed the issue with the duplicated labels.
 """
 
 import sys
@@ -224,15 +225,19 @@ class MainWindow(QMainWindow):
         
 
         msg_1 = 'Mean: {0}. Std. dev: {1}'.format(round(self.mean_frame_1, 2), round(self.std_frame_1, 2))
-        self.im_info_1 = QLabel(msg_1, self) 
-        self.im_info_1.setText(msg_1) 
-        self.main_layout.addWidget(self.im_info_1, 1, 1)
+        self.im_info_1 = QLabel(msg_1, self)
+        self.im_info_1.setText(msg_1)
+        if not 'added_1' in self.__dict__.keys():
+            self.main_layout.addWidget(self.im_info_1, 1, 1)
+            self.added_1 = True
 
         msg_2 = 'Mean: {0}. Std. dev: {1}'.format(round(self.mean_frame_2, 2), round(self.std_frame_2, 2))
         self.im_info_2 = QLabel(msg_2, self) 
         self.im_info_2.setText(msg_2)
-        self.main_layout.addWidget(self.im_info_2, 1, 2)
-
+        if not 'added_2' in self.__dict__.keys():
+            self.main_layout.addWidget(self.im_info_2, 1, 2)
+            self.added_2 = True
+            
         # Go to next frame
         self.btn_nextframe = QPushButton()
         self.btn_nextframe.setCheckable(False)
