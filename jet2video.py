@@ -6,7 +6,7 @@
 # 1.2 (AG): Added one last frame to the returned time to ensure everything is captured.
 # 1.3 (AG): added background extraction via function argument.
 # 1.4 (AG): solved a bug in which an empty video would be created if the time range did not match
-
+# 1.5 (AG): added cmap argument to allow for different colormaps.
 
 import os
 import time
@@ -21,7 +21,7 @@ import numpy as np
 from juvil.VVideo import VVideo
 
 
-def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_clim=True,clim=None, meta = ['jpn','camera','time'],time_range=None, extract_bkg = False):
+def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_clim=True,clim=None, meta = ['jpn','camera','time'],time_range=None, extract_bkg = False, cmap = 'gray'):
     '''
     Write out a JET pulse video as an MP4 file.
 
@@ -104,7 +104,7 @@ def export_jet_video(camera,pulse,output_filename,fps=None,bitrate=5000,dynamic_
         clim = [im0.min(),im0.max()]
 
     fig = plt.figure(figsize=(im_size[1]/100.,im_size[0]/100.),dpi=100)
-    im = plt.imshow(im0,cmap='gray',clim=clim)
+    im = plt.imshow(im0,cmap=cmap,clim=clim)
 
     if timestamp or metastamp:
         timestamp = AnchoredText('Overlay stamp',loc=3,prop={'color':'w','fontsize':10})
