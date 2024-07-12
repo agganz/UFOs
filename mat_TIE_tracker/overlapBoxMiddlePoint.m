@@ -5,6 +5,7 @@
 %
 % Changelog
 %   0.1 (AG): first version.
+%   0.2 (AG): extracted get_middle_point as a standalone function.
 
 function overlap = overlapBoxMiddlePoint(box1, box2, distance_threshold)
     arguments
@@ -22,22 +23,5 @@ function overlap = overlapBoxMiddlePoint(box1, box2, distance_threshold)
     else
         overlap = false;
     end
-
-end
-
-function mid_point = get_middle_point(box_item)
-% Gets the coordinates of the center of a box item, assuming the format is
-% [xi, yi, width, height].
-
-    arguments
-        box_item (1, 4)
-    end
-
-    xi = box_item(1);
-    yi = box_item(2);
-    xf = xi + box_item(4);
-    yf = yi + box_item(3);
-
-    mid_point = [round((xi + xf) / 2), round((yi + yf) / 2)];
 
 end
