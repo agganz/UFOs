@@ -4,6 +4,7 @@
 %
 % Changelog
 %   0.1 (AG): first version
+%   0.1.1 (AG): fixed bug: boxes not limitted properly.
 
 function mean_int = get_int_in_box(image, box)
     arguments
@@ -11,7 +12,11 @@ function mean_int = get_int_in_box(image, box)
         box (1, 4)
     end
 
-    xf = box(1) + box(4);
-    yf = box(2) + box(3);
-    mean_int = mean(image(box(2) : yf, box(1) : xf), 'all');
+    xf = box(1) + box(3);
+    yf = box(2) + box(4);
+    try
+        mean_int = mean(image(box(2) : yf, box(1) : xf), 'all');
+    catch
+        mean_int = mean(image, 'all');
+    end
 end
