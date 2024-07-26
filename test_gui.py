@@ -17,6 +17,7 @@ ChangeLog
         available. Also fixed the issue with the tables.
     0.3 (AG): now contrast and brightness can be enhanced.
     0.3.1 (AG): fixed the issue with the duplicated labels.
+    0.3.2 (AG): added stad deviation.
 """
 
 import sys
@@ -61,6 +62,7 @@ class MainWindow(QMainWindow):
 
         self.velocities_selected = []
         self.velocity = 0.0
+        self.error_velocity = 0.0
 
         self.setWindowTitle("JUUT")
         
@@ -260,12 +262,17 @@ class MainWindow(QMainWindow):
         self.btn_keypoints.clicked.connect(self.keypoints_dialog)
         
         self.vel_display = QLineEdit()
-        self.vel_display.setText(str(self.velocity))
+        self.vel_display.setText('Mean speed: ' + str(self.velocity))
         # TODO quick fix to add label
         self.vel_display.setReadOnly(True)
         self.main_layout.addWidget(self.vel_display, 3, 1)
         
-        self.main_layout.addWidget(self.btn_keypoints, 3, 2)
+        self.err_display = QLineEdit()
+        self.err_display.setText('Speed deviation: ' + str(self.error_velocity))
+        self.err_display.setReadOnly(True)
+        self.main_layout.addWidget(self.err_display, 3, 2)
+
+        self.main_layout.addWidget(self.btn_keypoints, 3, 3)
 
         if self.auto_detect.isChecked():
             self.make_detection()
@@ -537,7 +544,9 @@ class MainWindow(QMainWindow):
         velocity = float(self.table.item(self.row, 1).text())
         self.velocities_selected.append(velocity)
         self.velocity = np.mean(self.velocities_selected)
+        self.error_velocity = np.std(self.velocities_selected)
         self.vel_display.setText(str(self.velocity))
+        self.err_display.setText(str(self.error_velocity))  
 
 
 def cv2_to_QImage(cv2_frame):
