@@ -21,7 +21,7 @@ while hasFrame(vid_obj)
     I_bw = medfilt2(I_bw); % median blur for noise filtering
 
     avg_image = mean(I_bw, 'all');
-    [bboxes, scores] = detect(acfDetector, clean_image);
+    [bboxes, scores] = detect(detector_color, clean_image);
     box_idx = zeros(1, size(bboxes, 1));
     boxes_int = zeros(1, size(bboxes, 1));
 
@@ -47,10 +47,13 @@ while hasFrame(vid_obj)
     prods_to_use = prod_int_scores(box_idx);
     
     if isempty(scores)
+            I_clean = insertText(I_bw, [2, 2], num2str(n_frame));
+    writeVideo(vid_out, I_clean)
+
         continue
     end
 
-    annotation = acfDetector.ModelName;
+    annotation = detector_color.ModelName;
     % I = insertObjectAnnotation(I,'rectangle',bboxes,annotation);
     I_clean = insertText(I_bw, [2, 2], num2str(n_frame));
     I_clean = insertObjectAnnotation(I_clean,'rectangle',bboxes, prods_to_use);
