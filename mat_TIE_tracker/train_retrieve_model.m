@@ -5,10 +5,12 @@
 % Changelog
 %   0.1 (AG): first version
 %   0.1.1 (AG): added save_as_file
+%   0.1.2 (AG): added model_name.
 
-function acfDetector = train_retrieve_model(save_as_file)
+function acfDetector = train_retrieve_model(save_as_file, model_name)
     arguments
         save_as_file logical = true
+        model_name char = 'acfModel.mat'
     end
 
     main_folder = 'E:\JET_cameras\UFO_data';
@@ -25,9 +27,9 @@ function acfDetector = train_retrieve_model(save_as_file)
     
     %% Training the model
     training_dataset = objectDetectorTrainingData(truths);
-    acfDetector = trainACFObjectDetector(training_dataset,'NegativeSamplesFactor', 5);
+    acfDetector = trainACFObjectDetector(training_dataset,'NegativeSamplesFactor', 5, 'ObjectTrainingSize', [50, 50]);
     
     if save_as_file
-        save('acfModel.mat', 'acfDetector')
+        save(model_name, 'acfDetector')
     end
 end

@@ -18,10 +18,11 @@ while hasFrame(vid_obj)
     vidFrame = readFrame(vid_obj);
     I_bw_simp = vidFrame(:, :, 1);
     I_bw_simp = medfilt2(I_bw_simp); % median blur for noise filtering
+    avg_image = mean(I_bw_simp, 'all');
+    I_bw_simp = (I_bw_simp - avg_image) .* 2;
     I_bw = cat(3, I_bw_simp, I_bw_simp, I_bw_simp);
 
-    avg_image = mean(I_bw, 'all');
-    [bboxes, scores] = detect(acfDetector, clean_image);
+    [bboxes, scores] = detect(detector_bw, I_bw);
     box_idx = zeros(1, size(bboxes, 1));
     boxes_int = zeros(1, size(bboxes, 1));
 
@@ -30,31 +31,33 @@ while hasFrame(vid_obj)
     end
 
     for i = 1 : size(bboxes, 1)
-        mean_int_box = get_int_in_box(I_bw, bboxes(i, :));
+        mean_int_box = get_int_in_box(I_bw_simp, bboxes(i, :));
         boxes_int(i) = mean_int_box;
     end
 
     prod_int_scores = boxes_int .* scores';
     box_idx = prod_int_scores > 700;
-%     box_idx = box_idx(box_idx > 0);
+    %     box_idx = box_idx(box_idx > 0);
 
     bboxes = bboxes(box_idx, :);
     scores = scores(box_idx);
-%     [~, scr_idx] = maxk(scores, 3);
-%     bboxes = bboxes(scr_idx, :);
-%     scores = scores(scr_idx);
+    %     [~, scr_idx] = maxk(scores, 3);
+    %     bboxes = bboxes(scr_idx, :);
+    %     scores = scores(scr_idx);
 
     prods_to_use = prod_int_scores(box_idx);
-    
+
     if isempty(scores)
+        I_clean = insertText(I_bw, [2, 2], num2str(n_frame));
+        writeVideo(vid_out, I_clean)
         continue
     end
 
-    annotation = acfDetector.ModelName;
+    annotation = detector_bw.ModelName;
     % I = insertObjectAnnotation(I,'rectangle',bboxes,annotation);
     I_clean = insertText(I_bw, [2, 2], num2str(n_frame));
     I_clean = insertObjectAnnotation(I_clean,'rectangle',bboxes, prods_to_use);
-    
+
     writeVideo(vid_out, I_clean)
 end
 
