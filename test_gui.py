@@ -18,6 +18,7 @@ ChangeLog
     0.3 (AG): now contrast and brightness can be enhanced.
     0.3.1 (AG): fixed the issue with the duplicated labels.
     0.3.2 (AG): added stad deviation.
+    0.3.3 (AG): added buttom to restart speed measures.
 """
 
 import sys
@@ -261,6 +262,11 @@ class MainWindow(QMainWindow):
         self.btn_keypoints.setText('Open keypoints dialog')
         self.btn_keypoints.clicked.connect(self.keypoints_dialog)
         
+        self.btn_speed_to_zero = QPushButton()
+        self.btn_speed_to_zero.setCheckable(False)
+        self.btn_speed_to_zero.setText('Set speed to zero')
+        self.btn_speed_to_zero.clicked.connect(self.set_speed_to_zero)
+
         self.vel_display = QLineEdit()
         self.vel_display.setText('Mean speed: ' + str(self.velocity))
         # TODO quick fix to add label
@@ -272,11 +278,23 @@ class MainWindow(QMainWindow):
         self.err_display.setReadOnly(True)
         self.main_layout.addWidget(self.err_display, 3, 2)
 
+        self.main_layout.addWidget(self.btn_speed_to_zero, 4, 3)
         self.main_layout.addWidget(self.btn_keypoints, 3, 3)
 
         if self.auto_detect.isChecked():
             self.make_detection()
         
+
+    def set_speed_to_zero(self):
+        """
+        Sets the speed to zero.
+        """
+        
+        self.velocity = 0.0
+        self.error_velocity = 0.0
+        self.vel_display.setText('Mean speed: ' + str(self.velocity))
+        self.err_display.setText('Speed deviation: ' + str(self.error_velocity))
+
 
     def estimate_delta_time(self):
         """
