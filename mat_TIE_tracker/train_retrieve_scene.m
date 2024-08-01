@@ -4,13 +4,10 @@
 %
 % Changelog
 %   0.1 (AG): first version
+%   0.2 (AG): changed purpose. Now creates ordered files with gTruths.
 
 
-function acfDetector = train_retrieve_scene(save_as_file, model_name)
-    arguments
-        save_as_file logical = true
-        model_name char = 'acfModel.mat'
-    end
+function train_retrieve_scene()
 
     main_folder = 'E:\JET_cameras\UFO_data\Scenes';
     
@@ -26,18 +23,13 @@ function acfDetector = train_retrieve_scene(save_as_file, model_name)
     
     
     scenes_folder = 'E:\JET_cameras\UFO_data\Scenes\saved_scenes';
-    [timeRanges, sceneLabels] = sceneTimeRanges(truths);
-    folderNames = sceneLabels;
-    filenames = writeVideoScenes(truths,timeRanges,scenes_folder, folderNames);
+    [~, sceneLabels] = sceneTimeRanges(truths);
 
     groundTruthFolder = main_folder;
     trainingFolder = scenes_folder;
 
     extractVideoScenes(groundTruthFolder,trainingFolder, sceneLabels);
     
-    if save_as_file
-        save(model_name, 'acfDetector')
-    end
 end
 
 function extractVideoScenes(groundTruthFolder,trainingFolder,classes)
