@@ -3,6 +3,7 @@
 % Changelog
 %   0.1 (AG): First version.
 %   0.2 (AG): added crosses for missing data.
+%   0.2.1 (AG): changed the column of the scfactor.
 
 hold on
 disr_flag = false;
@@ -11,7 +12,7 @@ no_disr_flag = false;
 for i = 1 : size(datavuv, 1)
     disr_time = datavuv.Disruption(i);
     speed = datavuv.MeasuredSpeed(i);
-    speed = speed / datavuv.Sc_factor(i);
+    speed = speed / datavuv.ScFactor(i);
 
     if disr_time == 0
         if speed < 0
