@@ -4,6 +4,7 @@
 %
 % Changelog
 %   0.1 (AG): First version
+%   0.1.1 (AG): fixed bug in title
 
 
 matrix_in = zeros(7, 11);
@@ -57,19 +58,21 @@ for n_row = 1 : size(datavuv, 1)
     matrix_in(i,j) = matrix_in(i, j) + 1;
 end
 
+ctaxis = 0 : 2 : max(matrix_in, [], 'all');
 imagesc(matrix_in)
 xticks(1:11)
 yticks(1:7)
 xticklabels({'UDPT', 'IWGL', 'UIWP', 'NPL', 'LH', 'ILA', 'Div.', 'BEION4', '4D', 'ICRH', 'NS/NC'})
-yticklabels({'Ti', 'W', 'Ni', 'Mo', 'Other', 'Combined', 'NS/NC'})
+yticklabels({'Ti', 'W', 'Ni', 'Mo', 'Other', 'Comb.', 'NS/NC'})
 ax = gca;
 ax.FontSize = 15;
 xlabel('TIE material', 'Interpreter', 'latex')
 ylabel('Area in device', 'Interpreter', 'latex')
-title('Distribution of TIEs in decive', 'Interpreter', 'latex')
+title('Distribution of TIEs in device', 'Interpreter', 'latex')
 c = colorbar;
 c.Label.String = 'Number of TIEs';
 c.TickLabelInterpreter = 'latex';
+c.Ticks = ctaxis;
 box on;
 grid on;
 c.FontSize = 15;
