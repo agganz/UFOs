@@ -40,7 +40,7 @@ end
 video_label = classNames{video_label_idx};
 
 if disp_hist
-    histogram(label_count);
+    bar(label_count);
 end
 end
 
