@@ -46,7 +46,7 @@ def plot_bar(disr, no_disr, labels, x_label, title_plot):
     fig, ax = plt.subplots()
     fig.set_size_inches(9, 8)
     rects1 = ax.bar(x - width/2, disr, width, label='Disruptive', color='tab:red')
-    rects2 = ax.bar(x + width/2, no_disr, width, label='Non Disruptive', color='tab:green')
+    rects2 = ax.bar(x + width/2, no_disr, width, label='Non Disruptive', color="#0072BD")
 
     ax.set_ylabel('Number of TIEs')
     ax.set_xlabel(x_label)
@@ -66,4 +66,4 @@ xlabelmat = 'TIE composition'
 titlezone ='Location of TIEs in disruptive and non-disruptive discharges'
 xlabelzone = 'Area in device'
 
-plot_bar(disr_materials, no_disr_materials, material, xlabelmat, titlemat)
+plot_bar(disr_zone, no_disr_zone, zone, xlabelzone, titlezone)
