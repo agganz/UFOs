@@ -59,7 +59,7 @@ yline(0, 'k', 'HandleVisibility', 'off')
 
 title('Normalised TIE speeds', 'Interpreter', 'latex')
 xlabel('TIE in reduced dataset', 'Interpreter', 'latex')
-ylabel('Normalised TIE speed ($s^{-1} pix^{-1})$', 'Interpreter', 'latex')
+ylabel('Normalised TIE speed (m/s)', 'Interpreter', 'latex')
 ax = gca;
 legend('Interpreter', 'latex')
 ax.FontSize = 15;
