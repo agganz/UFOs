@@ -1,7 +1,7 @@
 % 0.1 (AG): first version.
 
 
-function divertor_length = get_divertor_lenght_acf(video_path, acfmodel, NN_denoise)
+function divertor_length = use_acf_to_measure_divertor(video_path, acfmodel, NN_denoise)
 arguments
     video_path char
     acfmodel acfObjectDetector
