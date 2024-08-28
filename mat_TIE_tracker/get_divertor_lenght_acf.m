@@ -3,6 +3,7 @@
 % video frame to calculate its width in pixels.
 
 % 0.1 (AG): first version.
+% 0.1.1 (AG): removed the beeping sound as it was killing me.
 
 
 function divertor_length = get_divertor_lenght_acf(video_path, acfmodel, NN_denoise)
@@ -70,7 +71,6 @@ function divertor_length = get_divertor_lenght_acf(video_path, acfmodel, NN_deno
     end
     
     vid_out.close;
-    beep
     
     divertor_sizes = divertor_sizes(divertor_sizes > 0);
     divertor_length = mean(divertor_sizes);
