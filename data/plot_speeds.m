@@ -59,7 +59,7 @@ end
 yline(0, 'k', 'HandleVisibility', 'off')
 
 title('Normalised TIE speeds', 'Interpreter', 'latex')
-xlabel('TIE in reduced dataset', 'Interpreter', 'latex')
+xlabel('TIE index in reduced dataset', 'Interpreter', 'latex')
 ylabel('Normalised TIE speed (m/s)', 'Interpreter', 'latex')
 ax = gca;
 legend('Interpreter', 'latex')
