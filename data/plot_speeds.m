@@ -5,6 +5,7 @@
 %   0.2 (AG): added crosses for missing data.
 %   0.2.1 (AG): changed the column of the scfactor.
 %   0.2.2 (AG): added more detail to the x legend.
+%   0.3 (AG): redone using the ACF scale factor.
 
 hold on
 disr_flag = false;
@@ -15,7 +16,7 @@ no_disr_no_mes_flag = false;
 for i = 1 : size(datavuv, 1)
     disr_time = datavuv.Disruption(i);
     speed = datavuv.MeasuredSpeed(i);
-    speed = speed / datavuv.ScFactor(i);
+    speed = speed / datavuv.ACFFactor(i);
 
     if disr_time == 0
         if speed < 0
