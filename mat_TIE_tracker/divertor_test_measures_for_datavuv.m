@@ -11,6 +11,7 @@ div_size = zeros(size(datavuv, 1), 1);
 differences_in_dist = div_size;
 
 for i = 1 : size(datavuv, 1)
+    disp(['Row: ', num2str(i)])
     camera = datavuv.ExpCam(i);
     JPN = datavuv.Pulse(i);
     video_folder = 'E:\JET_cameras\UFO_data';
