@@ -8,7 +8,7 @@
 %   0.1.1 (AG): added save_as_file
 %   0.1.2 (AG): added model_name.
 
-function acfDetector = get_acf_model_divertor(save_as_file, model_name, dist_camera)
+function acfDetector = create_ACF_model_for_divertor(save_as_file, model_name, dist_camera)
     arguments
         save_as_file logical = true
         model_name char = 'acfModel.mat'
