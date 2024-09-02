@@ -16,6 +16,8 @@ ChangeLog:
     0.2.2 (AG): increased modularity
     0.3 (AG): several changes to the adjust_frame function
         NOTE: 0.3 has not been checked in Heimdall without GUI
+    0.3.1 (AG): added a scale factor to the speed calculation.
+        NOTE: I STILL haven't tested this in Heimdall without GUI.
 """
 
 import numpy as np
@@ -329,7 +331,7 @@ def filter_points_with_distance_matrix(keypoints_A, keypoints_B, threshold = 10,
     return start_points, end_points
 
     
-def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, time_vec = None, delta_time = None):
+def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, time_vec = None, delta_time = None, sc_factor = 1.0):
     """
     Draws arrows int othe given frame following the positions 
 
@@ -350,6 +352,8 @@ def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, ti
         The real time array in seconds.
     delta_time : int. None by default
         The frame rate without time vec.
+    sc_factor : float. 1.0 by default. The units are m/pixel.
+        the scale factor for the speed.
 
     Returns
     -------
@@ -374,7 +378,7 @@ def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, ti
         if time_flag:
             disp_mod = math.dist(initial_point, final_point)
             coords = (int((final_point[0] + initial_point[0]) / 2), int((final_point[1] + initial_point[1]) / 2))
-            ins_speed = int(disp_mod / delta_time)  # displacement in pixels
+            ins_speed = int(disp_mod / delta_time * sc_factor) # displacement in pixels
             frame = misc_tools.add_small_annotation(str(ins_speed), frame, coords)
             speed_dict.update({final_point : ins_speed})
         frame = cv2.arrowedLine(frame, initial_point, final_point, (0, 255, 0), 3, 1, 0, 0.2)
