@@ -9,6 +9,7 @@ Contains tools for easy and simple image modification
 ChangeLog:
     0.1 (AG): First version
     0.2 (AG): added increase_contrast_image_gray
+    0.2.1 (AG): fixed increase_contrast_brightness_gray to avoid 255+ value overflow
 """
 
 import cv2
@@ -159,6 +160,7 @@ def increase_contrast_brightness_gray(gray_image, contrast_inc, brightness_int):
     """
     
     new_image = gray_image * contrast_inc + brightness_int
+    new_image[new_image > 255] = 255
     new_image = new_image.astype('uint8')
     
     return new_image
