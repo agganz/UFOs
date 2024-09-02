@@ -19,6 +19,8 @@ ChangeLog
     0.3.1 (AG): fixed the issue with the duplicated labels.
     0.3.2 (AG): added stad deviation.
     0.3.3 (AG): added buttom to restart speed measures.
+    0.4 (AG): added scale factor for time. 
+        Added several shortcut and the possibility to save the images.
 """
 
 import sys
@@ -31,8 +33,7 @@ from aux_tools import misc_tools
 from aux_tools import simple_image_editor
 
 # QT5 stuff
-from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import *
+from PyQt5.QtGui import QPixmap, QImage, QKeySequence
 from PyQt5.QtWidgets import (
     QApplication,
     QDialog,
@@ -44,6 +45,7 @@ from PyQt5.QtWidgets import (
     QMainWindow,
     QFormLayout,
     QWidget,
+    QShortcut,
     QLineEdit,
     QVBoxLayout,
     QCheckBox,
@@ -64,6 +66,7 @@ class MainWindow(QMainWindow):
         self.velocities_selected = []
         self.velocity = 0.0
         self.error_velocity = 0.0
+        self.save_counter = 0
 
         self.setWindowTitle("JUUT")
         
@@ -97,6 +100,11 @@ class MainWindow(QMainWindow):
         self.conf_image_layout.addRow("Minimum background for frame:", self.min_bkg_image)
         self.delta_time_box = QLineEdit()
         self.conf_image_layout.addRow("Video real frame rate:", self.delta_time_box)
+
+        self.time_scale_factor = QLineEdit()
+        self.conf_image_layout.addRow("Time scale factor (m/pixel):", self.time_scale_factor)
+        self.time_scale_factor.setText('1.0')
+
 
         self.contrast_and_brightness = QLineEdit()
         self.conf_image_layout.addRow('Enhance image as contrast-brightness:', self.contrast_and_brightness)
@@ -149,6 +157,25 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.container)
         
         
+        self.set_shortcuts()
+
+
+    def set_shortcuts(self):
+        """
+        Sets the shortcuts for the buttons.
+        """
+        
+        self.shortcut_next = QShortcut(QKeySequence('Ctrl+D'), self)
+        self.shortcut_next.activated.connect(self.go_next)
+        self.shortcut_prev = QShortcut(QKeySequence('Ctrl+A'), self)
+        self.shortcut_prev.activated.connect(self.go_prev)
+
+        self.shortcut_save_left = QShortcut(QKeySequence('Ctrl+L'), self)
+        self.shortcut_save_left.activated.connect(self.save_left_image)
+        self.shortcut_save_right = QShortcut(QKeySequence('Ctrl+R'), self)
+        self.shortcut_save_right.activated.connect(self.save_right_image)
+
+
     def get_image_when_clicked(self):
         """
         Shows the image corresponding to the current frame and the next, including 
@@ -241,22 +268,35 @@ class MainWindow(QMainWindow):
             self.main_layout.addWidget(self.im_info_2, 1, 2)
             self.added_2 = True
             
+        # Save the images for the detection
+        self.btn_save_left_frame = QPushButton()
+        self.btn_save_left_frame.setCheckable(False)
+        self.btn_save_left_frame.setText('Save frame')
+        self.btn_save_left_frame.clicked.connect(self.save_left_image)
+
+        self.btn_save_right_frame = QPushButton()
+        self.btn_save_right_frame.setCheckable(False)
+        self.btn_save_right_frame.setText('Save frame')
+        self.btn_save_right_frame.clicked.connect(self.save_right_image)
+
+        self.main_layout.addWidget(self.btn_save_left_frame, 2, 1)
+        self.main_layout.addWidget(self.btn_save_right_frame, 2, 2)
+
         # Go to next frame
         self.btn_nextframe = QPushButton()
         self.btn_nextframe.setCheckable(False)
         self.btn_nextframe.setText('Next frame')
         self.btn_nextframe.clicked.connect(self.go_next)
-        
-        self.main_layout.addWidget(self.btn_nextframe, 2, 2)
+        self.main_layout.addWidget(self.btn_nextframe, 3, 2)
 
         # Previous frame
         self.btn_prevframe = QPushButton()
         self.btn_prevframe.setCheckable(False)
         self.btn_prevframe.setText('Previous frame')
         self.btn_prevframe.clicked.connect(self.go_prev)
+        self.main_layout.addWidget(self.btn_prevframe, 3, 1)
         
-        self.main_layout.addWidget(self.btn_prevframe, 2, 1)
-        
+
         self.btn_keypoints = QPushButton()
         self.btn_keypoints.setCheckable(False)
         self.btn_keypoints.setText('Open keypoints dialog')
@@ -271,15 +311,15 @@ class MainWindow(QMainWindow):
         self.vel_display.setText('Mean speed: ' + str(self.velocity))
         # TODO quick fix to add label
         self.vel_display.setReadOnly(True)
-        self.main_layout.addWidget(self.vel_display, 3, 1)
+        self.main_layout.addWidget(self.vel_display, 4, 1)
         
         self.err_display = QLineEdit()
         self.err_display.setText('Speed deviation: ' + str(self.error_velocity))
         self.err_display.setReadOnly(True)
-        self.main_layout.addWidget(self.err_display, 3, 2)
+        self.main_layout.addWidget(self.err_display, 4, 2)
 
-        self.main_layout.addWidget(self.btn_speed_to_zero, 4, 3)
-        self.main_layout.addWidget(self.btn_keypoints, 3, 3)
+        self.main_layout.addWidget(self.btn_speed_to_zero, 3, 3)
+        self.main_layout.addWidget(self.btn_keypoints, 2, 3)
 
         if self.auto_detect.isChecked():
             self.make_detection()
@@ -431,6 +471,14 @@ class MainWindow(QMainWindow):
             self.delta_time_box.setText(str(est_delta_time))
             delta_time = float(self.delta_time_box.text())
 
+        try:
+            scale_factor = float(self.time_scale_factor.text())
+        except ValueError:
+            self.show_error_message('Could not read scale factor. Will set to 1.0')
+            scale_factor = 1.0
+
+        delta_time = delta_time * scale_factor # scale factor in m/pixel
+
         if len(keypoints_A) != 0 and len(keypoints_B) != 0:
             (start_points, end_points) = fast_camera_detection.filter_points_with_distance_matrix(keypoints_B, keypoints_A, threshold = 100, check_brightness = 0, frame_A = self.frame_2_cv2, frame_B = self.frame_1_cv2)
             if start_points is None:
@@ -564,7 +612,27 @@ class MainWindow(QMainWindow):
         self.velocity = np.mean(self.velocities_selected)
         self.error_velocity = np.std(self.velocities_selected)
         self.vel_display.setText(str(self.velocity))
-        self.err_display.setText(str(self.error_velocity))  
+        self.err_display.setText(str(self.error_velocity))
+
+
+    def save_left_image(self):
+        """
+        Saves the left image.
+        """
+        
+        self.save_counter = self.save_counter + 1
+        file_name = 's_{0}'.format(self.save_counter)
+        misc_tools.save_frame('.', file_name, self.frame_1_cv2)
+
+
+    def save_right_image(self):
+        """
+        Saves the right image.
+        """
+        
+        self.save_counter = self.save_counter + 1
+        file_name = 's_{0}'.format(self.save_counter)
+        misc_tools.save_frame('.', file_name, self.frame_2_cv2)
 
 
 def cv2_to_QImage(cv2_frame):
