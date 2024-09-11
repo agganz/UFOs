@@ -4,9 +4,10 @@
 
 % 0.1 (AG): first version.
 % 0.1.1 (AG): removed the beeping sound as it was killing me.
+% 0.2 (AG): added divertor_error as std(total measurements).
 
 
-function divertor_length = get_divertor_lenght_acf(video_path, acfmodel, NN_denoise)
+function [divertor_length, divertor_error] = get_divertor_lenght_acf(video_path, acfmodel, NN_denoise)
     arguments
         video_path char
         acfmodel acfObjectDetector
@@ -25,7 +26,7 @@ function divertor_length = get_divertor_lenght_acf(video_path, acfmodel, NN_deno
     % divertor size. I just do not feel as adding another while loop.
     
     divertor_sizes = zeros(1, vid_obj.NumFrames + 1);
-    
+
     while hasFrame(vid_obj)
         n_frame = n_frame + 1;
         disp(strcat('Working on frame: ', num2str(n_frame)))
@@ -73,6 +74,7 @@ function divertor_length = get_divertor_lenght_acf(video_path, acfmodel, NN_deno
     vid_out.close;
     
     divertor_sizes = divertor_sizes(divertor_sizes > 0);
+    divertor_error = std(divertor_sizes);
     divertor_length = mean(divertor_sizes);
 
 end
