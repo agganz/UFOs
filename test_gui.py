@@ -21,11 +21,14 @@ ChangeLog
     0.3.3 (AG): added buttom to restart speed measures.
     0.4 (AG): added scale factor for time. 
         Added several shortcut and the possibility to save the images.
+    0.4.1 (AG): now shutil is used to save the images.
 """
+
 
 import sys
 import cv2
 import os
+import shutil
 import numpy as np
 import re
 import fast_camera_detection
@@ -151,7 +154,7 @@ class MainWindow(QMainWindow):
         self.auto_detect = QCheckBox('Auto detect?')
         self.main_layout.addWidget(self.auto_detect, 4, 0)
 
-        self.setLayout(self.main_layout)        
+      #  self.setLayout(self.main_layout)     # commented out as it already is a layout   
         self.container = QWidget()
         self.container.setLayout(self.main_layout)
         self.setCentralWidget(self.container)
@@ -418,12 +421,12 @@ class MainWindow(QMainWindow):
             params.minInertiaRatio = float(min_inertia)
             params.maxInertiaRatio = float(max_inertia)
         else:
-            params.filterByArea = False
+            params.filterByInertia = False
         
         convexity_det = self.det_convexety.text()
         if convexity_det != '':
             params.filterByConvexity = True
-            min_convexity, max_convexity = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
+            min_convexity, max_convexity = re.findall(r"[+]?(?:\d*\.*\d+)", convexity_det)
             params.minConvexity = float(min_convexity)
             params.maxConvexity = float(max_convexity)
         else:
@@ -433,15 +436,16 @@ class MainWindow(QMainWindow):
 
         if circularity_det != '':
             params.filterByCircularity = True
-            min_circularity, max_circularity = re.findall(r"[+]?(?:\d*\.*\d+)", inertia_det)
+            min_circularity, max_circularity = re.findall(r"[+]?(?:\d*\.*\d+)", circularity_det)
             params.minCircularity = float(min_circularity)
             params.maxCircularity = float(max_circularity)
         else:
             params.filterByCircularity = False
 
         params.minRepeatability = 2
+
         detector = cv2.SimpleBlobDetector_create(params)
-            
+
         return detector
     
     
@@ -477,14 +481,13 @@ class MainWindow(QMainWindow):
             self.show_error_message('Could not read scale factor. Will set to 1.0')
             scale_factor = 1.0
 
-        delta_time = delta_time * scale_factor # scale factor in m/pixel
 
         if len(keypoints_A) != 0 and len(keypoints_B) != 0:
             (start_points, end_points) = fast_camera_detection.filter_points_with_distance_matrix(keypoints_B, keypoints_A, threshold = 100, check_brightness = 0, frame_A = self.frame_2_cv2, frame_B = self.frame_1_cv2)
             if start_points is None:
                 pass
             else:
-                self.im_with_keypoints_B, self.speed_dict = fast_camera_detection.draw_arrow_in_frame(self.im_with_keypoints_B, start_points, end_points, frame_number = None, time_vec = None, delta_time = delta_time)
+                self.im_with_keypoints_B, self.speed_dict = fast_camera_detection.draw_arrow_in_frame(self.im_with_keypoints_B, start_points, end_points, frame_number = None, time_vec = None, delta_time = delta_time, sc_factor = scale_factor)
             
         self.refresh_image_detection()
         
@@ -534,7 +537,7 @@ class MainWindow(QMainWindow):
         """
         Shows an error message instead of crashing (I hope?)
         TODO: try to force it out of the class broadcasting lambda functiions.
-        This is working well tho
+        This is working just fine but a man gotta have some standards.
 
         Parameters:
         ----------
@@ -617,12 +620,12 @@ class MainWindow(QMainWindow):
 
     def save_left_image(self):
         """
-        Saves the left image.
+        Saves the left image. Technically it just copies the file.
         """
         
         self.save_counter = self.save_counter + 1
-        file_name = 's_{0}'.format(self.save_counter)
-        misc_tools.save_frame('.', file_name, self.frame_1_cv2)
+        file_name = 's_{0}.png'.format(self.save_counter)
+        shutil.copyfile(self.frame_1, file_name)
 
 
     def save_right_image(self):
@@ -631,8 +634,8 @@ class MainWindow(QMainWindow):
         """
         
         self.save_counter = self.save_counter + 1
-        file_name = 's_{0}'.format(self.save_counter)
-        misc_tools.save_frame('.', file_name, self.frame_2_cv2)
+        file_name = 's_{0}.png'.format(self.save_counter)
+        shutil.copyfile(self.frame_2, file_name)
 
 
 def cv2_to_QImage(cv2_frame):
