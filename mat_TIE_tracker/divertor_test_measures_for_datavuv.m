@@ -1,5 +1,6 @@
 % GETS the divertor distance for all cameras in data_vuv.xlsx. 
 % 0.1 (AG): first and hopefully last version.
+% 0.1.1 (AG): added errors.
 
 datavuv = importdatavuv('../data/data_vuv.xlsx');
 
@@ -8,6 +9,7 @@ if ~exist('acfmodel', 'var')
 end
 
 div_size = zeros(size(datavuv, 1), 1);
+div_errors = div_size;
 differences_in_dist = div_size;
 
 for i = 1 : size(datavuv, 1)
@@ -16,10 +18,38 @@ for i = 1 : size(datavuv, 1)
     JPN = datavuv.Pulse(i);
     video_folder = 'E:\JET_cameras\UFO_data';
     video_path = retrieve_local_video(camera, JPN, video_folder);
-    div_size(i) = get_divertor_lenght_acf(video_path ,acfmodel, false);
+    [div_size(i), div_errors(i)] = get_divertor_lenght_acf(video_path ,acfmodel, false);
     differences_in_dist(i) = (div_size(i) - datavuv.DistanceMeasured(i)) / datavuv.DistanceMeasured(i);
 end
 
+
+% Scatter
+hold on
+gscatter(1: size(datavuv, 1), datavuv.DistanceMeasured, datavuv.ExpCam, [], 'x', 14)
+
+for i = 1 : size(datavuv, 1)
+    exp_cam = string(datavuv.ExpCam(i));
+
+    if strcmp('KL7-E8WB', exp_cam)
+        color = "#0072BD";
+    elseif strcmp('KL8-E8WA', exp_cam)
+        color = "#D95319";
+    elseif strcmp('KLDT-E5WC', exp_cam)
+        color = "#EDB120";
+    elseif strcmp('KLDT-E5WD', exp_cam)
+        color = "#7E2F8E";
+    elseif strcmp('KLDT-E5WE', exp_cam)
+        color = "#77AC30";
+    else
+        disp(['No camera for pulse ', num2str(i)])
+    end
+    scatter(i, div_size(i), 14, 'MarkerEdgeColor', color, 'MarkerFaceColor', color, 'HandleVisibility', 'off')
+    errorbar(i, div_size(i), div_errors(i), 'Color', color, 'HandleVisibility', 'off');
+end
+hold off
+
+ax = gca;
+ax.FontSize = 14;
 
 function datavuv = importdatavuv(workbookFile, sheetName, dataLines)
 %IMPORTFILE Import data from a spreadsheet
