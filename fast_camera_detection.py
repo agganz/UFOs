@@ -379,7 +379,7 @@ def draw_arrow_in_frame(frame, start_points, end_points, frame_number = None, ti
             disp_mod = math.dist(initial_point, final_point)
             coords = (int((final_point[0] + initial_point[0]) / 2), int((final_point[1] + initial_point[1]) / 2))
             ins_speed = int(disp_mod / delta_time * sc_factor) # displacement in pixels
-            frame = misc_tools.add_small_annotation(str(ins_speed), frame, coords)
+            frame = misc_tools.add_small_annotation(str(ins_speed), frame, coords, (0, 255, 255))
             speed_dict.update({final_point : ins_speed})
         frame = cv2.arrowedLine(frame, initial_point, final_point, (0, 255, 0), 3, 1, 0, 0.2)
 
