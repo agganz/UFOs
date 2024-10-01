@@ -5,7 +5,7 @@
 % Changelog
 %   0.1 (AG): First version
 %   0.1.1 (AG): fixed bug in title
-
+%   0.1.2 (AG): fixed bug in axis names cos apparently I can't read
 
 matrix_in = zeros(7, 11);
 
@@ -66,8 +66,8 @@ xticklabels({'UDPT', 'IWGL', 'UIWP', 'NPL', 'LH', 'ILA', 'Div.', 'BEION4', '4D',
 yticklabels({'Ti', 'W', 'Ni', 'Mo', 'Other', 'Comb.', 'NS/NC'})
 ax = gca;
 ax.FontSize = 15;
-xlabel('TIE material', 'Interpreter', 'latex')
-ylabel('Area in device', 'Interpreter', 'latex')
+xlabel('Area in device', 'Interpreter', 'latex')
+ylabel('TIE material', 'Interpreter', 'latex')
 title('Distribution of TIEs in device', 'Interpreter', 'latex')
 c = colorbar;
 c.Label.String = 'Number of TIEs';
