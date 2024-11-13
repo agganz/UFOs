@@ -16,6 +16,7 @@ Changelog:
     0.5.3 (AG): fixed a small bug in add_small_annotation
     0.5.4 (AG): now frames are saved here.
     0.6 (AG): added get_camera_pulse
+    0.7 (AG): added duration to images_to_gif.
 """
 
 import math
@@ -133,7 +134,7 @@ def synchronise_video_with_time(real_time, frame, frame_number):
     return frame
         
 
-def images_to_gifs(output_name, image_folder, image_format = 'png'):
+def images_to_gifs(output_name, image_folder, image_format = 'png', duration = 250):
     """
     Creates a gif image with all the image files present in the given folder.
 
@@ -145,6 +146,8 @@ def images_to_gifs(output_name, image_folder, image_format = 'png'):
         Path to the image folder
     image_format : str. png by default
         Format of the images to be used.
+    duration : int, 250 by default
+        duration of the gif in ms?
 
     Returns
     -------
@@ -157,9 +160,9 @@ def images_to_gifs(output_name, image_folder, image_format = 'png'):
     # use exit stack to automatically close opened images
     with contextlib.ExitStack() as stack:
         # lazily load images
-        try:
+        try:            
             imgs = (stack.enter_context(Image.open(f))
-                    for f in sorted(glob.glob(fp_in)))
+                    for f in sorted(glob.glob(fp_in), key=len))
         except:
             raise IndexError('Could not locate any valid images.')
 
@@ -168,7 +171,7 @@ def images_to_gifs(output_name, image_folder, image_format = 'png'):
     
         # https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#gif
         img.save(fp = output_name, format='GIF', append_images=imgs,
-                 save_all=True, duration=200, loop=0)
+                 save_all=True, duration = duration, loop=0)
         
     return 1
 
