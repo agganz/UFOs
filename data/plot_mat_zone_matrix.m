@@ -6,6 +6,7 @@
 %   0.1 (AG): First version
 %   0.1.1 (AG): fixed bug in title
 %   0.1.2 (AG): fixed bug in axis names cos apparently I can't read
+%   0.1.3 (AG): changed colour map to enhance contrast.
 
 matrix_in = zeros(7, 11);
 
@@ -76,3 +77,4 @@ c.Ticks = ctaxis;
 box on;
 grid on;
 c.FontSize = 15;
+colormap(jet)
